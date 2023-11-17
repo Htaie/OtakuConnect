@@ -4,19 +4,46 @@ import styles from "./TitlesSlider.module.css";
 import axios from "axios";
 
 
+
 const TitlesSlider = () => {
+  const BASE_URL = "https://api.jikan.moe/v4/top/anime";
+  const randomPage = Math.floor(Math.random() * 1000) + 1;
+
   const [lastDirection, setLastDirection] = useState();
   const [dataDisplay, setDataDisplay] = useState([]);
   const [swipedCards, setSwipedCards] = useState(0);
-
   const [canSwipe, setCanSwipe] = useState(true);
 
+
+  useEffect(() => {
+    if (swipedCards === dataDisplay.length) {
+      axios
+      .get(`${BASE_URL}?page=${randomPage}`)
+      .then((response) => {
+          if (response.status !== 200) {
+            throw new Error("Network response was not ok");
+          }
+          return response.data.data;
+        })
+        .then((data) => {
+          const newDataDisplay = data.map((elem) => ({
+            id: elem.mal_id,
+            image: elem.images.jpg.large_image_url,
+            name: elem.title,
+          }));
+          setDataDisplay(newDataDisplay);
+          setSwipedCards(0);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
+  }, [swipedCards, dataDisplay.length]);
+  
   useEffect(() => {
     if (swipedCards === dataDisplay.length && canSwipe) {
-      // All cards swiped, make a new API request
-      const randomPage = Math.floor(Math.random() * 1000) + 1;
       axios
-        .get(`https://api.jikan.moe/v4/top/anime?page=${randomPage}`)
+        .get(`${BASE_URL}?page=${randomPage}`)
         .then((response) => {
           if (response.status !== 200) {
             throw new Error("Network response was not ok");
@@ -31,11 +58,9 @@ const TitlesSlider = () => {
               name: elem.title,
             }));
 
-            // Добавить новые данные к существующим
             setDataDisplay((prevData) => [...prevData, ...newDataDisplay]);
-            setSwipedCards(0); // Сбросить счетчик свайпнутых карточек
+            setSwipedCards(0); 
           } else {
-            // Если нет новых данных, отключить возможность свайпа
             setCanSwipe(false);
           }
         })
@@ -46,59 +71,22 @@ const TitlesSlider = () => {
   }, [swipedCards, dataDisplay.length, canSwipe]);
 
   const swiped = (direction, nameToDelete) => {
-    console.log("removing: " + nameToDelete);
     setLastDirection(direction);
     setSwipedCards((prevCount) => prevCount + 1);
-
-    // Реакция на свайп в зависимости от направления
-    if (direction === 'left') {
-      // Действия при свайпе влево
-      console.log('Swiped left!');
-    } else if (direction === 'right') {
-      // Действия при свайпе вправо
-      console.log('Swiped right!');
-    }
+    console.log(`Swiped  ${direction}`);
 
     setDataDisplay((prevData) => prevData.filter((elem) => elem.name !== nameToDelete));
   };
 
   const swipe = async (dir) => {
     if (canSwipe && currentIndex < dataDisplay.length) {
-      await childRefs[currentIndex].current.swipe(dir) // Swipe the card!
+      await childRefs[currentIndex].current.swipe(dir)  //Swipe не юзается почему то
     }
   }
 
   const outOfFrame = (name) => {
-    console.log(name + " left the screen!");
+    // console.log(name + " left the screen!"); //ХЗ надо это ил нет вообще
   };
-
-  useEffect(() => {
-    if (swipedCards === dataDisplay.length) {
-      // All cards swiped, make a new API request
-      const randomPage = Math.floor(Math.random() * 1000) + 1;
-      axios
-        .get(`https://api.jikan.moe/v4/top/anime?page=${randomPage}`)
-        .then((response) => {
-          if (response.status !== 200) {
-            throw new Error("Network response was not ok");
-          }
-          return response.data.data;
-        })
-        .then((data) => {
-          const newDataDisplay = data.map((elem) => ({
-            id: elem.mal_id,
-            image: elem.images.jpg.large_image_url,
-            name: elem.title,
-          }));
-          setDataDisplay(newDataDisplay);
-          setSwipedCards(0); // Reset swiped cards count
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    }
-  }, [swipedCards, dataDisplay.length]);
-
 
  return (
   <div >
