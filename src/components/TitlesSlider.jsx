@@ -36,6 +36,17 @@ const TitlesSlider = () => {
     console.log("removing: " + nameToDelete);
     setLastDirection(direction);
     setSwipedCards((prevCount) => prevCount + 1);
+
+    // Реакция на свайп в зависимости от направления
+    if (direction === 'left') {
+      // Действия при свайпе влево
+      console.log('Swiped left!');
+    } else if (direction === 'right') {
+      // Действия при свайпе вправо
+      console.log('Swiped right!');
+    }
+
+    setDataDisplay((prevData) => prevData.filter((elem) => elem.name !== nameToDelete));
   };
 
   const swipe = async (dir) => {
