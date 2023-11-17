@@ -5,21 +5,19 @@ import axios from "axios";
 
 
 const TitlesSlider = () => {
+  const [lastDirection, setLastDirection] = useState();
+  const [dataDisplay, setDataDisplay] = useState([]);
+  const [swipedCards, setSwipedCards] = useState(0);
 
-
- const [lastDirection, setLastDirection] = useState();
-
- const [dataDisplay, setDataDisplay] = useState([]);
-
-
- useEffect(() => {
-    axios.get("https://api.jikan.moe/v4/top/anime&limit=100")
+  useEffect(() => {
+    const randomPage = Math.floor(Math.random() * 1000) + 1;
+    axios
+      .get(`https://api.jikan.moe/v4/top/anime?page=${randomPage}`)
       .then((response) => {
-        // Check if the response status is OK (200)
         if (response.status !== 200) {
           throw new Error("Network response was not ok");
         }
-        return response.data.data; // Access the 'data' property of the response
+        return response.data.data;
       })
       .then((data) => {
         const newDataDisplay = data.map((elem) => ({
@@ -32,22 +30,55 @@ const TitlesSlider = () => {
       .catch((error) => {
         console.error(error);
       });
-  }, []); // The empty dependency array ensures that the effect runs only once
+  }, []);
 
-const swiped = (direction, nameToDelete) => {
-  console.log("removing: " + nameToDelete);
-  setLastDirection(direction);
- };
+  const swiped = (direction, nameToDelete) => {
+    console.log("removing: " + nameToDelete);
+    setLastDirection(direction);
+    setSwipedCards((prevCount) => prevCount + 1);
+  };
 
- console.log(dataDisplay.length)
+  const swipe = async (dir) => {
+    if (canSwipe && currentIndex < dataDisplay.length) {
+      await childRefs[currentIndex].current.swipe(dir) // Swipe the card!
+    }
+  }
+
+  const outOfFrame = (name) => {
+    console.log(name + " left the screen!");
+  };
+
+  useEffect(() => {
+    if (swipedCards === dataDisplay.length) {
+      // All cards swiped, make a new API request
+      const randomPage = Math.floor(Math.random() * 1000) + 1;
+      axios
+        .get(`https://api.jikan.moe/v4/top/anime?page=${randomPage}`)
+        .then((response) => {
+          if (response.status !== 200) {
+            throw new Error("Network response was not ok");
+          }
+          return response.data.data;
+        })
+        .then((data) => {
+          const newDataDisplay = data.map((elem) => ({
+            id: elem.mal_id,
+            image: elem.images.jpg.large_image_url,
+            name: elem.title,
+          }));
+          setDataDisplay(newDataDisplay);
+          setSwipedCards(0); // Reset swiped cards count
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
+  }, [swipedCards, dataDisplay.length]);
 
 
- const outOfFrame = (name) => {
-  console.log(name + " left the screen!");
- };
  return (
   <div >
-   <div className={styles.cardContainer}>
+   <div className={styles.cardContainer} >
    {dataDisplay.map((elem) =>
           <TinderCard className={styles.swipe} key={elem.id} onSwipe={(dir) => swiped(dir, elem.name)} onCardLeftScreen={() => outOfFrame(elem.name)}>
             <div style={{ backgroundImage: 'url(' + elem.image + ')' }} className={styles.card}>
@@ -56,6 +87,7 @@ const swiped = (direction, nameToDelete) => {
           </TinderCard>
         )}
    </div>
+
    {lastDirection ? (
     <h2 className={styles.infoText}>You swiped {lastDirection}</h2>
    ) : (

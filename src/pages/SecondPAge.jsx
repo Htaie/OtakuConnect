@@ -10,7 +10,7 @@ const SecondPAge = ({popular}) => {
 
 
  return (
-    <div>
+    <div className=" flex justify-center ">
       <link href='https://fonts.googleapis.com/css?family=Damion&display=swap' rel='stylesheet' />
       <link href='https://fonts.googleapis.com/css?family=Alatsi&display=swap' rel='stylesheet' />
       <h1>React Tinder Card</h1>
