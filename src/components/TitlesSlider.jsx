@@ -9,28 +9,41 @@ const TitlesSlider = () => {
   const [dataDisplay, setDataDisplay] = useState([]);
   const [swipedCards, setSwipedCards] = useState(0);
 
+  const [canSwipe, setCanSwipe] = useState(true);
+
   useEffect(() => {
-    const randomPage = Math.floor(Math.random() * 1000) + 1;
-    axios
-      .get(`https://api.jikan.moe/v4/top/anime?page=${randomPage}`)
-      .then((response) => {
-        if (response.status !== 200) {
-          throw new Error("Network response was not ok");
-        }
-        return response.data.data;
-      })
-      .then((data) => {
-        const newDataDisplay = data.map((elem) => ({
-          id: elem.mal_id,
-          image: elem.images.jpg.large_image_url,
-          name: elem.title,
-        }));
-        setDataDisplay(newDataDisplay);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  }, []);
+    if (swipedCards === dataDisplay.length && canSwipe) {
+      // All cards swiped, make a new API request
+      const randomPage = Math.floor(Math.random() * 1000) + 1;
+      axios
+        .get(`https://api.jikan.moe/v4/top/anime?page=${randomPage}`)
+        .then((response) => {
+          if (response.status !== 200) {
+            throw new Error("Network response was not ok");
+          }
+          return response.data.data;
+        })
+        .then((data) => {
+          if (data.length > 0) {
+            const newDataDisplay = data.map((elem) => ({
+              id: elem.mal_id,
+              image: elem.images.jpg.large_image_url,
+              name: elem.title,
+            }));
+
+            // Добавить новые данные к существующим
+            setDataDisplay((prevData) => [...prevData, ...newDataDisplay]);
+            setSwipedCards(0); // Сбросить счетчик свайпнутых карточек
+          } else {
+            // Если нет новых данных, отключить возможность свайпа
+            setCanSwipe(false);
+          }
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
+  }, [swipedCards, dataDisplay.length, canSwipe]);
 
   const swiped = (direction, nameToDelete) => {
     console.log("removing: " + nameToDelete);
