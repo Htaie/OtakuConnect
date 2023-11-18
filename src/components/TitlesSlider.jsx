@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import TinderCard from "react-tinder-card";
 import styles from "./TitlesSlider.module.css";
 import axios from "axios";
@@ -32,9 +32,7 @@ const TitlesSlider = () => {
             }));
             setDataDisplay((prevData) => [...prevData, ...newDataDisplay]);
             setSwipedCards(0);
-          } else {
-            
-          }
+          } 
         })
         .catch((error) => {
           console.error(error);
