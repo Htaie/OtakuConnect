@@ -1,21 +1,19 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import TinderCard from "react-tinder-card";
 import styles from "./TitlesSlider.module.css";
 import axios from "axios";
 
-const TitlesSlider = () => {
+const TitlesSlider = ({ onSwipe, user, setUser }) => {
   const BASE_URL = "https://api.jikan.moe/v4/top/anime";
-
   const [lastDirection, setLastDirection] = useState();
   const [dataDisplay, setDataDisplay] = useState([]);
   const [swipedCards, setSwipedCards] = useState(0);
 
-  const user ={likedAnime: []}
   useEffect(() => {
     if (swipedCards === dataDisplay.length) {
       const randomPage = Math.floor(Math.random() * 1000) + 1;
       console.log('Making API request with random page:', randomPage);
-  
+
       axios
         .get(`${BASE_URL}?page=${randomPage}`)
         .then((response) => {
@@ -33,7 +31,7 @@ const TitlesSlider = () => {
             }));
             setDataDisplay((prevData) => [...prevData, ...newDataDisplay]);
             setSwipedCards(0);
-          } 
+          }
         })
         .catch((error) => {
           console.error(error);
@@ -41,16 +39,20 @@ const TitlesSlider = () => {
     }
   }, [swipedCards, dataDisplay.length]);
 
-  const swiped = (direction, nameToDelete) => {
+  const swiped = async (direction, nameToDelete) => {
     if (direction === "right") {
-      user.likedAnime.push(dataDisplay.filter((elem) => elem.name == nameToDelete)[0]);
-    }
-    setLastDirection(direction);
-    setSwipedCards((prevCount) => prevCount + 1);
-    console.log(`Swiped  ${direction}`);
+      const likedAnime = dataDisplay.find((elem) => elem.name === nameToDelete);
+      user.likedAnime.push(likedAnime);
+      setLastDirection(direction);
+      setSwipedCards((prevCount) => prevCount + 1);
+      console.log(`Swiped ${direction}`);
 
-    setDataDisplay((prevData) => prevData.filter((elem) => elem.name !== nameToDelete));
-    console.log(user.likedAnime)
+      setDataDisplay((prevData) => prevData.filter((elem) => elem.name !== nameToDelete));
+      console.log(user.likedAnime);
+
+      // Вызываем обратный вызов из SecondPAge с обновленным списком likedAnime
+      onSwipe([...user.likedAnime]);
+    }
   };
 
   const outOfFrame = (name) => {
