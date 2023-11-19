@@ -1,21 +1,18 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
-import axios from 'axios';
+import style from "../components/TitlesSlider.module.css";
 
 
-import TitlesSlider from "../components/TitlesSlider";  
+import TitlesSlider from "../components/TitlesSlider";
 
-
-const SecondPAge = ({popular}) => {
-
-
+const SecondPAge = () => {
  return (
-    <div className=" flex justify-center ">
-      <link href='https://fonts.googleapis.com/css?family=Damion&display=swap' rel='stylesheet' />
-      <link href='https://fonts.googleapis.com/css?family=Alatsi&display=swap' rel='stylesheet' />
-      <h1>React Tinder Card</h1>
-      <TitlesSlider ></TitlesSlider>
-    </div>
+  <div>
+   <Navbar></Navbar>
+   <div className={style.sliderBlock}>
+    <TitlesSlider></TitlesSlider>
+   </div>
+  </div>
  );
 };
 

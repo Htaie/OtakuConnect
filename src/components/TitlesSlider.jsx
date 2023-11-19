@@ -1,100 +1,110 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import TinderCard from "react-tinder-card";
-import styles from "./TitlesSlider.module.css";
+import style from "./TitlesSlider.module.css";
 import axios from "axios";
 
-
-const TitlesSlider = () => {
+function TitlesSlider() {
+  const BASE_URL = "https://api.jikan.moe/v4/top/anime";
+  const [db, setDb] = useState([]);
+  const [currentIndex, setCurrentIndex] = useState(db.length - 1);
   const [lastDirection, setLastDirection] = useState();
-  const [dataDisplay, setDataDisplay] = useState([]);
-  const [swipedCards, setSwipedCards] = useState(0);
+  const currentIndexRef = useRef(currentIndex);
+  const childRefs = useMemo(
+    () =>
+      Array(db.length)
+        .fill(0)
+        .map((i) => React.createRef()),
+    [db.length]
+  );
 
-  useEffect(() => {
-    const randomPage = Math.floor(Math.random() * 1000) + 1;
-    axios
-      .get(`https://api.jikan.moe/v4/top/anime?page=${randomPage}`)
-      .then((response) => {
-        if (response.status !== 200) {
-          throw new Error("Network response was not ok");
-        }
-        return response.data.data;
-      })
-      .then((data) => {
-        const newDataDisplay = data.map((elem) => ({
-          id: elem.mal_id,
-          image: elem.images.jpg.large_image_url,
-          name: elem.title,
-        }));
-        setDataDisplay(newDataDisplay);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  }, []);
+  const updateCurrentIndex = (val) => {
+    setCurrentIndex(val);
+    currentIndexRef.current = val;
+  };
 
-  const swiped = (direction, nameToDelete) => {
-    console.log("removing: " + nameToDelete);
+  const canSwipe = currentIndex >= 0;
+
+  const swiped = (direction, nameToDelete, index) => {
     setLastDirection(direction);
-    setSwipedCards((prevCount) => prevCount + 1);
+    updateCurrentIndex(index - 1);
+  };
+
+  const outOfFrame = (name, idx) => {
+    console.log(`${name} (${idx}) left the screen!`, currentIndexRef.current);
+    if (currentIndexRef.current >= idx) {
+      setDb((prevDb) => prevDb.filter((_, i) => i !== idx));
+      updateCurrentIndex(currentIndexRef.current - 1);
+    }
   };
 
   const swipe = async (dir) => {
-    if (canSwipe && currentIndex < dataDisplay.length) {
-      await childRefs[currentIndex].current.swipe(dir) // Swipe the card!
+    if (canSwipe && currentIndex < db.length) {
+      console.log("Swiping:", dir);
+      await childRefs[currentIndex].current.swipe(dir);
+      setDb((prevDb) => prevDb.slice(0, currentIndex).concat(prevDb.slice(currentIndex + 1)));
     }
-  }
-
-  const outOfFrame = (name) => {
-    console.log(name + " left the screen!");
   };
 
   useEffect(() => {
-    if (swipedCards === dataDisplay.length) {
-      // All cards swiped, make a new API request
-      const randomPage = Math.floor(Math.random() * 1000) + 1;
-      axios
-        .get(`https://api.jikan.moe/v4/top/anime?page=${randomPage}`)
-        .then((response) => {
-          if (response.status !== 200) {
-            throw new Error("Network response was not ok");
-          }
-          return response.data.data;
-        })
-        .then((data) => {
+    const fetchData = async () => {
+      try {
+        if (db.length <= 5) {
+
+        const randomPage = Math.floor(Math.random() * 1000) + 1;
+        const response = await axios.get(`${BASE_URL}?page=${randomPage}`);
+        if (response.status !== 200) {
+          throw new Error("Network response was not ok");
+        }
+
+        const data = response.data.data || [];
+        if (data.length > 0) {
           const newDataDisplay = data.map((elem) => ({
             id: elem.mal_id,
             image: elem.images.jpg.large_image_url,
             name: elem.title,
           }));
-          setDataDisplay(newDataDisplay);
-          setSwipedCards(0); // Reset swiped cards count
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    }
-  }, [swipedCards, dataDisplay.length]);
+          const newData = [...db, ...newDataDisplay];
+          setDb(newData)
+          updateCurrentIndex(newData.length - 1)
+        } }
+      } catch (error) {
+        console.error(error);
+      }
+    };
 
-
- return (
-  <div >
-   <div className={styles.cardContainer} >
-   {dataDisplay.map((elem) =>
-          <TinderCard className={styles.swipe} key={elem.id} onSwipe={(dir) => swiped(dir, elem.name)} onCardLeftScreen={() => outOfFrame(elem.name)}>
-            <div style={{ backgroundImage: 'url(' + elem.image + ')' }} className={styles.card}>
-              <h3>{elem.name}</h3>
+    fetchData();
+  }, [BASE_URL, db]);
+  return (
+    <div>
+      <h1>React Tinder Card</h1>
+      <div className={style.cardContainer}>
+        {db.map((character, index) => (
+          <TinderCard
+            ref={childRefs[index]}
+            className={style.swipe}
+            key={character.name}
+            onSwipe={(dir) => swiped(dir, character.name, index)}
+            onCardLeftScreen={() => outOfFrame(character.name, index)}
+          >
+            <div
+              style={{ backgroundImage: 'url(' + character.image + ')' }}
+              className={style.card}
+            >
+              <h3>{character.name}</h3>
             </div>
           </TinderCard>
-        )}
-   </div>
+        ))}
+      </div>
+      <div className={style.buttons}>
+        <button style={{ backgroundColor: !canSwipe && '#c3c4d3' }} onClick={() => swipe('left')}>Swipe left!</button>
+        <button style={{ backgroundColor: !canSwipe && '#c3c4d3' }} onClick={() => swipe('right')}>Swipe right!</button>
+      </div>
 
-   {lastDirection ? (
-    <h2 className={styles.infoText}>You swiped {lastDirection}</h2>
-   ) : (
-    <h2 className={styles.infoText} />
-   )}
-  </div>
- );
-};
+        <h2 className='infoText'>
+          Swipe a card or press a button to get Restore Card button visible!
+        </h2>
+    </div>
+  )
+}
 
 export default TitlesSlider;
