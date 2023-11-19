@@ -10,6 +10,7 @@ const TitlesSlider = () => {
   const [dataDisplay, setDataDisplay] = useState([]);
   const [swipedCards, setSwipedCards] = useState(0);
 
+  const user ={likedAnime: []}
   useEffect(() => {
     if (swipedCards === dataDisplay.length) {
       const randomPage = Math.floor(Math.random() * 1000) + 1;
@@ -41,11 +42,15 @@ const TitlesSlider = () => {
   }, [swipedCards, dataDisplay.length]);
 
   const swiped = (direction, nameToDelete) => {
+    if (direction === "right") {
+      user.likedAnime.push(dataDisplay.filter((elem) => elem.name == nameToDelete)[0]);
+    }
     setLastDirection(direction);
     setSwipedCards((prevCount) => prevCount + 1);
     console.log(`Swiped  ${direction}`);
 
     setDataDisplay((prevData) => prevData.filter((elem) => elem.name !== nameToDelete));
+    console.log(user.likedAnime)
   };
 
   const outOfFrame = (name) => {
