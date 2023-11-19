@@ -22,7 +22,6 @@ function TitlesSlider() {
     currentIndexRef.current = val;
   };
 
-  const canGoBack = currentIndex < db.length - 1;
   const canSwipe = currentIndex >= 0;
 
   const swiped = (direction, nameToDelete, index) => {
@@ -32,20 +31,18 @@ function TitlesSlider() {
 
   const outOfFrame = (name, idx) => {
     console.log(`${name} (${idx}) left the screen!`, currentIndexRef.current);
-    currentIndexRef.current >= idx && childRefs[idx].current.restoreCard();
+    if (currentIndexRef.current >= idx) {
+      setDb((prevDb) => prevDb.filter((_, i) => i !== idx));
+      updateCurrentIndex(currentIndexRef.current - 1);
+    }
   };
 
   const swipe = async (dir) => {
     if (canSwipe && currentIndex < db.length) {
+      console.log("Swiping:", dir);
       await childRefs[currentIndex].current.swipe(dir);
+      setDb((prevDb) => prevDb.slice(0, currentIndex).concat(prevDb.slice(currentIndex + 1)));
     }
-  };
-
-  const goBack = async () => {
-    if (!canGoBack) return;
-    const newIndex = currentIndex + 1;
-    updateCurrentIndex(newIndex);
-    await childRefs[newIndex].current.restoreCard();
   };
 
   useEffect(() => {
@@ -99,7 +96,6 @@ function TitlesSlider() {
       </div>
       <div className='buttons'>
         <button style={{ backgroundColor: !canSwipe && '#c3c4d3' }} onClick={() => swipe('left')}>Swipe left!</button>
-        <button style={{ backgroundColor: !canGoBack && '#c3c4d3' }} onClick={() => goBack()}>Undo swipe!</button>
         <button style={{ backgroundColor: !canSwipe && '#c3c4d3' }} onClick={() => swipe('right')}>Swipe right!</button>
       </div>
       {lastDirection ? (
