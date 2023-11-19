@@ -48,6 +48,8 @@ function TitlesSlider() {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        if (db.length <= 5) {
+
         const randomPage = Math.floor(Math.random() * 1000) + 1;
         const response = await axios.get(`${BASE_URL}?page=${randomPage}`);
         if (response.status !== 200) {
@@ -64,15 +66,14 @@ function TitlesSlider() {
           const newData = [...db, ...newDataDisplay];
           setDb(newData)
           updateCurrentIndex(newData.length - 1)
-        } else {
-        }
+        } }
       } catch (error) {
         console.error(error);
       }
     };
 
     fetchData();
-  }, [BASE_URL]);
+  }, [BASE_URL, db]);
   return (
     <div>
       <h1>React Tinder Card</h1>
@@ -94,19 +95,14 @@ function TitlesSlider() {
           </TinderCard>
         ))}
       </div>
-      <div className='buttons'>
+      <div className={style.buttons}>
         <button style={{ backgroundColor: !canSwipe && '#c3c4d3' }} onClick={() => swipe('left')}>Swipe left!</button>
         <button style={{ backgroundColor: !canSwipe && '#c3c4d3' }} onClick={() => swipe('right')}>Swipe right!</button>
       </div>
-      {lastDirection ? (
-        <h2 key={lastDirection} className='infoText'>
-          You swiped {lastDirection}
-        </h2>
-      ) : (
+
         <h2 className='infoText'>
           Swipe a card or press a button to get Restore Card button visible!
         </h2>
-      )}
     </div>
   )
 }
