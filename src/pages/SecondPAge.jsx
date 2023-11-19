@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
+import io from "socket.io-client";
 import Navbar from "../components/Navbar";
 import axios from 'axios';
 
 
 import TitlesSlider from "../components/TitlesSlider";  
-
+const socket = io.connect("http://localhost:3001");
 
 const SecondPAge = ({popular}) => {
 
