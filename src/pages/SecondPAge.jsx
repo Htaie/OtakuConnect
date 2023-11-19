@@ -1,14 +1,21 @@
 import React, { useEffect, useState } from "react";
 import io from "socket.io-client";
-import Navbar from "../components/Navbar";
-import axios from 'axios';
 
 
 import TitlesSlider from "../components/TitlesSlider";  
-const socket = io.connect("http://localhost:3001");
 
-const SecondPAge = ({popular}) => {
+const SecondPAge = () => {
+  useEffect(() => {
+    const socket = io('http://localhost:3000', { transports: ['websocket'] });
 
+    socket.on('userConnected', (userId) => {
+      console.log(`User connected: ${userId}`);
+    });
+
+    return () => {
+      socket.disconnect();
+    };
+  }, []);
 
  return (
     <div className="  w-72  my-0 mx-auto">
