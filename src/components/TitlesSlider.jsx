@@ -64,7 +64,9 @@ function TitlesSlider() {
             image: elem.images.jpg.large_image_url,
             name: elem.title,
           }));
-          setDb((prevData) => [...prevData, ...newDataDisplay]);
+          const newData = [...db, ...newDataDisplay];
+          setDb(newData)
+          updateCurrentIndex(newData.length - 1)
         } else {
         }
       } catch (error) {
