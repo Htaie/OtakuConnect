@@ -7,29 +7,35 @@ const SecondPAge = () => {
  const [userList, setUserList] = useState([]);
  const [likedList, setLikedList] = useState([]);
  const [user, setUser] = useState({ likedAnime: [] });
+ const [socket, setSocket] = useState(null);  
 
  useEffect(() => {
-  const socket = io("http://localhost:3001", { transports: ["websocket"] });
+  const newSocket = io("http://localhost:3001", { transports: ["websocket"] });
 
-  socket.on("userConnected", (userId) => {
+  newSocket.on("userConnected", (userId) => {
    console.log(`User connected: ${userId}`);
   });
-  socket.on("userList", (usernames) => {
+  newSocket.on("userList", (usernames) => {
    setUserList(usernames);
   });
-  socket.on("likedList", (likedanime) => {
+  newSocket.on("likedList", (likedanime) => {
     setLikedList(likedanime);
   });
-  socket.on("updateLikedList", (updatedLikedList) => {
+  newSocket.on("updateLikedList", (updatedLikedList) => {
     setLikedList(updatedLikedList);
   });
 
+  setSocket(newSocket);
+
   return () => {
-   socket.disconnect();
+   newSocket.disconnect();
   };
  }, []);
 
- 
+ const onSwipe = (updatedLikedList) => {
+  socket.emit("userArray", { likedAnime: updatedLikedList });
+};
+
  return (
   <div className="  w-72  my-0 mx-auto">
    <h1>React Tinder Card</h1>
@@ -44,7 +50,14 @@ const SecondPAge = () => {
     <li key={index}>{username}</li>
    ))}
 
-   <TitlesSlider onSwipe={(updatedLikedList) => setLikedList(updatedLikedList)} user={user} setUser={setUser}></TitlesSlider>
+{socket && (
+     <TitlesSlider
+     socket={socket}
+     user={user}
+     setUser={setUser}
+     onSwipe={onSwipe}
+   />
+   )}
   </div>
  );
 };
