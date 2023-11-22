@@ -12,7 +12,7 @@ const SecondPAge = () => {
  const [pisa, setPisa] = useState([]);
 
  useEffect(() => {
-  const newSocket = io("http://localhost:5173", { transports: ["websocket"] });
+  const newSocket = io("http://localhost:8080", { transports: ["websocket"] });
 
   newSocket.on("userConnected", (userId) => {
    console.log(`User connected: ${userId}`);
@@ -50,7 +50,7 @@ setTimeout(() => {
 
   <div>
    <Navbar></Navbar>
-   <div className="  w-72  my-0 mx-auto">
+   <div className=" w-72  my-0 mx-auto">
     <h1 className="text-black">React Tnder Card</h1>
     <ul>
      {likedList.map((likedAnime, index) => (
@@ -61,9 +61,6 @@ setTimeout(() => {
      <li key={index}>{username}</li>
     ))}
      <li >{pisa.name}</li>
-
-{/* <p>{pisa.name}</p> */}
-
     {socket && (
      <div className={style.sliderBlock}>
       <TitlesSlider

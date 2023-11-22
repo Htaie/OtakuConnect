@@ -12,7 +12,7 @@ const io = new Server(server);
 
 const connectedUsers = {};
 
-const PORT = process.env.PORT || 5173 ;
+const PORT = process.env.PORT || 8080;
 
 
 io.on("connection", (socket) => {
