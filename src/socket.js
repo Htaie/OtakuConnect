@@ -23,7 +23,7 @@ app.get('/', (req, res) => {
 
 
 const server = createServer(app);
-const io = new Server(server);
+const io = socketIO(server);
 
 
 const connectedUsers = {};
