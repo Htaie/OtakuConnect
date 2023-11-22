@@ -12,7 +12,7 @@ const SecondPAge = () => {
  const [pisa, setPisa] = useState([]);
 
  useEffect(() => {
-  const newSocket = io("http://89.104.68.139", { transports: ["websocket"] });
+  const newSocket = io("http://89.104.68.139:8080",   { transports: ["polling", "websocket"]});
 
   newSocket.on("userConnected", (userId) => {
    console.log(`User connected: ${userId}`);
