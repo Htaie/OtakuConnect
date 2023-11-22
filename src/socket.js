@@ -2,18 +2,24 @@ import express from 'express';
 import { createServer } from 'http';
 import { Server } from 'socket.io';
 import cors from 'cors';
-import FirstPage from './pages/FirstPage';
-import SecondPAge from './pages/SecondPAge';
+import { fileURLToPath } from 'url';
+
+import { dirname, join } from 'path';
+const __filename = fileURLToPath(import.meta.url);
+
+const __dirname = dirname(__filename);
 
 const app = express();
 app.use(cors());
+app.use(express.static(join(__dirname, '../dist')));
 app.get('/', (req, res) => {
-  res.send(FirstPage);
+  res.sendFile(join(__dirname, '../dist', 'index.html'));
 });
 
-app.get('/huy', (req, res) => {
-  res.send(SecondPAge);
-});
+
+// app.get('/huy', (req, res) => {
+//   res.sendFile(path.join(__dirname, 'dist', 'index.html'));
+// });
 
 
 const server = createServer(app);
