@@ -1,88 +1,124 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import TinderCard from "react-tinder-card";
-import styles from "./TitlesSlider.module.css";
+import style from "./TitlesSlider.module.css";
 import axios from "axios";
+
 
 const TitlesSlider = ({ onSwipe, user, setUser }) => {
   const BASE_URL = "https://api.jikan.moe/v4/top/anime";
+  const [db, setDb] = useState([]);
+  const [currentIndex, setCurrentIndex] = useState(db.length - 1);
   const [lastDirection, setLastDirection] = useState();
-  const [dataDisplay, setDataDisplay] = useState([]);
-  const [swipedCards, setSwipedCards] = useState(0);
+  const currentIndexRef = useRef(currentIndex);
+  const childRefs = useMemo(
+    () =>
+      Array(db.length)
+        .fill(0)
+        .map((i) => React.createRef()),
+    [db.length]
+  );
 
-  useEffect(() => {
-    if (swipedCards === dataDisplay.length) {
-      const randomPage = Math.floor(Math.random() * 1000) + 1;
-      console.log('Making API request with random page:', randomPage);
 
-      axios
-        .get(`${BASE_URL}?page=${randomPage}`)
-        .then((response) => {
-          if (response.status !== 200) {
-            throw new Error("Network response was not ok");
-          }
-          return response.data.data;
-        })
-        .then((data) => {
-          if (data.length > 0) {
-            const newDataDisplay = data.map((elem) => ({
-              id: elem.mal_id,
-              image: elem.images.jpg.large_image_url,
-              name: elem.title,
-            }));
-            setDataDisplay((prevData) => [...prevData, ...newDataDisplay]);
-            setSwipedCards(0);
-          }
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    }
-  }, [swipedCards, dataDisplay.length]);
-
-  const swiped = async (direction, nameToDelete) => {
+  const swiped = async (direction, nameToDelete,index) => {
     if (direction === "right") {
       const likedAnime = dataDisplay.find((elem) => elem.name === nameToDelete);
       user.likedAnime.push(likedAnime);
       setLastDirection(direction);
-      setSwipedCards((prevCount) => prevCount + 1);
       console.log(`Swiped ${direction}`);
+          updateCurrentIndex(index - 1);
 
       setDataDisplay((prevData) => prevData.filter((elem) => elem.name !== nameToDelete));
       console.log(user.likedAnime);
 
-      // Вызываем обратный вызов из SecondPAge с обновленным списком likedAnime
+
       onSwipe([...user.likedAnime]);
+
+  const updateCurrentIndex = (val) => {
+    setCurrentIndex(val);
+    currentIndexRef.current = val;
+  };
+
+  const canSwipe = currentIndex >= 0;
+
+
+
+  const outOfFrame = (name, idx) => {
+    console.log(`${name} (${idx}) left the screen!`, currentIndexRef.current);
+    if (currentIndexRef.current >= idx) {
+      setDb((prevDb) => prevDb.filter((_, i) => i !== idx));
+      updateCurrentIndex(currentIndexRef.current - 1);
+
     }
   };
 
-  const outOfFrame = (name) => {
-    console.log(name + " left the screen!");
+  const swipe = async (dir) => {
+    if (canSwipe && currentIndex < db.length) {
+      console.log("Swiping:", dir);
+      await childRefs[currentIndex].current.swipe(dir);
+      setDb((prevDb) => prevDb.slice(0, currentIndex).concat(prevDb.slice(currentIndex + 1)));
+    }
   };
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        if (db.length <= 5) {
+
+        const randomPage = Math.floor(Math.random() * 1000) + 1;
+        const response = await axios.get(`${BASE_URL}?page=${randomPage}`);
+        if (response.status !== 200) {
+          throw new Error("Network response was not ok");
+        }
+
+        const data = response.data.data || [];
+        if (data.length > 0) {
+          const newDataDisplay = data.map((elem) => ({
+            id: elem.mal_id,
+            image: elem.images.jpg.large_image_url,
+            name: elem.title,
+          }));
+          const newData = [...db, ...newDataDisplay];
+          setDb(newData)
+          updateCurrentIndex(newData.length - 1)
+        } }
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchData();
+  }, [BASE_URL, db]);
   return (
     <div>
-      <div className={styles.cardContainer}>
-        {dataDisplay.map((elem) => (
+      <h1>React Tinder Card</h1>
+      <div className={style.cardContainer}>
+        {db.map((character, index) => (
           <TinderCard
-            className={styles.swipe}
-            key={elem.id}
-            onSwipe={(dir) => swiped(dir, elem.name)}
-            onCardLeftScreen={() => outOfFrame(elem.name)}
+            ref={childRefs[index]}
+            className={style.swipe}
+            key={character.name}
+            onSwipe={(dir) => swiped(dir, character.name, index)}
+            onCardLeftScreen={() => outOfFrame(character.name, index)}
           >
-            <div style={{ backgroundImage: 'url(' + elem.image + ')' }} className={styles.card}>
-              <h3>{elem.name}</h3>
+            <div
+              style={{ backgroundImage: 'url(' + character.image + ')' }}
+              className={style.card}
+            >
+              <h3>{character.name}</h3>
             </div>
           </TinderCard>
         ))}
       </div>
+      <div className={style.buttons}>
+        <button style={{ backgroundColor: !canSwipe && '#c3c4d3' }} onClick={() => swipe('left')}>Swipe left!</button>
+        <button style={{ backgroundColor: !canSwipe && '#c3c4d3' }} onClick={() => swipe('right')}>Swipe right!</button>
+      </div>
 
-      {lastDirection ? (
-        <h2 className={styles.infoText}>You swiped {lastDirection}</h2>
-      ) : (
-        <h2 className={styles.infoText} />
-      )}
+        <h2 className='infoText'>
+          Swipe a card or press a button to get Restore Card button visible!
+        </h2>
     </div>
-  );
-};
+  )
+}
 
 export default TitlesSlider;

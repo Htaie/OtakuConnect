@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import io from "socket.io-client";
-
+import Navbar from "../components/Navbar";
+import style from "../components/TitlesSlider.module.css";
 import TitlesSlider from "../components/TitlesSlider";
+
 
 const SecondPAge = () => {
  const [userList, setUserList] = useState([]);
@@ -36,6 +38,9 @@ const SecondPAge = () => {
   socket.emit("userArray", { likedAnime: updatedLikedList });
 };
 
+
+
+const SecondPAge = () => {
  return (
   <div className="  w-72  my-0 mx-auto">
    <h1>React Tinder Card</h1>
@@ -58,6 +63,13 @@ const SecondPAge = () => {
      onSwipe={onSwipe}
    />
    )}
+
+  <div>
+   <Navbar></Navbar>
+   <div className={style.sliderBlock}>
+    <TitlesSlider></TitlesSlider>
+   </div>
+
   </div>
  );
 };
