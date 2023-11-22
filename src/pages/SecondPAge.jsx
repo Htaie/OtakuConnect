@@ -4,15 +4,15 @@ import Navbar from "../components/Navbar";
 import style from "../components/TitlesSlider.module.css";
 import TitlesSlider from "../components/TitlesSlider";
 
-
 const SecondPAge = () => {
  const [userList, setUserList] = useState([]);
  const [likedList, setLikedList] = useState([]);
  const [user, setUser] = useState({ likedAnime: [] });
- const [socket, setSocket] = useState(null);  
+ const [socket, setSocket] = useState(null);
+ const [pisa, setPisa] = useState([]);
 
  useEffect(() => {
-  const newSocket = io("http://localhost:3001", { transports: ["websocket"] });
+  const newSocket = io("http://localhost:5173", { transports: ["websocket"] });
 
   newSocket.on("userConnected", (userId) => {
    console.log(`User connected: ${userId}`);
@@ -21,11 +21,14 @@ const SecondPAge = () => {
    setUserList(usernames);
   });
   newSocket.on("likedList", (likedanime) => {
-    setLikedList(likedanime);
+   setLikedList(likedanime);
   });
-  newSocket.on("updateLikedList", (updatedLikedList) => {
-    setLikedList(updatedLikedList);
+  newSocket.on("updateLikedList", (updateLikedList) => {
+   setLikedList(updateLikedList);
   });
+  newSocket.on("matchingAnime", (data) => {
+    setPisa(data);
+  }); 
 
   setSocket(newSocket);
 
@@ -36,40 +39,43 @@ const SecondPAge = () => {
 
  const onSwipe = (updatedLikedList) => {
   socket.emit("userArray", { likedAnime: updatedLikedList });
-};
+ };
 
+setTimeout(() => {
+  console.log(pisa)
 
-
-const SecondPAge = () => {
+}, 5000)
  return (
-  <div className="  w-72  my-0 mx-auto">
-   <h1>React Tinder Card</h1>
-   {likedList.length > 0 && (
-        <ul>
-          {likedList.map((likedAnime, index) => (
-            <li key={index}>{likedAnime.name}</li>
-          ))}
-        </ul>
-      )}
-   {userList.map((username, index) => (
-    <li key={index}>{username}</li>
-   ))}
 
-{socket && (
-     <TitlesSlider
-     socket={socket}
-     user={user}
-     setUser={setUser}
-     onSwipe={onSwipe}
-   />
-   )}
 
   <div>
    <Navbar></Navbar>
-   <div className={style.sliderBlock}>
-    <TitlesSlider></TitlesSlider>
-   </div>
+   <div className="  w-72  my-0 mx-auto">
+    <h1 className="text-black">React Tnder Card</h1>
+    <ul>
+     {likedList.map((likedAnime, index) => (
+      <li key={index}>{likedAnime.name}</li>
+     ))}
+    </ul>
+    {userList.map((username, index) => (
+     <li key={index}>{username}</li>
+    ))}
+     <li >{pisa.name}</li>
 
+{/* <p>{pisa.name}</p> */}
+
+    {socket && (
+     <div className={style.sliderBlock}>
+      <TitlesSlider
+       socket={socket}
+       user={user}
+       setUser={setUser}
+       onSwipe={onSwipe}
+      />
+      ,
+     </div>
+    )}
+   </div>
   </div>
  );
 };

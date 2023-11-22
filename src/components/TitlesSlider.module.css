@@ -6,7 +6,10 @@
  /* background: linear-gradient(#fff, #999); */
  background: linear-gradient(#e66465, #9198e5);
 }
-
+body{
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
 * {
  user-select: none;
 }

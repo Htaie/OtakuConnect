@@ -21,24 +21,27 @@ const TitlesSlider = ({ onSwipe, user, setUser }) => {
 
   const swiped = async (direction, nameToDelete,index) => {
     if (direction === "right") {
-      const likedAnime = dataDisplay.find((elem) => elem.name === nameToDelete);
+      const likedAnime = db.find((elem) => elem.name === nameToDelete);
       user.likedAnime.push(likedAnime);
       setLastDirection(direction);
       console.log(`Swiped ${direction}`);
-          updateCurrentIndex(index - 1);
 
-      setDataDisplay((prevData) => prevData.filter((elem) => elem.name !== nameToDelete));
       console.log(user.likedAnime);
-
-
       onSwipe([...user.likedAnime]);
+    }
+    setTimeout(() => {
+      setDb((prevData) => prevData.filter((elem) => elem.name !== nameToDelete));
+      updateCurrentIndex(index - 1);
+
+    }, 200);
+  }
+  const canSwipe = currentIndex >= 0;
 
   const updateCurrentIndex = (val) => {
     setCurrentIndex(val);
     currentIndexRef.current = val;
   };
 
-  const canSwipe = currentIndex >= 0;
 
 
 
@@ -58,6 +61,8 @@ const TitlesSlider = ({ onSwipe, user, setUser }) => {
       setDb((prevDb) => prevDb.slice(0, currentIndex).concat(prevDb.slice(currentIndex + 1)));
     }
   };
+
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -88,9 +93,10 @@ const TitlesSlider = ({ onSwipe, user, setUser }) => {
 
     fetchData();
   }, [BASE_URL, db]);
+
   return (
-    <div>
-      <h1>React Tinder Card</h1>
+    <div className="h-40 w-40">
+      <h1 className="text-black">React Tinder Card</h1>
       <div className={style.cardContainer}>
         {db.map((character, index) => (
           <TinderCard
@@ -114,11 +120,11 @@ const TitlesSlider = ({ onSwipe, user, setUser }) => {
         <button style={{ backgroundColor: !canSwipe && '#c3c4d3' }} onClick={() => swipe('right')}>Swipe right!</button>
       </div>
 
-        <h2 className='infoText'>
-          Swipe a card or press a button to get Restore Card button visible!
-        </h2>
+      <h2 className='infoText'>
+        Swipe a card or press a button to get Restore Card button visible!
+      </h2>
     </div>
-  )
-}
+  );
+};
 
 export default TitlesSlider;

@@ -12,7 +12,7 @@ const io = new Server(server);
 
 const connectedUsers = {};
 
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 5173 ;
 
 
 io.on("connection", (socket) => {
@@ -47,59 +47,29 @@ io.on("connection", (socket) => {
   });
 
   function compareLikedAnime(currentUser) {
-  Object.values(connectedUsers).forEach((otherUser) => {
-    if (otherUser.socket.id === currentUser.socket.id) {
+    Object.values(connectedUsers).forEach((otherUser) => {
+     if (otherUser.socket.id === currentUser.socket.id) {
       return;
-    }
-
-    console.log(
-      `Comparing anime between ${currentUser.nickname} and ${otherUser.nickname}`
-    );
-
-    console.log(
-      `${currentUser.nickname}'s likedAnime:`,
-      currentUser.likedAnime.map((anime) => anime.name)
-    );
-
-    console.log(
-      `${otherUser.nickname}'s likedAnime:`,
-      otherUser.likedAnime.map((anime) => anime.name)
-    );
-
-    const commonAnime = currentUser.likedAnime.filter((anime1) =>
+     }
+  
+     const match = currentUser.likedAnime.find((anime1) =>
       otherUser.likedAnime.some((anime2) => anime1.id === anime2.id)
-    );
-
-    console.log(
-      `Common anime between ${currentUser.nickname} and ${otherUser.nickname}:`,
-      commonAnime.map((anime) => anime.name)
-    );
-
-    const match = commonAnime.length > 0;
-
-    if (match) {
-      console.log(
-        `Match found between ${currentUser.nickname} and ${otherUser.nickname}`
-      );
-
+     );
+  
+     if (match) {
       currentUser.socket.emit("matchingAnime", {
-        nickname: otherUser.nickname,
-        image: commonAnime[0].image,
-        name: commonAnime[0].name,
+       nickname: otherUser.nickname,
+       image: match.image,
+       name: match.name,
       });
-
       otherUser.socket.emit("matchingAnime", {
-        nickname: currentUser.nickname,
-        image: commonAnime[0].image,
-        name: commonAnime[0].name,
+       nickname: currentUser.nickname,
+       image: match.image,
+       name: match.name,
       });
-    } else {
-      console.log(
-        `No match between ${currentUser.nickname} and ${otherUser.nickname}`
-      );
-    }
-  });
-}
+     }
+    });
+   }
  
   function updateUsersList() {
    const usernames = Object.values(connectedUsers).map((u) => u.nickname);
