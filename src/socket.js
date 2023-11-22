@@ -7,13 +7,14 @@ import SecondPAge from './pages/SecondPAge';
 
 const app = express();
 app.use(cors());
-
 app.get('/', (req, res) => {
-  res.send(<FirstPage />);
+  res.send(FirstPage);
 });
+
 app.get('/huy', (req, res) => {
-  res.send(<SecondPAge />);
+  res.send(SecondPAge);
 });
+
 
 const server = createServer(app);
 const io = new Server(server);
