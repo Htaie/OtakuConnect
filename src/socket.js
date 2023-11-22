@@ -2,12 +2,17 @@ import express from 'express';
 import { createServer } from 'http';
 import { Server } from 'socket.io';
 import cors from 'cors';
+import FirstPage from './pages/FirstPage';
+import SecondPAge from './pages/SecondPAge';
 
 const app = express();
 app.use(cors());
 
 app.get('/', (req, res) => {
-  res.send('<h1>Hello world</h1>');
+  res.send(<FirstPage />);
+});
+app.get('/huy', (req, res) => {
+  res.send(<SecondPAge />);
 });
 
 const server = createServer(app);
