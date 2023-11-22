@@ -3,7 +3,8 @@ import TinderCard from "react-tinder-card";
 import style from "./TitlesSlider.module.css";
 import axios from "axios";
 
-function TitlesSlider() {
+
+const TitlesSlider = ({ onSwipe, user, setUser }) => {
   const BASE_URL = "https://api.jikan.moe/v4/top/anime";
   const [db, setDb] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(db.length - 1);
@@ -17,6 +18,21 @@ function TitlesSlider() {
     [db.length]
   );
 
+
+  const swiped = async (direction, nameToDelete,index) => {
+    if (direction === "right") {
+      const likedAnime = dataDisplay.find((elem) => elem.name === nameToDelete);
+      user.likedAnime.push(likedAnime);
+      setLastDirection(direction);
+      console.log(`Swiped ${direction}`);
+          updateCurrentIndex(index - 1);
+
+      setDataDisplay((prevData) => prevData.filter((elem) => elem.name !== nameToDelete));
+      console.log(user.likedAnime);
+
+
+      onSwipe([...user.likedAnime]);
+
   const updateCurrentIndex = (val) => {
     setCurrentIndex(val);
     currentIndexRef.current = val;
@@ -24,16 +40,14 @@ function TitlesSlider() {
 
   const canSwipe = currentIndex >= 0;
 
-  const swiped = (direction, nameToDelete, index) => {
-    setLastDirection(direction);
-    updateCurrentIndex(index - 1);
-  };
+
 
   const outOfFrame = (name, idx) => {
     console.log(`${name} (${idx}) left the screen!`, currentIndexRef.current);
     if (currentIndexRef.current >= idx) {
       setDb((prevDb) => prevDb.filter((_, i) => i !== idx));
       updateCurrentIndex(currentIndexRef.current - 1);
+
     }
   };
 
