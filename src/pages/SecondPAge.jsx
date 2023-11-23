@@ -5,7 +5,6 @@ import style from "../components/TitlesSlider.module.css";
 import TitlesSlider from "../components/TitlesSlider";
 
 const SecondPAge = () => {
-  const { roomId } = useParams();
 
  const [userList, setUserList] = useState([]);
  const [likedList, setLikedList] = useState([]);
