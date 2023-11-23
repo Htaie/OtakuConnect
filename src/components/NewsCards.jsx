@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 
+//all updates will be soon
 const NewsCards = () =>{
     const NEWS_BASE_URL = "https://api.jikan.moe/v4/anime/1/news";
     const [newsDb, setNewsDb] = useState([]);
