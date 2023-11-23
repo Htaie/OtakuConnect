@@ -14,7 +14,7 @@ const FirstPage = () => {
    <div className="flex justify-around pb-20 pt-20 ">
     <div className="Descriptions w-2/4">
      <h2 className="text-3xl pb-12">Привет</h2>
-     <p className="text-lg pb-14">
+     <p className="text-lg pb-14 text-white">
       ОтакуКонект - это уникальное приложение для подбора аниме, созданное
       специально для любителей японской анимации. Сочетая в себе элементы
       популярных социальных платформ и функциональность приложений для
@@ -31,7 +31,7 @@ const FirstPage = () => {
      </Link>
     </div>
     <div className="ImagesBlock">
-     {/* <img className="h-96" src={image} alt="" /> */}
+      <img className="h-96" src="https://i.pinimg.com/originals/a4/a9/02/a4a90264589c2249f6f710e0c31ba1d8.jpg" alt="" /> 
     </div>
    </div>
    <div className="w-screen h-auto flex flex-row">
