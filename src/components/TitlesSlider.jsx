@@ -96,7 +96,6 @@ const TitlesSlider = ({ onSwipe, user, setUser }) => {
 
   return (
     <div className="h-40 w-40">
-      <h1 className="text-black">React Tinder Card</h1>
       <div className={style.cardContainer}>
         {db.map((character, index) => (
           <TinderCard
