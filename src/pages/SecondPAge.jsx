@@ -5,6 +5,8 @@ import style from "../components/TitlesSlider.module.css";
 import TitlesSlider from "../components/TitlesSlider";
 
 const SecondPAge = () => {
+  const { roomId } = useParams();
+
  const [userList, setUserList] = useState([]);
  const [likedList, setLikedList] = useState([]);
  const [user, setUser] = useState({ likedAnime: [] });
@@ -12,7 +14,10 @@ const SecondPAge = () => {
  const [pisa, setPisa] = useState([]);
 
  useEffect(() => {
-  const newSocket = io("http://89.104.68.139", { transports: ["polling", "websocket"] });
+  console.log('heh')
+  const newSocket = io("http://89.104.68.139", {
+   transports: ["polling", "websocket"],
+  });
 
   newSocket.on("userConnected", (userId) => {
    console.log(`User connected: ${userId}`);
@@ -27,8 +32,8 @@ const SecondPAge = () => {
    setLikedList(updateLikedList);
   });
   newSocket.on("matchingAnime", (data) => {
-    setPisa(data);
-  }); 
+   setPisa(data);
+  });
 
   setSocket(newSocket);
 
@@ -41,13 +46,10 @@ const SecondPAge = () => {
   socket.emit("userArray", { likedAnime: updatedLikedList });
  };
 
-setTimeout(() => {
-  console.log(pisa)
-
-}, 5000)
+ setTimeout(() => {
+  console.log(pisa);
+ }, 5000);
  return (
-
-
   <div>
    <Navbar></Navbar>
    <div className=" w-72  my-0 mx-auto">
@@ -60,7 +62,7 @@ setTimeout(() => {
     {userList.map((username, index) => (
      <li key={index}>{username}</li>
     ))}
-     <li >{pisa.name}</li>
+    <li>{pisa.name}</li>
     {socket && (
      <div className={style.sliderBlock}>
       <TitlesSlider
