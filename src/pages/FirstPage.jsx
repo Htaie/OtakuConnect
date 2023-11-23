@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Navbar from "../components/Navbar";
 import { Link } from "react-router-dom";
+import NewsCards from "../components/NewsCards";
+import style from "./FirstPage.module.css";
 
 const FirstPage = () => {
 
@@ -31,6 +33,9 @@ const FirstPage = () => {
     <div className="ImagesBlock">
      {/* <img className="h-96" src={image} alt="" /> */}
     </div>
+   </div>
+   <div className="w-screen h-auto flex flex-row">
+   <NewsCards></NewsCards>
    </div>
   </div>
  );
