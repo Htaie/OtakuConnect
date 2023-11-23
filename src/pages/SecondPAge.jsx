@@ -14,7 +14,7 @@ const SecondPAge = () => {
 
  useEffect(() => {
   console.log('heh')
-  const newSocket = io("http://89.104.68.139", {
+  const newSocket = io("http://89.104.68.139:8080", {
    transports: ["polling", "websocket"],
   });
 
