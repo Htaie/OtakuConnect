@@ -50,8 +50,7 @@ setTimeout(() => {
 
   <div>
    <Navbar></Navbar>
-   <div className=" w-72  my-0 mx-auto">
-    <h1 className="text-white">React Tinder Card</h1>
+   <div className=" w-screen  my-0 mx-auto">
     <ul>
      {likedList.map((likedAnime, index) => (
       <li className="text-white" key={index}>{likedAnime.name}</li>

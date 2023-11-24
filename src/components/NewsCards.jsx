@@ -34,22 +34,13 @@ const NewsCards = () =>{
     
         fetchNewsData();
       }, [NEWS_BASE_URL]);
-
+      console.log(newsDb)
 
     return (
-      <div className="flex flex-row flex-wrap">
-        {newsDb.slice(0, 3).map((news, i) => (
-          <Link key={news.id} href={news.url} className="flex bg-white border border-blue-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-blue-100 dark:border-blue-700 dark:bg-blue-800 dark:hover:bg-blue-700 mb-6 md:mr-6 md:w-1/2 md:ml-9">
-            <img className="object-cover w-48 h-96 md:h-auto md:w-48 md:rounded-none md:rounded-s-lg" src={news.image} alt="" />
-            <div className="flex flex-col justify-between p-4 leading-normal">
-              <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{news.title}</h5>
-            </div>
-          </Link>
-        ))}
-
-        {newsDb.slice(3, 6).map((news, i) => (
-          <Link key={news.id} href={news.url} className="flex bg-white border border-blue-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-blue-100 dark:border-blue-700 dark:bg-blue-800 dark:hover:bg-blue-700 mb-6 md:mr-6 md:w-1/2 md:ml-9">
-            <img className="object-cover w-48 h-96 md:h-auto md:w-48 md:rounded-none md:rounded-s-lg" src={news.image} alt="" />
+      <div className="flex flex-row flex-wrap max-sm:p-4">
+        {newsDb.slice(0, 6).map((news, i) => (
+          <Link key={news.id} to={news.url} className="flex bg-white rounded-lg shadow md:flex-row md:max-w-xl hover:bg-blue-100 dark:border-blue-700 dark:bg-blue-800 dark:hover:bg-blue-700 mb-6 md:mr-6 md:w-1/2 md:ml-9">
+            <img className="object-cover w-48 md:h-auto md:w-48 md:rounded-none md:rounded-s-lg" src={news.image} alt="" />
             <div className="flex flex-col justify-between p-4 leading-normal">
               <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{news.title}</h5>
             </div>
