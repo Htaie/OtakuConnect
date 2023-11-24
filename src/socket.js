@@ -98,13 +98,13 @@ io.on("connection", (socket) => {
  });
  
  function generateRandomNickname() {
-  const adjectives = ["Happy", "Silly", "Clever", "Funny", "Adventurous"];
-  const nouns = ["Cat", "Dog", "Penguin", "Elephant", "Lion"];
+  const adjectives = ["New", "Old", "Skilled", "Loser", "Best", "Worst", "Cringe", "Roflan", "Super", "Gay", "Freaky", "Lazy", "Lesbian", "Black"];
+  const nouns = ["Otaku", "Hikki", "Anime guy", "Clown", "King", "Swordsman", "Anime girl", "Lady", "Gentleman", "Prince", "Philosopher", "Dreamer", "Adventurer", "Maverick"];
  
   const randomAdjective =
    adjectives[Math.floor(Math.random() * adjectives.length)];
   const randomNoun = nouns[Math.floor(Math.random() * nouns.length)];
  
-  return randomAdjective + randomNoun;
+  return randomAdjective + " " + randomNoun;
  }
  

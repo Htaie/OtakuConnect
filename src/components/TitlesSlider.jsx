@@ -96,7 +96,6 @@ const TitlesSlider = ({ onSwipe, user, setUser }) => {
 
   return (
     <div className="h-40 w-40">
-      <h1 className="text-black">React Tinder Card</h1>
       <div className={style.cardContainer}>
         {db.map((character, index) => (
           <TinderCard
@@ -119,10 +118,6 @@ const TitlesSlider = ({ onSwipe, user, setUser }) => {
         <button style={{ backgroundColor: !canSwipe && '#c3c4d3' }} onClick={() => swipe('left')}>Swipe left!</button>
         <button style={{ backgroundColor: !canSwipe && '#c3c4d3' }} onClick={() => swipe('right')}>Swipe right!</button>
       </div>
-
-      <h2 className='infoText'>
-        Swipe a card or press a button to get Restore Card button visible!
-      </h2>
     </div>
   );
 };
