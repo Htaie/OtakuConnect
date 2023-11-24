@@ -28,7 +28,7 @@ const io = new Server(server);
 
 const connectedUsers = {};
 
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 3001;
 
 
 io.on("connection", (socket) => {
@@ -94,7 +94,7 @@ io.on("connection", (socket) => {
  });
  
  server.listen(PORT, () => {
-  console.log("Listening app at http://localhost:" + PORT);
+  console.log("Listening app dev:" + PORT);
  });
  
  function generateRandomNickname() {
