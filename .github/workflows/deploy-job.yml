@@ -1,3 +1,40 @@
+# name: Deploy to Dev
+
+# on:
+#   push:
+#     branches:
+#       - dev
+
+# jobs:
+#   deploy:
+#     runs-on: ubuntu-latest
+
+#     steps:
+#     - name: Checkout repository
+#       uses: actions/checkout@v3
+
+#     - name: Set up Node.js
+#       uses: actions/setup-node@v3
+#       with:
+#         node-version: '16.20.2'
+
+#     - name: Install dependencies
+#       run: npm install
+
+#     - name: Install pm2
+#       run: npm install -g pm2
+
+#     - name: Create SSH directory
+#       run: mkdir -p ~/.ssh
+
+#     - name: Install SSH key
+#       run: echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa && chmod 600 ~/.ssh/id_rsa
+
+#     - name: Deploy
+#       run: |
+#         ssh  ${{ secrets.SSH_PRIVATE_KEY }} root@89.104.68.139 'cd /home/OtakuConnect/src && git pull origin dev && npm install && npm run build && pm2 restart dev-server'
+#         echo "Deployment completed"
+
 name: Deploy to Dev
 
 on:
@@ -10,28 +47,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v2
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: '16.20.2'
-
-    - name: Install dependencies
-      run: npm install
-
-    - name: Install pm2
-      run: npm install -g pm2
-
-    - name: Create SSH directory
-      run: mkdir -p ~/.ssh
-
-    - name: Install SSH key
-      run: echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa && chmod 600 ~/.ssh/id_rsa
-
-    - name: Deploy
-      run: |
-        ssh  ${{ secrets.SSH_PRIVATE_KEY }} root@89.104.68.139 'cd /home/OtakuConnect/src && git pull origin dev && npm install && npm run build && pm2 restart dev-server'
-        echo "Deployment completed"
-
+      - name: Deploy to Dev
+        run: |
+          ssh -o StrictHostKeyChecking=no -i ${{ secrets.SSH_PRIVATE_KEY }} ${{ secrets.SSH_USERNAME }}@ваш_IP 'cd /путь/к/вашему/проекту && git pull origin dev && npm install && npm run build && pm2 restart ваш_процесс'
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          SSH_USERNAME: ${{ secrets.SSH_USERNAME }}
