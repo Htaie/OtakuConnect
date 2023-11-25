@@ -32,6 +32,6 @@ jobs:
 
     - name: Deploy
       run: |
-        ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ${{ secrets.SSH_USERNAME }}@89.104.68.139 'cd /home/OtakuConnect/src && git pull origin dev && npm install && npm run build && pm2 restart dev-server'
+        ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa root@89.104.68.139 'cd /home/OtakuConnect/src && git pull origin dev && npm install && npm run build && pm2 restart dev-server'
         echo "Deployment completed"
 
