@@ -31,4 +31,3 @@ after_script:
   - npm install -g rimraf
   - rimraf node_modules
   - rimraf build
-ß
