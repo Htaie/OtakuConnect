@@ -1,33 +1,32 @@
-# deploy.yaml
+name: Deploy to Dev
 
-# Образ, на основе которого будет создан контейнер
-image: node:14
+on:
+  push:
+    branches:
+      - dev
 
-# Настройки среды выполнения
-environment:
-  NODE_ENV: development
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
 
-# Скрипт для установки зависимостей и сборки проекта
-script:
-  - npm install
-  - npm run build
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
 
-# Настройки деплоя по веткам
-deploy:
-  - branch: dev
-    commands:
-      # Установка pm2 глобально
-      - npm install -g pm2
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14'
 
-      # Установка зависимостей и сборка проекта
-      - npm install
-      - npm run build
+    - name: Install dependencies
+      run: npm install
 
-      # Запуск приложения с использованием pm2
-      - pm2 start src/socket.js --name "dev"
+    - name: Build
+      run: npm run build
 
-# Очистка окружения после выполнения команд
-after_script:
-  - npm install -g rimraf
-  - rimraf node_modules
-  - rimraf build
+    - name: Start PM2
+      run: pm2 start src/socket.js --name "dev-server"
+
+    - name: Deploy
+      run: 
+        echo "Deployment completed"
