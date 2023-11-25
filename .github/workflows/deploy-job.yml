@@ -27,11 +27,8 @@ jobs:
     - name: Build
       run: npm run build
 
-    - name: Start PM2
-      run: |
-        cd /home/OtakuConnect/src
-        pm2 start socket.js --name "dev-server"
 
     - name: Deploy
       run: 
+        ssh -o StrictHostKeyChecking=no -i ${{ secrets.SSH_PRIVATE_KEY }} ${{ secrets.SSH_USERNAME }}@89.104.68.139 'cd /home/OtakuConnect/src && pm2 restart socket.js'
         echo "Deployment completed"
