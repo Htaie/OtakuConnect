@@ -52,7 +52,9 @@ jobs:
 
       - name: Deploy to Dev
         run: |
-          ssh -o StrictHostKeyChecking=no -i ${{ secrets.SSH_PRIVATE_KEY }} ${{ secrets.SSH_USERNAME }}@ваш_IP 'cd /путь/к/вашему/проекту && git pull origin dev && npm install && npm run build && pm2 restart ваш_процесс'
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > key.pem
+          chmod 600 key.pem
+          scp -o StrictHostKeyChecking=no -i key.pem -r . root@89.104.68.139:/home/OtakuConnect/src
+          ssh -o StrictHostKeyChecking=no -i key.pem root@89.104.68.139 'cd /home/OtakuConnect/src && git pull origin dev && npm install && npm run build && pm2 restart dev-server'
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-          SSH_USERNAME: ${{ secrets.SSH_USERNAME }}
