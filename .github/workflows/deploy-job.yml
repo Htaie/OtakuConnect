@@ -24,9 +24,6 @@ jobs:
     - name: Install pm2
       run: npm install -g pm2
 
-    - name: Build
-      run: npm run build
-
     - name: Create SSH directory
       run: mkdir -p ~/.ssh
 
@@ -35,5 +32,6 @@ jobs:
 
     - name: Deploy
       run: |
-        ssh -o StrictHostKeyChecking=no -i ${{ secrets.SSH_PRIVATE_KEY }} ${{ secrets.SSH_USERNAME }}@89.104.68.139 'cd /home/OtakuConnect/src && pm2 restart socket.js'
+        ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ${{ secrets.SSH_USERNAME }}@188.64.14.94 'cd /home/OtakuConnect/src && git pull origin dev && npm install && npm run build && pm2 restart dev-server'
         echo "Deployment completed"
+
