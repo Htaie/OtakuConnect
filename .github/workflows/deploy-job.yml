@@ -1,0 +1,34 @@
+# deploy.yaml
+
+# Образ, на основе которого будет создан контейнер
+image: node:14
+
+# Настройки среды выполнения
+environment:
+  NODE_ENV: development
+
+# Скрипт для установки зависимостей и сборки проекта
+script:
+  - npm install
+  - npm run build
+
+# Настройки деплоя по веткам
+deploy:
+  - branch: dev
+    commands:
+      # Установка pm2 глобально
+      - npm install -g pm2
+
+      # Установка зависимостей и сборка проекта
+      - npm install
+      - npm run build
+
+      # Запуск приложения с использованием pm2
+      - pm2 start src/socket.js --name "dev"
+
+# Очистка окружения после выполнения команд
+after_script:
+  - npm install -g rimraf
+  - rimraf node_modules
+  - rimraf build
+ß
