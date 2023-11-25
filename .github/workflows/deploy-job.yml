@@ -17,7 +17,7 @@ jobs:
       uses: actions/setup-node@v3
       with:
         node-version: '16.20.2'
-        
+
     - name: Install dependencies
       run: npm install
 
@@ -28,4 +28,10 @@ jobs:
       run: npm run build
 
     - name: Start PM2
-      run: pm2 start /home/OtakuConnect/src/socket.js --name "dev-server"
+      run: |
+        cd /home/OtakuConnect/src
+        pm2 start socket.js --name "dev-server"
+
+    - name: Deploy
+      run: 
+        echo "Deployment completed"
