@@ -28,9 +28,9 @@ jobs:
       run: mkdir -p ~/.ssh
 
     - name: Install SSH key
-      run: echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa && chmod 600 ~/.ssh/id_rsa
-
+      run: echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa && chmod 600 ~/.ssh/id_rsa
     - name: Deploy
+    
       run: |
         ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa root@89.104.68.139 'cd /home/OtakuConnect/src && git pull origin dev && npm install && npm run build && pm2 restart dev-server'
         echo "Deployment completed"
