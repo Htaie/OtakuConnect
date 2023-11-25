@@ -27,10 +27,13 @@ jobs:
     - name: Build
       run: npm run build
 
+    - name: Create SSH directory
+      run: mkdir -p ~/.ssh
+
     - name: Install SSH key
       run: echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa && chmod 600 ~/.ssh/id_rsa
 
     - name: Deploy
-      run: 
+      run: |
         ssh -o StrictHostKeyChecking=no -i ${{ secrets.SSH_PRIVATE_KEY }} ${{ secrets.SSH_USERNAME }}@89.104.68.139 'cd /home/OtakuConnect/src && pm2 restart socket.js'
         echo "Deployment completed"
