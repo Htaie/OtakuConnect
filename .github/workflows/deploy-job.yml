@@ -5,7 +5,7 @@ on:
     branches:
       - dev
 
-env:
+env:    
   SERVER_HOST: 89.104.68.139
   SERVER_USER: root
   SERVER_PATH: /home/OtakuConnect/src
@@ -29,4 +29,5 @@ jobs:
 
       - name: Deploy and Update
         run: |
-          ssh ${{ env.SERVER_USER }}@${{ env.SERVER_HOST }} "cd ${{ env.SERVER_PATH }} && git pull && npm install && npm run build && npm start"
+          ssh root@89.104.68.139
+
