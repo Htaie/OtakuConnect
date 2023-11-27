@@ -31,4 +31,4 @@ jobs:
       # Deploy
       - name: Deploy and Update
         run: |
-          ssh ${{ env.SERVER_USER }}@${{ env.SERVER_HOST }} "cd ${{ env.SERVER_PATH }} && git pull && npm install && npm run build && npm start"
+          sudo ssh ${{ env.SERVER_USER }}@${{ env.SERVER_HOST }} "cd ${{ env.SERVER_PATH }} && git pull && npm install && npm run build && npm start"
