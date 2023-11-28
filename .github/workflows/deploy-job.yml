@@ -28,5 +28,5 @@ jobs:
         run: ssh-keyscan -H ${{ env.SERVER_HOST }} >> $HOME/.ssh/known_hosts
 
       - name: SSH into Server
-        run:  ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i $HOME/.ssh/id_rsa ${{ env.SERVER_USER }}@${{ env.SERVER_HOST }}
+        run:  ssh ${{ env.SERVER_USER }}@${{ env.SERVER_HOST }}
 
