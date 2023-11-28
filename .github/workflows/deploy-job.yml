@@ -29,5 +29,5 @@ jobs:
 
       - name: Deploy and Update
         run: 
-          sudo ssh root@89.104.68.139
+          sudo ssh -t -T root@89.104.68.139
 
