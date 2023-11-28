@@ -27,7 +27,7 @@ jobs:
       - name: Update known_hosts
         run: ssh-keyscan -H ${{ env.SERVER_HOST }} >> $HOME/.ssh/known_hosts
 
-      - name: Deploy and Update
-        run: 
-          sudo ssh -t -T root@89.104.68.139
+      - name: SSH into Server
+        run: |
+          ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i $HOME/.ssh/id_rsa ${{ env.SERVER_USER }}@${{ env.SERVER_HOST }}
 
