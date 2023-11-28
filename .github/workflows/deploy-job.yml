@@ -29,5 +29,5 @@ jobs:
 
       - name: SSH into Server
         run: |
-          ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i $HOME/.ssh/id_rsa ${{ env.SERVER_USER }}@${{ env.SERVER_HOST }}
+          sudo ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i $HOME/.ssh/id_rsa ${{ env.SERVER_USER }}@${{ env.SERVER_HOST }}
 
