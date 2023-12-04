@@ -92,6 +92,7 @@ h2 {
 .sliderBlock {
  width: 20rem;
  margin: 0 auto;
+ padding-top: 100px;
 }
 .buttons {
  display: flex;

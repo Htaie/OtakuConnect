@@ -70,7 +70,7 @@ const TitlesSlider = ({ onSwipe, user, setUser }) => {
         if (db.length <= 5) {
 
         const randomPage = Math.floor(Math.random() * 1000) + 1;
-        const response = await axios.get(`${BASE_URL}?page=${randomPage}`);
+        const response = await axios.get(`${BASE_URL}?page=1`);
         if (response.status !== 200) {
           throw new Error("Network response was not ok");
         }

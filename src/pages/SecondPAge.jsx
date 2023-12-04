@@ -3,14 +3,17 @@ import io from "socket.io-client";
 import Navbar from "../components/Navbar";
 import style from "../components/TitlesSlider.module.css";
 import TitlesSlider from "../components/TitlesSlider";
+import { useNavigate, useParams } from "react-router-dom";
 
 const SecondPAge = () => {
  const [userList, setUserList] = useState([]);
  const [likedList, setLikedList] = useState([]);
  const [user, setUser] = useState({ likedAnime: [] });
  const [socket, setSocket] = useState(null);
+ const { roomId, setRoomId } = useParams();
  const [pisa, setPisa] = useState([]);
-
+ const navigate = useNavigate();
+ 
  useEffect(() => {
   const newSocket = io("http://localhost:8080", { transports: ["polling", "websocket"] });
 
@@ -29,6 +32,9 @@ const SecondPAge = () => {
   newSocket.on("matchingAnime", (data) => {
     setPisa(data);
   }); 
+  newSocket.on("room-created", (data) => {
+    setRoomId(data.roomId);
+  })
 
   setSocket(newSocket);
 
@@ -38,13 +44,28 @@ const SecondPAge = () => {
  }, []);
 
  const onSwipe = (updatedLikedList) => {
-  socket.emit("userArray", { likedAnime: updatedLikedList });
+  socket.emit("updateLikedList", { likedAnime: updatedLikedList });
  };
+
+ const handleShareButtonClick = () => {
+  const currentURL = window.location.href;
+
+  navigator.clipboard.writeText(currentURL).then(() => {
+    console.log("URL скопирован в буфер обмена");
+  });
+};
 
 setTimeout(() => {
   console.log(pisa)
 
-}, 5000)
+}, 5000);
+
+useEffect(() => {
+  if(roomId) {
+    navigate(`/huy/${roomId}`);
+  }
+}, [roomId]);
+
  return (
 
 
@@ -56,12 +77,22 @@ setTimeout(() => {
       <li className="text-white" key={index}>{likedAnime.name}</li>
      ))}
     </ul>
-    <div className="border border-blue-500 p-4">
+    <div>
     {userList.map((username, index) => (
      <li className="text-white list-none" key={index}>{username}</li>
     ))}
     </div>
      <li className="text-white list-none">{pisa.name}</li>
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+      <button
+        className="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300
+        dark:focus:ring-blue-800 font-medium rounded-lg 
+        text-sm px-10 py-2.5 text-center me-2 mb-2"
+        onClick={handleShareButtonClick}
+      >
+      Поделиться
+      </button>
+    </div>
     {socket && (
      <div className={style.sliderBlock}>
       <TitlesSlider
@@ -69,6 +100,7 @@ setTimeout(() => {
        user={user}
        setUser={setUser}
        onSwipe={onSwipe}
+       roomId={roomId}
       />
       ,
      </div>
