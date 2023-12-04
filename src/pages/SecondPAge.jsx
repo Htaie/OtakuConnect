@@ -15,7 +15,7 @@ const SecondPAge = () => {
  const navigate = useNavigate();
  
  useEffect(() => {
-  const newSocket = io("http://89.104.65.22:3001", { transports: ["polling", "websocket"] });
+  const newSocket = io("http://*:3001", { transports: ["polling", "websocket"] });
 
   newSocket.on("userConnected", (userId) => {
    console.log(`User connected: ${userId}`);
