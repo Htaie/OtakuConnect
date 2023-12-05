@@ -65,7 +65,7 @@ setTimeout(() => {
 
 useEffect(() => {
   if(roomId) {
-    navigate(`/room/${roomId}`);
+    navigate(`/huy/${roomId}`);
   }
 }, [roomId]);
 

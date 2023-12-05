@@ -12,7 +12,7 @@ const router = createBrowserRouter([
    element: <FirstPage></FirstPage>,
   },
   {
-   path: "/room/:roomId",
+   path: "/huy/:roomId",
    element: <SecondPAge></SecondPAge>,
   },  
 ]);

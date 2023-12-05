@@ -17,11 +17,11 @@ app.get('*', (req, res) => {
 });
 
 
- app.get('/room', (req, res) => {
+ app.get('/huy', (req, res) => {
    res.sendFile(path.join(__dirname, '../dist', 'index.html'));
  });
 
-app.post('/room/create-room', (req, res) => {
+app.post('/huy/create-room', (req, res) => {
 
   res.json({ roomId: generateUniqueId() });
 })
