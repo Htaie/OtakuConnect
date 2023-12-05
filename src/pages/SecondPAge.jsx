@@ -19,6 +19,7 @@ const SecondPAge = () => {
   const kek =0 
   const kek2 =0 
   const kek3 =0 
+  const kek3 =0 
   newSocket.on("userConnected", (userId) => {
    console.log(`User connected: ${userId}`);
   });
