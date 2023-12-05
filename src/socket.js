@@ -5,7 +5,6 @@ import cors from 'cors';
 import { fileURLToPath } from 'url';
 import path from 'path';
 import { dirname, join } from 'path';
-import { connect } from 'http2';
 const __filename = fileURLToPath(import.meta.url);
 
 const __dirname = dirname(__filename);
@@ -36,7 +35,6 @@ const connectedUsers = {};
 const rooms = {};
 
 const PORT = process.env.PORT || 3001;
-
 
 io.on("connection", (socket) => {
   const randomNickname = generateRandomNickname();
