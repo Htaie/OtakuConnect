@@ -28,5 +28,5 @@ jobs:
       #   run: ssh-keyscan -H ${{ env.SERVER_HOST }} >> $HOME/.ssh/known_hosts
 
       - name: SSH into Server
-        run:  sshpass -p zEBFyLd8g3RaDc3h ${{ env.SERVER_USER }}@${{ env.SERVER_HOST }}
+        run:  ssh -p zEBFyLd8g3RaDc3h ${{ env.SERVER_USER }}@${{ env.SERVER_HOST }}
 
