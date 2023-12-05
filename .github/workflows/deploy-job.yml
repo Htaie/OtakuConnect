@@ -5,28 +5,17 @@ on:
     branches:
       - dev
 
-env:    
-  SERVER_HOST: 89.104.65.22
-  SERVER_USER: root
-  SERVER_PATH: /home/OtakuConnect/src
-
 jobs:
-
-  deploy:
-    runs-on: ubuntu-latest
-
+  build:
+    runs-on: self-hosted
     steps:
-      # - uses: actions/checkout@v3
-
-      # - name: Install SSH Key
-      #   uses: shimataro/ssh-key-action@v2.3.1
-      #   with:
-      #     key: "${{ secrets.SSH_PRIVATE_KEY }}"
-      #     known_hosts: "just-a-placeholder-so-we-dont-get-errors"
-
-      # - name: Update known_hosts
-      #   run: ssh-keyscan -H ${{ env.SERVER_HOST }} >> $HOME/.ssh/known_hosts
-
-      - name: SSH into Server
-        run:  ssh -p zEBFyLd8g3RaDc3h ${{ env.SERVER_USER }}@${{ env.SERVER_HOST }}
+      - uses: actions/checkout@v3
+      - name: Use Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '16'
+      - run: |
+          cd /home/dev/OtakuConnect
+          npm install
+          npm run build
 
