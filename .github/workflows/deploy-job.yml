@@ -18,4 +18,5 @@ jobs:
           cd /home/dev/OtakuConnect
           npm install
           npm run build
+          npm start
 
