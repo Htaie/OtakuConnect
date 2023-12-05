@@ -19,6 +19,12 @@
       "git add"
     ]
   },
+  "husky": {    
+   "hooks": {      
+     "pre-commit": "precommit", 
+     "pre-push": "precommit"   
+   }  
+},
   "dependencies": {
     "@react-spring/web": "^9.5.5",
     "axios": "^1.6.2",

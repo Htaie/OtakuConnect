@@ -11,6 +11,7 @@ const SecondPAge = () => {
  const [user, setUser] = useState({ likedAnime: [] });
  const [socket, setSocket] = useState(null);
  const { roomId, setRoomId } = useParams();
+ const { roomId, setRoomId } = useParams();
  const [pisa, setPisa] = useState([]);
  const navigate = useNavigate();
  
