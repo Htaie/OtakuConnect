@@ -11,19 +11,13 @@ const SecondPAge = () => {
  const [user, setUser] = useState({ likedAnime: [] });
  const [socket, setSocket] = useState(null);
  const { roomId, setRoomId } = useParams();
- const { roomId, setRoomId } = useParams();
- const { roomId, setRoomId } = useParams();
- const { roomId, setRoomId } = useParams();
  const [pisa, setPisa] = useState([]);
  const navigate = useNavigate();
  
  useEffect(() => {
   const newSocket = io("http://89.104.65.22", { transports: ["polling", "websocket"] });
   const kek =0 
-  const kek2 =0 
-  const kek3 =0 
-  const kek3 =0 
-  const kek3 =0 
+  const kek =0 
   newSocket.on("userConnected", (userId) => {
    console.log(`User connected: ${userId}`);
   });
