@@ -6,6 +6,7 @@ module.exports = {
     'plugin:react/recommended',
     'plugin:react/jsx-runtime',
     'plugin:react-hooks/recommended',
+    
   ],
   ignorePatterns: ['dist', '.eslintrc.cjs'],
   parserOptions: { ecmaVersion: 'latest', sourceType: 'module' },
@@ -15,6 +16,16 @@ module.exports = {
     'react-refresh/only-export-components': [
       'warn',
       { allowConstantExport: true },
+      
     ],
+    'import/no-unresolved': 'error',
+    'import/no-unused-modules': 'error',
+    "semi": ["error", "always"],
+    "no-console": "warn",
+    'camelcase': ['error', { 'properties': 'always' }],
+    'indent': ['error', 2],
+    'eqeqeq': 'error',
+    'quotes': ['error', 'single'],
+
   },
 }
