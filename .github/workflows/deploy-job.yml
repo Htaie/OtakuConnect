@@ -19,6 +19,4 @@ jobs:
           git pull
           npm install
           npm run build
-          npm install pm2 
-          pm2 start src/socket.js
 

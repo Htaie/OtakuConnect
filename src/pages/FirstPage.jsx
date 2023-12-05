@@ -10,10 +10,10 @@ const FirstPage = () => {
 
   const handleTryButton = async () => {
     try {
-      const response = await axios.post("/huy/create-room");
+      const response = await axios.post("/room/create-room");
       const roomId = response.data.roomId;
 
-      navigate(`/huy/${roomId}`);
+      navigate(`/room/${roomId}`);
     } catch (error){
       console.error("Ошибка при создании комнаты", error);
     }
@@ -27,7 +27,7 @@ const FirstPage = () => {
     <div className="Descriptions w-2/4 max-sm:w-screen pl-4">
      <h2 className="text-3xl pb-12">Привет</h2>
      <p className="text-lg pb-14 text-white">
-      Секс - это уникальное приложение для подбора аниме, созданное
+      ОтакуКоннект - это уникальное приложение для подбора аниме, созданное
       специально для любителей японской анимации. Сочетая в себе элементы
       популярных социальных платформ и функциональность приложений для
       знакомств, ОтакуКонект предоставляет пользователям возможность находить
