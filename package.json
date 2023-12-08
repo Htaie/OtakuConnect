@@ -6,22 +6,21 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "lint": "eslint .",
-    "precommit": "lint-staged",
+    "lint": "eslint ./src",
+    "lint:fix": "eslint ./src --fix --color",
     "preview": "vite preview",
     "start": "node --experimental-modules src/socket.js",
     "eslint": "node_modules/.bin/eslint src/"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx,json,css,scss,md}": [
-      "npm run lint:write", 
+      "npm run lint:fix", 
       "git add"
     ]
   },
   "husky": {    
    "hooks": {      
-     "pre-commit": "precommit", 
-     "pre-push": "precommit"   
+     "pre-commit": "precommit"
    }  
 },
   "dependencies": {
