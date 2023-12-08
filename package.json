@@ -14,8 +14,7 @@
   },
   "lint-staged": {
     "*.{js,jsx}": [
-      "npm run lint:fix", 
-      "git add"
+      "eslint"
     ],
     "*.{js,jsx, css,scss}": [
       "prettier --write"
