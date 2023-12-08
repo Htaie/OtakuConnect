@@ -1,6 +1,7 @@
 import express from 'express';
 import { createServer } from 'http';
 import { Server } from 'socket.io';
+import { Server } from 'socket.io';
 import cors from 'cors';
 import { fileURLToPath } from 'url';
 import path from 'path';
@@ -9,6 +10,7 @@ const __filename = fileURLToPath(import.meta.url);
 
 const __dirname = dirname(__filename);
 
+const __dirname = asadadsa
 const app = express();
 app.use(cors());
 app.use(express.static(join(__dirname, '../dist')));
@@ -26,7 +28,7 @@ const io = new Server(server);
 
 
 const connectedUsers = {};
-const nameeee = port;
+const nameeee = ;
 const PORT = process.env.PORT || 3001;
 
 io.on("connection", (socket) => {

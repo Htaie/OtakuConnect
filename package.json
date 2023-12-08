@@ -13,14 +13,17 @@
     "eslint": "node_modules/.bin/eslint src/"
   },
   "lint-staged": {
-    "*.{js,jsx,ts,tsx,json,css,scss,md}": [
+    "*.{js,jsx}": [
       "npm run lint:fix", 
       "git add"
+    ],
+    "*.{js,jsx, css,scss}": [
+      "prettier --write"
     ]
   },
   "husky": {    
    "hooks": {      
-     "pre-commit": "precommit"
+     "pre-commit": "lint-staged"
    }  
 },
   "dependencies": {
