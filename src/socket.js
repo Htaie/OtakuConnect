@@ -21,18 +21,11 @@ app.get('*', (req, res) => {
    res.sendFile(path.join(__dirname, '../dist', 'index.html'));
  });
 
-app.post('/huy/create-room', (req, res) => {
-
-  res.json({ roomId: generateUniqueId() });
-})
-
-
 const server = createServer(app);
 const io = new Server(server);
 
 
 const connectedUsers = {};
-const rooms = {};
 
 const PORT = process.env.PORT || 3001;
 
@@ -43,7 +36,6 @@ io.on("connection", (socket) => {
     socket: socket,
     nickname: randomNickname,
     likedAnime: [],
-    roomId: null,
   };
   connectedUsers[socket.id] = user;
   updateUsersList();
@@ -53,35 +45,10 @@ io.on("connection", (socket) => {
    connectedUsers[socket.id].likedAnime = serializedData.likedAnime;
    compareLikedAnime(connectedUsers[socket.id]);
   });
- 
-  socket.on("create-room", () => {
-    const roomId = generateUniqueId();
-    rooms[roomId] = { users: [socket.id] };
 
-    connectedUsers[socket.id].roomId = roomId;
-
-    socket.emit("room-created", { roomId });
-
-    updateUsersList();
-  })
 
   socket.on("disconnect", () => {
    console.log(`Пользователь ${connectedUsers[socket.id].nickname} отключился`);
-   
-   const roomId = connectedUsers[socket.id].roomId;
-   if(roomId) {
-    const room = rooms[roomId];
-    if(room) {
-      room.users = room.users.filter((userId) => userId !== socket.id);
-      room.users.forEach((userId) => {
-        connectedUsers[userId].socket.emit("user-left-room", { nickname: connectedUsers[socket.id].nickname });
-      });
-
-      if (room.users.length === 0) {
-        delete rooms[roomId];
-      }
-    }
-   }
 
    delete connectedUsers[socket.id];
    updateUsersList();

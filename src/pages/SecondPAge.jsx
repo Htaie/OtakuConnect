@@ -16,10 +16,6 @@ const SecondPAge = () => {
  
  useEffect(() => {
   const newSocket = io("http://89.104.65.22", { transports: ["polling", "websocket"] });
-  const kek =0 
-  const kek =0
-  const kek =0
-  const kek =0
   newSocket.on("userConnected", (userId) => {
    console.log(`User connected: ${userId}`);
   });
