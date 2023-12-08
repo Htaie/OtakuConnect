@@ -11,6 +11,10 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 const __dirname = asadadsa
+const __dirname = asadadsa
+const __dirname = asadadsa
+const __dirname = asadadsa
+const __dirname = asadadsa
 const app = express();
 app.use(cors());
 app.use(express.static(join(__dirname, '../dist')));
