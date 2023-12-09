@@ -4,6 +4,9 @@ import './index.css';
 import SecondPAge from './pages/SecondPAge';
 import {  RouterProvider, createBrowserRouter } from 'react-router-dom';
 import FirstPage from './pages/FirstPage';
+import LoginPage from './pages/authPages/LoginPage';
+import RegPage from './pages/authPages/RegPage';
+import ProfilePage from './pages/profilePages/ProfilePage';
 
 
 const router = createBrowserRouter([
@@ -12,8 +15,20 @@ const router = createBrowserRouter([
    element: <FirstPage></FirstPage>,
   },
   {
-   path: "/huy/:roomId",
+   path: "/huy",
    element: <SecondPAge></SecondPAge>,
+  },  
+  {
+   path: "/login",
+   element: <LoginPage></LoginPage>,
+  },  
+  {
+   path: "/register",
+   element: <RegPage></RegPage>,
+  },  
+  {
+   path: "/profile",
+   element: <ProfilePage></ProfilePage>,
   },  
 ]);
 

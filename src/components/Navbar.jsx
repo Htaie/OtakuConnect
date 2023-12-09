@@ -1,6 +1,5 @@
 import React from "react";
-import { Link, NavLink } from "react-router-dom";
-//test
+import { Link } from "react-router-dom";
 const Navbar = () => {
  return (
   <nav className="bg-white border-gray-200 dark:bg-gray-900">
@@ -12,20 +11,15 @@ const Navbar = () => {
      </span>
     </Link>
     <div className="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
-     <button
-      type="button"
-      className="flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
-      id="user-menu-button"
-      aria-expanded="false"
-      data-dropdown-toggle="user-dropdown"
-      data-dropdown-placement="bottom"
-     >
-      <img
-       className="w-8 h-8 rounded-full"
-       src="public/logo.png"
-       alt="user photo"
-      />
-     </button>
+        <Link to={'/login'} className="text-white"> 
+        Войти
+        </Link>
+        <Link to={'/register'} className="text-white"> 
+        Регистрация
+        </Link>
+        <Link to={'/profile'} className="text-white"> 
+        Профиль
+        </Link>
      </div>
 
     <div
