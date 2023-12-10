@@ -1,112 +1,127 @@
-import React, { useEffect, useState } from "react";
-import io from "socket.io-client";
-import Navbar from "../components/Navbar";
-import style from "../components/TitlesSlider.module.css";
-import TitlesSlider from "../components/TitlesSlider";
-import { useNavigate, useParams } from "react-router-dom";
+import React, { useEffect, useState } from 'react'
+import io from 'socket.io-client'
+import Navbar from '../components/Navbar'
+import style from '../components/TitlesSlider.module.css'
+import TitlesSlider from '../components/TitlesSlider'
+import { useNavigate, useParams } from 'react-router-dom'
 
-const SecondPAge = () => {
- const [userList, setUserList] = useState([]);
- const [likedList, setLikedList] = useState([]);
- const [user, setUser] = useState({ likedAnime: [] });
- const [socket, setSocket] = useState(null);
- const { roomId, setRoomId } = useParams();
- const [pisa, setPisa] = useState([]);
- const navigate = useNavigate();
- 
- useEffect(() => {
-  const newSocket = io("http://89.104.65.22", { transports: ["polling", "websocket"] });
-  newSocket.on("userConnected", (userId) => {
-   console.log(`User connected: ${userId}`);
-  });
-  newSocket.on("userList", (usernames) => {
-   setUserList(usernames);
-  });
-  newSocket.on("likedList", (likedanime) => {
-   setLikedList(likedanime);
-  });
-  newSocket.on("updateLikedList", (updateLikedList) => {
-   setLikedList(updateLikedList);
-  });
-  newSocket.on("matchingAnime", (data) => {
-    setPisa(data);
-  }); 
-  newSocket.on("room-created", (data) => {
-    setRoomId(data.roomId);
-  })
+const SERVER_URL = '89.104.65.22'
 
-  setSocket(newSocket);
+const SecondPage = () => {
+  const { roomId, setRoomId } = useParams()
 
-  return () => {
-   newSocket.disconnect();
-  };
- }, []);
+  const navigate = useNavigate()
 
- const onSwipe = (updatedLikedList) => {
-  socket.emit("updateLikedList", { likedAnime: updatedLikedList });
- };
+  const [userList, setUserList] = useState([])
+  const [likedList, setLikedList] = useState([])
+  const [user, setUser] = useState({ likedAnime: [] })
+  const [socket, setSocket] = useState(null)
+  const [pisa, setPisa] = useState([])
 
- const handleShareButtonClick = () => {
-  const currentURL = window.location.href;
+  useEffect(() => {
+    const newSocket = io(SERVER_URL, {
+      transports: ['polling', 'websocket'],
+    })
 
-  navigator.clipboard.writeText(currentURL).then(() => {
-    console.log("URL скопирован в буфер обмена");
-  });
-};
+    newSocket.on('userConnected', (userId) => {
+      console.log(`User connected: ${userId}`)
+    })
+    newSocket.on('userList', (usernames) => {
+      setUserList(usernames)
+    })
+    newSocket.on('likedList', (likedanime) => {
+      setLikedList(likedanime)
+    })
+    newSocket.on('updateLikedList', (updateLikedList) => {
+      setLikedList(updateLikedList)
+    })
+    newSocket.on('matchingAnime', (data) => {
+      setPisa(data)
+    })
+    newSocket.on('room-created', (data) => {
+      setRoomId(data.roomId)
+    })
 
-setTimeout(() => {
-  console.log(pisa)
+    setSocket(newSocket)
 
-}, 5000);
+    return () => {
+      newSocket.disconnect()
+    }
+  }, [])
 
-useEffect(() => {
-  if(roomId) {
-    navigate(`/huy/${roomId}`);
+  const onSwipe = (updatedLikedList) => {
+    socket.emit('updateLikedList', { likedAnime: updatedLikedList })
   }
-}, [roomId]);
 
- return (
+  const handleShareButtonClick = () => {
+    const currentURL = window.location.href
 
+    navigator.clipboard.writeText(currentURL).then(() => {
+      console.log('URL скопирован в буфер обмена')
+    })
+  }
 
-  <div>
-   <Navbar></Navbar>
-   <div className=" w-screen  my-0 mx-auto">
-    <ul>
-     {likedList.map((likedAnime, index) => (
-      <li className="text-white" key={index}>{likedAnime.name}</li>
-     ))}
-    </ul>
+  setTimeout(() => {
+    console.log(pisa)
+  }, 5000)
+
+  useEffect(() => {
+    if (roomId) {
+      navigate(`/huy/${roomId}`)
+    }
+  }, [roomId])
+
+  return (
     <div>
-    {userList.map((username, index) => (
-     <li className="text-white list-none" key={index}>{username}</li>
-    ))}
-    </div>
-     <li className="text-white list-none">{pisa.name}</li>
-    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-      <button
-        className="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300
+      <Navbar></Navbar>
+      <div className=" w-screen  my-0 mx-auto">
+        <ul>
+          {likedList.map((likedAnime, index) => (
+            <li className="text-white" key={index}>
+              {likedAnime.name}
+            </li>
+          ))}
+        </ul>
+        <div>
+          {userList.map((username, index) => (
+            <li className="text-white list-none" key={index}>
+              {username}
+            </li>
+          ))}
+        </div>
+        <li className="text-white list-none">{pisa.name}</li>
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
+          <button
+            className="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300
         dark:focus:ring-blue-800 font-medium rounded-lg 
         text-sm px-10 py-2.5 text-center me-2 mb-2"
-        onClick={handleShareButtonClick}
-      >
-      Поделиться
-      </button>
+            onClick={handleShareButtonClick}
+          >
+            Поделиться
+          </button>
+        </div>
+        {socket && (
+          <div className={style.sliderBlock}>
+            <TitlesSlider
+              socket={socket}
+              user={user}
+              setUser={setUser}
+              onSwipe={onSwipe}
+              roomId={roomId}
+            />
+            ,
+          </div>
+        )}
+      </div>
     </div>
-    {socket && (
-     <div className={style.sliderBlock}>
-      <TitlesSlider
-       socket={socket}
-       user={user}
-       setUser={setUser}
-       onSwipe={onSwipe}
-       roomId={roomId}
-      />
-      ,
-     </div>
-    )}
-   </div>
-  </div>
- );
-};
+  )
+}
 
-export default SecondPAge;
+export default SecondPage
