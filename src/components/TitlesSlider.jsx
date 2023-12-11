@@ -70,7 +70,6 @@ const TitlesSlider = ({ onSwipe, user, setUser }) => {
           }
 
           const data = await response.json()
-          console.log(data.data)
           if (data.data.length > 0) {
             const newDataDisplay = data.data.map((elem) => ({
               id: elem.mal_id,
