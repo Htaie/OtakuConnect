@@ -8,7 +8,7 @@ import cn from 'classnames'
 
 const FirstPage = () => {
   return (
-    <div>
+    <div
       <Navbar></Navbar>
       <div className="flex justify-around pb-20 pt-20 ">
         <div className="Descriptions w-2/4 max-sm:w-screen pl-4">
