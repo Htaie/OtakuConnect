@@ -1,12 +1,13 @@
 import cn from 'classnames'
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { Route } from '../constants/constants'
 const Navbar = () => {
   return (
     <nav className="bg-white border-gray-200 dark:bg-gray-900">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
         <Link
-          to="/"
+          to={Route.HOME}
           className="flex items-center space-x-3 rtl:space-x-reverse"
         >
           <img src="public/logo.png" className="h-8" alt="Otaku Logo" />
@@ -15,13 +16,13 @@ const Navbar = () => {
           </span>
         </Link>
         <div className="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
-          <Link to={'/login'} className="text-white">
+          <Link to={Route.LOGIN} className="text-white">
             Войти
           </Link>
-          <Link to={'/register'} className="text-white">
+          <Link to={Route.REGISTER} className="text-white">
             Регистрация
           </Link>
-          <Link to={'/profile'} className="text-white">
+          <Link to={Route.PROFILE} className="text-white">
             Профиль
           </Link>
         </div>
@@ -38,18 +39,13 @@ const Navbar = () => {
           >
             <li>
               <Link
-                to={'/huy'}
-                className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+                to={Route.TINDER}
+                className={cn(
+                  'block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white',
+                  'md:dark:hover:text-blue-500dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700'
+                )}
               >
                 OtakuLand
-              </Link>
-            </li>
-            <li>
-              <Link
-                to={'/hui'}
-                className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
-              >
-                Любимые Аниме
               </Link>
             </li>
           </ul>

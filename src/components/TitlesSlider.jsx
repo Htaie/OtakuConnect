@@ -1,8 +1,8 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react'
 import TinderCard from 'react-tinder-card'
 import style from './TitlesSlider.module.css'
-import axios from 'axios'
-import { BASE_URL } from './constants'
+
+import { BASE_URL } from '../constants/constants'
 
 const TitlesSlider = ({ onSwipe, user, setUser }) => {
   const [db, setDb] = useState([])
@@ -64,19 +64,22 @@ const TitlesSlider = ({ onSwipe, user, setUser }) => {
       try {
         if (db.length <= 5) {
           const randomPage = Math.floor(Math.random() * 1000) + 1
-          const response = await axios.get(`${BASE_URL}?page=1`)
+          const response = await fetch(`${BASE_URL}?page=1`)
           if (response.status !== 200) {
             throw new Error('Network response was not ok')
           }
 
-          const data = response.data.data || []
-          if (data.length > 0) {
-            const newDataDisplay = data.map((elem) => ({
+          const data = await response.json()
+          console.log(data.data)
+          if (data.data.length > 0) {
+            const newDataDisplay = data.data.map((elem) => ({
               id: elem.mal_id,
               image: elem.images.jpg.large_image_url,
               name: elem.title,
             }))
             const newData = [...db, ...newDataDisplay]
+            console.log(newDataDisplay)
+
             setDb(newData)
             updateCurrentIndex(newData.length - 1)
           }
@@ -85,7 +88,6 @@ const TitlesSlider = ({ onSwipe, user, setUser }) => {
         console.error(error)
       }
     }
-
     fetchData()
   }, [BASE_URL, db])
 

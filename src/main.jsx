@@ -1,35 +1,8 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import './index.css'
-import SecondPage from './pages/SecondPage'
-import { RouterProvider, createBrowserRouter } from 'react-router-dom'
-import FirstPage from './pages/FirstPage'
-import LoginPage from './pages/authPages/LoginPage'
-import RegPage from './pages/authPages/RegPage'
-import ProfilePage from './pages/profilePages/ProfilePage'
-
-const router = createBrowserRouter([
-  {
-    path: '/',
-    element: <FirstPage></FirstPage>,
-  },
-  {
-    path: '/huy',
-    element: <SecondPage></SecondPage>,
-  },
-  {
-    path: '/login',
-    element: <LoginPage></LoginPage>,
-  },
-  {
-    path: '/register',
-    element: <RegPage></RegPage>,
-  },
-  {
-    path: '/profile',
-    element: <ProfilePage></ProfilePage>,
-  },
-])
+import { RouterProvider } from 'react-router-dom'
+import { router } from './routes/routes'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>

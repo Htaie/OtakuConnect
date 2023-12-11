@@ -4,8 +4,10 @@ import Navbar from '../components/Navbar'
 import style from '../components/TitlesSlider.module.css'
 import TitlesSlider from '../components/TitlesSlider'
 import { useNavigate, useParams } from 'react-router-dom'
+import cn from 'classnames'
 
 const SERVER_URL = '89.104.65.22'
+const DEV_URL = 'localhost'
 
 const SecondPage = () => {
   const { roomId, setRoomId } = useParams()
@@ -16,10 +18,10 @@ const SecondPage = () => {
   const [likedList, setLikedList] = useState([])
   const [user, setUser] = useState({ likedAnime: [] })
   const [socket, setSocket] = useState(null)
-  const [pisa, setPisa] = useState([])
+  const [matchingAnime, setMatchingAnime] = useState([])
 
   useEffect(() => {
-    const newSocket = io(SERVER_URL, {
+    const newSocket = io('http://' + DEV_URL + ':3001', {
       transports: ['polling', 'websocket'],
     })
 
@@ -36,7 +38,7 @@ const SecondPage = () => {
       setLikedList(updateLikedList)
     })
     newSocket.on('matchingAnime', (data) => {
-      setPisa(data)
+      setMatchingAnime(data)
     })
     newSocket.on('room-created', (data) => {
       setRoomId(data.roomId)
@@ -61,10 +63,6 @@ const SecondPage = () => {
     })
   }
 
-  setTimeout(() => {
-    console.log(pisa)
-  }, 5000)
-
   useEffect(() => {
     if (roomId) {
       navigate(`/huy/${roomId}`)
@@ -74,7 +72,7 @@ const SecondPage = () => {
   return (
     <div>
       <Navbar></Navbar>
-      <div className=" w-screen  my-0 mx-auto">
+      <div className="w-screen  my-0 mx-auto">
         <ul>
           {likedList.map((likedAnime, index) => (
             <li className="text-white" key={index}>
@@ -89,7 +87,7 @@ const SecondPage = () => {
             </li>
           ))}
         </div>
-        <li className="text-white list-none">{pisa.name}</li>
+        <li className="text-white list-none">{matchingAnime.name}</li>
         <div
           style={{
             display: 'flex',
@@ -99,9 +97,10 @@ const SecondPage = () => {
           }}
         >
           <button
-            className="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300
-        dark:focus:ring-blue-800 font-medium rounded-lg 
-        text-sm px-10 py-2.5 text-center me-2 mb-2"
+            className={cn(
+              'text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none',
+              'focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-10 py-2.5 text-center me-2 mb-2'
+            )}
             onClick={handleShareButtonClick}
           >
             Поделиться

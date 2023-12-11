@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom'
 import NewsCards from '../components/NewsCards'
 import style from './FirstPage.module.css'
 import Navbar from '../components/Navbar'
+import { Route } from '../constants/constants'
+import cn from 'classnames'
 
 const FirstPage = () => {
   return (
@@ -19,10 +21,11 @@ const FirstPage = () => {
             находить аниме-партнеров с общими интересами.
           </p>
           <Link
-            to={`/huy`}
-            className="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300
-       dark:focus:ring-blue-800 font-medium rounded-lg 
-       text-sm px-10 py-2.5 text-center me-2 mb-2"
+            to={Route.TINDER}
+            className={cn(
+              'text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none',
+              'focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-10 py-2.5 text-center me-2 mb-2'
+            )}
           >
             Попробовать
           </Link>
@@ -31,7 +34,7 @@ const FirstPage = () => {
           <img
             className="h-96"
             src="https://i.pinimg.com/originals/a4/a9/02/a4a90264589c2249f6f710e0c31ba1d8.jpg"
-            alt=""
+            alt="Main image"
           />
         </div>
       </div>
