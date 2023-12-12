@@ -4,11 +4,10 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "concurrently \"npm run frontend\" \"npm run backend\"",
+    "frontend": "vite",
     "build": "vite build",
-    "lint:fix": "eslint ./src --fix --color",
-    "preview": "vite preview",
-    "start": "nodemon node --experimental-modules src/socket.js",
+    "backend": "nodemon node --experimental-modules src/socket.js",
     "eslint": "node_modules/.bin/eslint src/ --fix --color",
     "prepare": "husky install",
     "format": "prettier --write ."
