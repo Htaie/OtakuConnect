@@ -2,9 +2,6 @@ import express from 'express'
 import { createServer } from 'http'
 import { Server } from 'socket.io'
 import cors from 'cors'
-import { fileURLToPath } from 'url'
-
-const __filename = fileURLToPath(import.meta.url)
 
 const app = express()
 app.use(cors())
@@ -88,11 +85,6 @@ io.on('connection', (socket) => {
 server.listen(PORT, () => {
   console.log('Listening app dev:' + PORT)
 })
-
-function generateUniqueId() {
-  return Math.random().toString(36).substring(7)
-}
-
 function generateRandomNickname() {
   const adjectives = [
     'New',

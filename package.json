@@ -6,16 +6,15 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "lint": "eslint ./src",
     "lint:fix": "eslint ./src --fix --color",
     "preview": "vite preview",
     "start": "nodemon node --experimental-modules src/socket.js",
-    "eslint": "node_modules/.bin/eslint src/",
-    "prepare": "husky install"
+    "eslint": "node_modules/.bin/eslint src/ --fix --color",
+    "prepare": "husky install",
+    "format": "prettier --write ."
   },
   "lint-staged": {
     "*.{js,jsx}": [
-      "npm run dev",
       "eslint"
     ],
     "*.{js,jsx, css,scss}": [

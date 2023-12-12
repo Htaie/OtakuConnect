@@ -7,7 +7,7 @@ const RegPage = () => {
         <input type="text" placeholder="Логин" className="mb-5 bg-slate-600" />
         <input type="text" placeholder="Имя" className="mb-5 bg-slate-600" />
         <input type="text" placeholder="Пароль" className="mb-5 bg-slate-600" />
-        <button className='border'>Войти</button>
+        <button className="border">Войти</button>
       </div>
     </div>
   )
