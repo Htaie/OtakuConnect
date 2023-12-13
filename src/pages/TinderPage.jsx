@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import io from 'socket.io-client'
 import Navbar from '../components/Navbar'
-import style from '../components/TitlesSlider.module.css'
-import TitlesSlider from '../components/TitlesSlider'
+import style from '../components/AnimeSlider.module.css'
+import AnimeSlider from '../components/AnimeSlider'
 import { useNavigate, useParams } from 'react-router-dom'
 import cn from 'classnames'
 
 const SERVER_URL = '89.104.65.22'
 const DEV_URL = 'localhost'
 
-const SecondPage = () => {
+const TinderPage = () => {
   const { roomId, setRoomId } = useParams()
 
   const navigate = useNavigate()
@@ -108,7 +108,7 @@ const SecondPage = () => {
         </div>
         {socket && (
           <div className={style.sliderBlock}>
-            <TitlesSlider
+            <AnimeSlider
               socket={socket}
               user={user}
               setUser={setUser}
@@ -123,4 +123,4 @@ const SecondPage = () => {
   )
 }
 
-export default SecondPage
+export default TinderPage

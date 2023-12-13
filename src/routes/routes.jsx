@@ -1,18 +1,18 @@
 import { createBrowserRouter } from 'react-router-dom'
-import FirstPage from '../pages/FirstPage'
-import SecondPage from '../pages/SecondPAge'
+import MainPage from '../pages/MainPage'
+import TinderPage from '../pages/TinderPage'
 import LoginPage from '../pages/authPages/LoginPage'
-import RegPage from '../pages/authPages/RegPage'
 import ProfilePage from '../pages/profilePages/ProfilePage'
+import RegistrationPage from '../pages/authPages/RegistrationPage'
 
 export const router = createBrowserRouter([
   {
     path: '/',
-    element: <FirstPage></FirstPage>,
+    element: <MainPage></MainPage>,
   },
   {
     path: '/tinder',
-    element: <SecondPage></SecondPage>,
+    element: <TinderPage></TinderPage>,
   },
   {
     path: '/login',
@@ -20,7 +20,7 @@ export const router = createBrowserRouter([
   },
   {
     path: '/register',
-    element: <RegPage></RegPage>,
+    element: <RegistrationPage></RegistrationPage>,
   },
   {
     path: '/profile',

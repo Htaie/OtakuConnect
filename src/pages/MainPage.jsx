@@ -1,12 +1,12 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import NewsCards from '../components/NewsCards'
-import style from './FirstPage.module.css'
+import style from './MainPage.module.css'
 import Navbar from '../components/Navbar'
 import { Route } from '../constants/constants'
 import cn from 'classnames'
 
-const FirstPage = () => {
+const MainPage = () => {
   return (
     <div>
       <Navbar></Navbar>
@@ -45,4 +45,4 @@ const FirstPage = () => {
   )
 }
 
-export default FirstPage
+export default MainPage

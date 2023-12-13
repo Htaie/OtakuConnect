@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react'
 import TinderCard from 'react-tinder-card'
-import style from './TitlesSlider.module.css'
+import style from './AnimeSlider.module.css'
 
 import { BASE_URL } from '../constants/constants'
 
