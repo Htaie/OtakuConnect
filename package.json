@@ -27,6 +27,7 @@
   },
   "dependencies": {
     "@react-spring/web": "^9.5.5",
+    "animejs": "^3.2.2",
     "bcryptjs": "^2.4.3",
     "classnames": "^2.3.2",
     "concurrently": "^8.2.2",
@@ -42,7 +43,10 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.20.0",
+    "react-slick": "^0.29.0",
+    "react-spring": "^9.7.3",
     "react-tinder-card": "^1.6.4",
+    "slick-carousel": "^1.8.1",
     "socket.io": "^4.7.2",
     "socket.io-client": "^4.7.2",
     "sort-by": "^0.0.2"

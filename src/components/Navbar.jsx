@@ -19,9 +19,6 @@ const Navbar = () => {
           <Link to={Route.LOGIN} className="text-white">
             Войти
           </Link>
-          <Link to={Route.REGISTER} className="text-white">
-            Регистрация
-          </Link>
           <Link to={Route.PROFILE} className="text-white">
             Профиль
           </Link>
