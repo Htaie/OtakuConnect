@@ -8,13 +8,12 @@
     "frontend": "vite",
     "build": "vite build",
     "backend": "nodemon node --experimental-modules src/socket.js",
-    "eslint": "node_modules/.bin/eslint src/ --fix --color",
     "prepare": "husky install",
     "format": "prettier --write ."
   },
   "lint-staged": {
     "*.{js,jsx}": [
-      "eslint"
+      "eslint src/ --fix "
     ],
     "*.{js,jsx, css,scss}": [
       "prettier --write"

@@ -18,7 +18,6 @@ module.exports = {
       'warn',
       { allowConstantExport: true },
     ],
-    'import/no-unresolved': 'error',
     'import/no-unused-modules': 'error',
   },
   reportUnusedDisableDirectives: true,

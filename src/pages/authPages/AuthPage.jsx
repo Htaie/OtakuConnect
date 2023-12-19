@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import LoginBlock from '../../components/authComponents/LoginBlock'
 import RegistrationBlock from '../../components/authComponents/RegistrationBlock'
 
@@ -11,7 +11,10 @@ const AuthPage = () => {
 
   return (
     <div className="flex justify-center items-center h-screen">
-      <div className="w-96 bg-white p-8 rounded-md shadow-lg overflow-hidden relative">
+      <div
+        className="w-96 bg-white p-8 rounded-md shadow-lg overflow-hidden relative "
+        style={{ height: '500px' }}
+      >
         <div className="h-12 flex mb-4">
           <button
             className={`flex-1 h-full text-center cursor-pointer z-10 ${
