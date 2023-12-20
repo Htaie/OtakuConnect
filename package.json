@@ -1,70 +1,75 @@
 {
-  "name": "otakuconnect",
-  "private": true,
-  "version": "0.0.0",
-  "type": "module",
-  "scripts": {
-    "dev": "concurrently \"npm run frontend\" \"npm run backend\"",
-    "frontend": "vite",
-    "build": "vite build",
-    "backend": "nodemon node --experimental-modules src/socket.js",
-    "eslint": "node_modules/.bin/eslint src/ --fix --color",
-    "prepare": "husky install",
-    "format": "prettier --write ."
-  },
-  "lint-staged": {
-    "*.{js,jsx}": [
-      "eslint"
-    ],
-    "*.{js,jsx, css,scss}": [
-      "prettier --write"
-    ]
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
-  "dependencies": {
-    "@react-spring/web": "^9.5.5",
-    "bcryptjs": "^2.4.3",
-    "classnames": "^2.3.2",
-    "concurrently": "^8.2.2",
-    "cors": "^2.8.5",
-    "express": "^4.18.2",
-    "express-validator": "^7.0.1",
-    "http": "^0.0.1-security",
-    "jsonwebtoken": "^9.0.2",
-    "localforage": "^1.10.0",
-    "match-sorter": "^6.3.1",
-    "mongoose": "^8.0.3",
-    "nodemon": "^3.0.2",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-router-dom": "^6.20.0",
-    "react-tinder-card": "^1.6.4",
-    "socket.io": "^4.7.2",
-    "socket.io-client": "^4.7.2",
-    "sort-by": "^0.0.2"
-  },
-  "devDependencies": {
-    "@types/css-modules": "^1.0.5",
-    "@types/react": "^18.2.37",
-    "@types/react-dom": "^18.2.15",
-    "@vitejs/plugin-react": "^4.2.0",
-    "autoprefixer": "^10.4.16",
-    "eslint": "^8.53.0",
-    "eslint-config-prettier": "^9.1.0",
-    "eslint-plugin-import": "^2.29.0",
-    "eslint-plugin-prettier": "^5.0.1",
-    "eslint-plugin-react": "^7.33.2",
-    "eslint-plugin-react-hooks": "^4.6.0",
-    "eslint-plugin-react-refresh": "^0.4.4",
-    "husky": "^8.0.0",
-    "lint-staged": "^15.2.0",
-    "postcss": "^8.4.31",
-    "prettier": "^3.1.0",
-    "tailwindcss": "^3.3.5",
-    "vite": "^5.0.0"
+ "name": "otakuconnect",
+ "private": true,
+ "version": "0.0.0",
+ "type": "module",
+ "scripts": {
+  "dev": "concurrently \"npm run frontend\" \"npm run backend\"",
+  "lint": "eslint --fix src/",
+  "frontend": "vite",
+  "build": "vite build",
+  "backend": "nodemon node --experimental-modules src/socket.js",
+  "prepare": "husky install",
+  "format": "prettier --write src/"
+ },
+ "lint-staged": {
+  "*.{js,jsx}": [
+   "eslint --fix src/"
+  ],
+  "*.{js,jsx, css,scss}": [
+   "prettier --write src/"
+  ]
+ },
+ "husky": {
+  "hooks": {
+   "pre-commit": "lint-staged"
   }
+ },
+ "dependencies": {
+  "@react-spring/web": "^9.7.3",
+  "bcryptjs": "^2.4.3",
+  "classnames": "^2.3.2",
+  "concurrently": "^8.2.2",
+  "cors": "^2.8.5",
+  "express": "^4.18.2",
+  "express-validator": "^7.0.1",
+  "http": "0.0.1-security",
+  "jsonwebtoken": "^9.0.2",
+  "localforage": "^1.10.0",
+  "match-sorter": "^6.3.1",
+  "mongoose": "^8.0.3",
+  "nodemon": "^3.0.2",
+  "react": "^18.2.0",
+  "react-dom": "^18.2.0",
+  "react-router-dom": "^6.21.0",
+  "react-slick": "^0.29.0",
+  "react-tinder-card": "^1.6.4",
+  "slick-carousel": "^1.8.1",
+  "socket.io": "^4.7.2",
+  "socket.io-client": "^4.7.2",
+  "sort-by": "^0.0.2"
+ },
+ "devDependencies": {
+  "@types/css-modules": "^1.0.5",
+  "@types/react": "^18.2.45",
+  "@types/react-dom": "^18.2.18",
+  "@vitejs/plugin-react": "^4.2.1",
+  "autoprefixer": "^10.4.16",
+  "eslint": "^8.56.0",
+  "eslint-config-prettier": "^9.1.0",
+  "eslint-config-standard": "^17.1.0",
+  "eslint-plugin-import": "^2.29.1",
+  "eslint-plugin-n": "^15.0.0 || ^16.0.0 ",
+  "eslint-plugin-prettier": "^5.1.0",
+  "eslint-plugin-promise": "^6.0.0",
+  "eslint-plugin-react": "^7.33.2",
+  "eslint-plugin-react-hooks": "^4.6.0",
+  "eslint-plugin-react-refresh": "^0.4.5",
+  "husky": "^8.0.3",
+  "lint-staged": "^15.2.0",
+  "postcss": "^8.4.32",
+  "prettier": "^3.1.1",
+  "tailwindcss": "^3.4.0",
+  "vite": "^5.0.10"
+ }
 }

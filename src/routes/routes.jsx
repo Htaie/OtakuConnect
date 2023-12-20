@@ -1,29 +1,24 @@
-import { createBrowserRouter } from 'react-router-dom'
-import MainPage from '../pages/MainPage'
-import TinderPage from '../pages/TinderPage'
-import LoginPage from '../pages/authPages/LoginPage'
-import ProfilePage from '../pages/profilePages/ProfilePage'
-import RegistrationPage from '../pages/authPages/RegistrationPage'
+import { createBrowserRouter } from "react-router-dom";
+import MainPage from "../pages/MainPage";
+import TinderPage from "../pages/TinderPage";
+import ProfilePage from "../pages/profilePages/ProfilePage";
+import AuthPage from "../pages/authPages/AuthPage";
 
 export const router = createBrowserRouter([
   {
-    path: '/',
+    path: "/",
     element: <MainPage></MainPage>,
   },
   {
-    path: '/tinder',
+    path: "/tinder",
     element: <TinderPage></TinderPage>,
   },
   {
-    path: '/login',
-    element: <LoginPage></LoginPage>,
+    path: "/login",
+    element: <AuthPage></AuthPage>,
   },
   {
-    path: '/register',
-    element: <RegistrationPage></RegistrationPage>,
-  },
-  {
-    path: '/profile',
+    path: "/profile",
     element: <ProfilePage></ProfilePage>,
   },
-])
+]);
