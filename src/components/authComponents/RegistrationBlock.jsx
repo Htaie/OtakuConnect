@@ -1,12 +1,12 @@
-import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const RegPage = () => {
-  const navigate = useNavigate()
-  const [login, setLogin] = useState('')
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
-  const [showPassword, setShowPassword] = useState(false)
+  const navigate = useNavigate();
+  const [login, setLogin] = useState("");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleRegister = async () => {
     try {
@@ -14,26 +14,26 @@ const RegPage = () => {
         login: login,
         username: username,
         password: password,
-      }
+      };
 
-      const response = await fetch('http://localhost:3001/register', {
-        method: 'POST',
+      const response = await fetch("http://localhost:3001/register", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(data),
-      })
+      });
 
       if (response.ok) {
-        console.log('Регистрация успешна!')
-        navigate('/login')
+        console.log("Регистрация успешна!");
+        navigate("/login");
       } else {
-        console.error('Ошибка регистрации')
+        console.error("Ошибка регистрации");
       }
     } catch (error) {
-      console.error('Произошла ошибка:', error)
+      console.error("Произошла ошибка:", error);
     }
-  }
+  };
 
   return (
     <div className=" items-center ">
@@ -52,9 +52,9 @@ const RegPage = () => {
           value={username}
           onChange={(e) => setUsername(e.target.value)}
         />
-        <div className="relative mb-5">
+        <div className="relative ">
           <input
-            type={showPassword ? 'text' : 'password'}
+            type={showPassword ? "text" : "password"}
             placeholder="Пароль"
             className="mb-5 p-2 rounded-md bg-transparent border border-gray-500 w-full"
             value={password}
@@ -99,7 +99,7 @@ const RegPage = () => {
         </button>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default RegPage
+export default RegPage;
