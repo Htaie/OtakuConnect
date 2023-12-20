@@ -12,7 +12,19 @@
   "prepare": "husky install",
   "format": "prettier --write src/"
  },
-
+ "lint-staged": {
+  "*.{js,jsx}": [
+   "eslint"
+  ],
+  "*.{js,jsx, css,scss}": [
+   "prettier --write"
+  ]
+ },
+ "husky": {
+  "hooks": {
+   "pre-commit": "lint-staged"
+  }
+ },
  "dependencies": {
   "@react-spring/web": "^9.7.3",
   "bcryptjs": "^2.4.3",
