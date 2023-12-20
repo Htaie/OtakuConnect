@@ -1,24 +1,57 @@
 module.exports = {
-  root: true,
-  env: { browser: true, es2020: true, node: true },
-  extends: [
-    'eslint:recommended',
-    'plugin:react/recommended',
-    'plugin:react/jsx-runtime',
-    'plugin:react-hooks/recommended',
-    'prettier',
-  ],
-  ignorePatterns: ['dist', '.eslintrc.cjs'],
-  parserOptions: { ecmaVersion: 'latest', sourceType: 'module' },
-  settings: { react: { version: '18.2' } },
-  plugins: ['react-refresh', 'import', 'prettier'],
-  rules: {
-    'jsx-quotes': [1, 'prefer-double'],
-    'react-refresh/only-export-components': [
-      'warn',
-      { allowConstantExport: true },
-    ],
-    'import/no-unused-modules': 'error',
+ env: {
+  browser: true,
+  es2021: true,
+  node: true,
+ },
+ extends: ["standard", "plugin:react/recommended", "prettier"],
+ overrides: [
+  {
+   env: {
+    node: true,
+   },
+   files: [".eslintrc.{js,cjs}"],
+   parserOptions: {
+    sourceType: "script",
+   },
   },
-  reportUnusedDisableDirectives: true,
-}
+ ],
+ parserOptions: {
+  ecmaVersion: "latest",
+  sourceType: "module",
+ },
+ plugins: ["react", "prettier"],
+ rules: {},
+ settings: {
+  react: {
+   createClass: "createReactClass",
+   pragma: "React",
+   fragment: "Fragment",
+   version: "detect",
+   flowVersion: "0.53",
+  },
+  propWrapperFunctions: [
+   "forbidExtraProps",
+   { property: "freeze", object: "Object" },
+   { property: "myFavoriteWrapper" },
+   { property: "forbidExtraProps", exact: true },
+  ],
+  componentWrapperFunctions: [
+   "observer",
+   { property: "styled" },
+   { property: "observer", object: "Mobx" },
+   { property: "observer", object: "<pragma>" },
+  ],
+  formComponents: ["CustomForm", { name: "Form", formAttribute: "endpoint" }],
+  linkComponents: ["Hyperlink", { name: "Link", linkAttribute: "to" }],
+ },
+ parserOptions: {
+  ecmaFeatures: {
+   jsx: true,
+  },
+ },
+ rules: {
+  "react/jsx-uses-react": "error",
+  "react/jsx-uses-vars": "error",
+ },
+};
