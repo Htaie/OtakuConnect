@@ -14,10 +14,10 @@
  },
  "lint-staged": {
   "*.{js,jsx}": [
-   "lint"
+   "eslint --fix src/"
   ],
   "*.{js,jsx, css,scss}": [
-   "format"
+   "prettier --write src/"
   ]
  },
  "husky": {
