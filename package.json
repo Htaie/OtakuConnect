@@ -14,10 +14,10 @@
  },
  "lint-staged": {
   "*.{js,jsx}": [
-   "eslint"
+   "lint"
   ],
   "*.{js,jsx, css,scss}": [
-   "prettier --write"
+   "format"
   ]
  },
  "husky": {
