@@ -13,6 +13,9 @@ module.exports = {
    files: [".eslintrc.{js,cjs}"],
    parserOptions: {
     sourceType: "script",
+    ecmaFeatures: {
+     jsx: true,
+    },
    },
   },
  ],
@@ -21,7 +24,6 @@ module.exports = {
   sourceType: "module",
  },
  plugins: ["react", "prettier"],
- rules: {},
  settings: {
   react: {
    createClass: "createReactClass",
@@ -44,11 +46,6 @@ module.exports = {
   ],
   formComponents: ["CustomForm", { name: "Form", formAttribute: "endpoint" }],
   linkComponents: ["Hyperlink", { name: "Link", linkAttribute: "to" }],
- },
- parserOptions: {
-  ecmaFeatures: {
-   jsx: true,
-  },
  },
  rules: {
   "react/jsx-uses-react": "error",
