@@ -1,13 +1,12 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import TinderCard from "react-tinder-card";
+import PropTypes from "prop-types";
 import style from "./AnimeSlider.module.css";
-
 import { BASE_URL } from "../constants/constants";
 
-const TitlesSlider = ({ onSwipe, user, setUser }) => {
+const TitlesSlider = ({ onSwipe, user }) => {
   const [db, setDb] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(db.length - 1);
-  const [lastDirection, setLastDirection] = useState();
 
   const currentIndexRef = useRef(currentIndex);
 
@@ -23,7 +22,6 @@ const TitlesSlider = ({ onSwipe, user, setUser }) => {
     if (direction === "right") {
       const likedAnime = db.find((elem) => elem.name === nameToDelete);
       user.likedAnime.push(likedAnime);
-      setLastDirection(direction);
       console.log(`Swiped ${direction}`);
 
       console.log(user.likedAnime);
@@ -62,10 +60,10 @@ const TitlesSlider = ({ onSwipe, user, setUser }) => {
   };
 
   useEffect(() => {
+    // const randomPage = Math.floor(Math.random() * 1000) + 1; //  Костыль для рандомного выбора страницы
     const fetchData = async () => {
       try {
         if (db.length <= 5) {
-          const randomPage = Math.floor(Math.random() * 1000) + 1;
           const response = await fetch(`${BASE_URL}?page=1`);
           if (response.status !== 200) {
             throw new Error("Network response was not ok");
@@ -129,5 +127,8 @@ const TitlesSlider = ({ onSwipe, user, setUser }) => {
     </div>
   );
 };
-
+TitlesSlider.propTypes = {
+  onSwipe: PropTypes.func,
+  user: PropTypes.object,
+};
 export default TitlesSlider;
