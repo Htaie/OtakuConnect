@@ -11,9 +11,9 @@ const RegPage = () => {
   const handleRegister = async () => {
     try {
       const data = {
-        login: login,
-        username: username,
-        password: password,
+        login,
+        username,
+        password,
       };
 
       const response = await fetch("http://localhost:3001/register", {

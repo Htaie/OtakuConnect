@@ -23,8 +23,11 @@ const EditProfilePage = () => {
       const token = localStorage.getItem("token");
 
       if (!token) {
+        console.error("Токен отсутствует или недействителен.");
         return;
       }
+
+      console.log("Sending request with newNickname:", newNickname);
 
       const response = await fetch("http://localhost:3001/edit", {
         method: "PATCH",
@@ -51,6 +54,14 @@ const EditProfilePage = () => {
   const handlePasswordSubmit = async () => {
     try {
       const token = localStorage.getItem("token");
+
+      if (!token) {
+        console.error("Токен отсутствует или недействителен.");
+        return;
+      }
+
+      console.log("Sending request with currentPassword and newPassword");
+
       const response = await fetch("http://localhost:3001/edit", {
         method: "PATCH",
         headers: {

@@ -10,8 +10,8 @@ const LoginPage = () => {
   const handleLogin = async () => {
     try {
       const data = {
-        login: login,
-        password: password,
+        login,
+        password,
       };
 
       const response = await fetch("http://localhost:3001/login", {

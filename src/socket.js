@@ -55,6 +55,19 @@ app.post(
   },
 );
 
+app.patch("/edit", async function (req, res) {
+  try {
+    const token = req.headers.authorization.split(" ")[1];
+    const decodedToken = jwt.verify(token, secret);
+    const login = decodedToken.id;
+
+    await authCtrl.editProfile(req, res, login);
+  } catch (e) {
+    console.error(e);
+    res.status(500).json({ error: "Edit Profile Client Error" });
+  }
+});
+
 app.get("/users", roleMiddleware(["ADMIN"]), async function (req, res) {
   try {
     await authCtrl.getUsers(req, res);
@@ -252,6 +265,42 @@ class AuthController {
     } catch (e) {
       console.log(e);
       res.status(400).json({ message: "Registration error" });
+    }
+  }
+
+  async editProfile(req, res, login) {
+    try {
+      const { newNickname, currentPassword, newPassword } = req.body;
+      console.log("Received request to edit profile with data:", req.body);
+      const user = await User.findOne({ login });
+      if (!user) {
+        return res
+          .status(400)
+          .json({ message: `Пользователь ${login} не найден` });
+      }
+
+      const validPassword = bcrypt.compareSync(currentPassword, user.password);
+      if (!validPassword) {
+        return res
+          .status(400)
+          .json({ message: `Введен неверный текущий пароль` });
+      }
+
+      if (newNickname) {
+        user.username = newNickname;
+      }
+
+      if (newPassword) {
+        const hashPassword = bcrypt.hashSync(newPassword, 7);
+        user.password = hashPassword;
+      }
+
+      await user.save();
+      console.log("User profile successfully updated:", user);
+      return res.json({ message: "Данные пользователя успешно обновлены" });
+    } catch (e) {
+      console.log(e);
+      res.status(400).json({ message: "Edit Profile error" });
     }
   }
 

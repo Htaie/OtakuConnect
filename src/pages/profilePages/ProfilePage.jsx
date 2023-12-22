@@ -12,6 +12,10 @@ const ProfilePage = () => {
     }
   }, []);
 
+  const editProfile = () => {
+    navigate("/edit");
+  };
+
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("username");
@@ -25,6 +29,7 @@ const ProfilePage = () => {
       <div className="div">
         <p>Профиль</p>
         <p>{username}</p>
+        <button onClick={editProfile}>Личный кабинет</button>
         <button onClick={handleLogout}>Выйти</button>
       </div>
     </div>
