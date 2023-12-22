@@ -1,10 +1,10 @@
-import { useState } from "react";
-import LoginBlock from "../../components/authComponents/LoginBlock";
-import RegistrationBlock from "../../components/authComponents/RegistrationBlock";
-import { Link } from "react-router-dom";
+import { useState } from 'react';
+import LoginBlock from '../../components/authComponents/LoginBlock';
+import RegistrationBlock from '../../components/authComponents/RegistrationBlock';
+import { Link } from 'react-router-dom';
 
 const AuthPage = () => {
-  const [activeTab, setActiveTab] = useState("login");
+  const [activeTab, setActiveTab] = useState('login');
 
   const handleTabChange = (tab) => {
     setActiveTab(tab);
@@ -16,21 +16,17 @@ const AuthPage = () => {
         <div className="h-12 flex mb-4 border   rounded-md">
           <button
             className={`flex-1 h-full text-center cursor-pointer z-10  rounded-md ${
-              activeTab === "login"
-                ? "text-white bg-stone-700"
-                : "text-black bg-white"
+              activeTab === 'login' ? 'text-white bg-stone-700' : 'text-black bg-white'
             }`}
-            onClick={() => handleTabChange("login")}
+            onClick={() => handleTabChange('login')}
           >
             Login
           </button>
           <button
             className={`flex-1 h-full text-center rounded-md cursor-pointer z-10 ${
-              activeTab === "signup"
-                ? "text-white bg-stone-700"
-                : "text-black bg-white"
+              activeTab === 'signup' ? 'text-white bg-stone-700' : 'text-black bg-white'
             }`}
-            onClick={() => handleTabChange("signup")}
+            onClick={() => handleTabChange('signup')}
           >
             Signup
           </button>
@@ -39,27 +35,19 @@ const AuthPage = () => {
           <div
             className="slider-container flex transition-transform"
             style={{
-              transform:
-                activeTab === "login" ? "translateX(0)" : "translateX(-100%)",
+              transform: activeTab === 'login' ? 'translateX(0)' : 'translateX(-100%)',
             }}
           >
-            <div className="w-full">
-              {activeTab === "login" && <LoginBlock />}
-            </div>
+            <div className="w-full">{activeTab === 'login' && <LoginBlock />}</div>
           </div>
-          {activeTab === "login" && (
-            <Link onClick={() => handleTabChange("signup")}>Нет аккаунта?</Link>
-          )}
+          {activeTab === 'login' && <Link onClick={() => handleTabChange('signup')}>Нет аккаунта?</Link>}
           <div
             className="slider-container flex transition-transform "
             style={{
-              transform:
-                activeTab === "signup" ? "translateX(0)" : "translateX(+100%)",
+              transform: activeTab === 'signup' ? 'translateX(0)' : 'translateX(+100%)',
             }}
           >
-            <div className="w-full">
-              {activeTab === "signup" && <RegistrationBlock />}
-            </div>
+            <div className="w-full">{activeTab === 'signup' && <RegistrationBlock />}</div>
           </div>
         </div>
       </div>

@@ -1,12 +1,7 @@
 name: Deploy
 
 on:
-  push:
-    branches:
-      - dev
-  pull_request:
-    branches:
-      - dev
+  workflow_dispatch:
 
 jobs:
   build:
@@ -24,4 +19,3 @@ jobs:
           npm run build
           npm install pm2 
           pm2 start src/socket.js
-
