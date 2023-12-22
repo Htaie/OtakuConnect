@@ -1,10 +1,10 @@
-import { useState } from "react";
-import Navbar from "../../components/Navbar";
+import { useState } from 'react';
+import Navbar from '../../components/Navbar';
 
 const EditProfilePage = () => {
-  const [newNickname, setNewNickname] = useState("");
-  const [currentPassword, setCurrentPassword] = useState("");
-  const [newPassword, setNewPassword] = useState("");
+  const [newNickname, setNewNickname] = useState('');
+  const [currentPassword, setCurrentPassword] = useState('');
+  const [newPassword, setNewPassword] = useState('');
 
   const handleNicknameChange = (e) => {
     setNewNickname(e.target.value);
@@ -20,19 +20,19 @@ const EditProfilePage = () => {
 
   const handleNicknameSubmit = async () => {
     try {
-      const token = localStorage.getItem("token");
+      const token = localStorage.getItem('token');
 
       if (!token) {
-        console.error("Токен отсутствует или недействителен.");
+        console.error('Токен отсутствует или недействителен.');
         return;
       }
 
-      console.log("Sending request with newNickname:", newNickname);
+      console.log('Sending request with newNickname:', newNickname);
 
-      const response = await fetch("http://localhost:3001/edit", {
-        method: "PATCH",
+      const response = await fetch('http://localhost:3001/edit', {
+        method: 'PATCH',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
@@ -47,25 +47,25 @@ const EditProfilePage = () => {
       const data = await response.json();
       console.log(data.message);
     } catch (error) {
-      console.error("Ошибка при отправке запроса:", error);
+      console.error('Ошибка при отправке запроса:', error);
     }
   };
 
   const handlePasswordSubmit = async () => {
     try {
-      const token = localStorage.getItem("token");
+      const token = localStorage.getItem('token');
 
       if (!token) {
-        console.error("Токен отсутствует или недействителен.");
+        console.error('Токен отсутствует или недействителен.');
         return;
       }
 
-      console.log("Sending request with currentPassword and newPassword");
+      console.log('Sending request with currentPassword and newPassword');
 
-      const response = await fetch("http://localhost:3001/edit", {
-        method: "PATCH",
+      const response = await fetch('http://localhost:3001/edit', {
+        method: 'PATCH',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
@@ -76,13 +76,13 @@ const EditProfilePage = () => {
 
       if (!response.ok) {
         const errorData = await response.json();
-        console.error("Ошибка при изменении пароля:", errorData.message);
+        console.error('Ошибка при изменении пароля:', errorData.message);
       } else {
         const data = await response.json();
         console.log(data.message);
       }
     } catch (error) {
-      console.error("Ошибка при отправке запроса:", error);
+      console.error('Ошибка при отправке запроса:', error);
     }
   };
 
@@ -101,10 +101,7 @@ const EditProfilePage = () => {
                 value={newNickname}
                 onChange={handleNicknameChange}
               />
-              <button
-                className="bg-blue-900 text-white p-2 rounded-md ml-2"
-                onClick={handleNicknameSubmit}
-              >
+              <button className="bg-blue-900 text-white p-2 rounded-md ml-2" onClick={handleNicknameSubmit}>
                 Подтвердить
               </button>
             </div>
@@ -123,20 +120,14 @@ const EditProfilePage = () => {
                 value={newPassword}
                 onChange={handleNewPasswordChange}
               />
-              <button
-                className="bg-blue-900 text-white p-2 rounded-md ml-2"
-                onClick={handlePasswordSubmit}
-              >
+              <button className="bg-blue-900 text-white p-2 rounded-md ml-2" onClick={handlePasswordSubmit}>
                 Подтвердить
               </button>
             </div>
           </div>
           <div>
             <form className="max-w-lg mx-auto">
-              <label
-                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                htmlFor="user_avatar"
-              >
+              <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white" htmlFor="user_avatar">
                 Сменить аватар
               </label>
               <input
@@ -145,9 +136,7 @@ const EditProfilePage = () => {
                 id="user_avatar"
                 type="file"
               />
-              <button className="bg-blue-900 text-white p-2 rounded-md">
-                Подтвердить
-              </button>
+              <button className="bg-blue-900 text-white p-2 rounded-md">Подтвердить</button>
             </form>
           </div>
         </div>
