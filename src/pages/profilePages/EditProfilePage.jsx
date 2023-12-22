@@ -95,7 +95,7 @@ const EditProfilePage = () => {
           <div>
             <div className="p-4">
               <input
-                type="nickname"
+                type="text"
                 placeholder="Новый ник"
                 className="mb-2 p-2"
                 value={newNickname}
@@ -107,14 +107,14 @@ const EditProfilePage = () => {
             </div>
             <div className="p-4">
               <input
-                type="editpassword"
+                type="text"
                 placeholder="Текущий пароль"
                 className="mb-2 p-2"
                 value={currentPassword}
                 onChange={handleCurrentPasswordChange}
               />
               <input
-                type="editpassword"
+                type="text"
                 placeholder="Новый пароль"
                 className="mb-2 p-2 ml-2"
                 value={newPassword}

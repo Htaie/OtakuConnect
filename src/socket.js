@@ -56,9 +56,9 @@ app.patch('/edit', async function (req, res) {
   try {
     const token = req.headers.authorization.split(' ')[1];
     const decodedToken = jwt.verify(token, secret);
-    const login = decodedToken.id;
+    const userId = decodedToken.id;
 
-    await authCtrl.editProfile(req, res, login);
+    await authCtrl.editProfile(req, res, userId);
   } catch (e) {
     console.error(e);
     res.status(500).json({ error: 'Edit Profile Client Error' });
@@ -258,16 +258,16 @@ class AuthController {
     }
   }
 
-  async editProfile(req, res, login) {
+  async editProfile(req, res, userId) {
     try {
       const { newNickname, currentPassword, newPassword } = req.body;
-      console.log('Received request to edit profile with data:', req.body);
-      const user = await User.findOne({ login });
+      const user = await User.findById(userId);
       if (!user) {
-        return res.status(400).json({ message: `Пользователь ${login} не найден` });
+        return res.status(400).json({ message: `Пользователь ${userId} не найден` });
       }
 
-      const validPassword = bcrypt.compareSync(currentPassword, user.password);
+      const validPassword = currentPassword ? bcrypt.compareSync(currentPassword, user.password) : true;
+
       if (!validPassword) {
         return res.status(400).json({ message: `Введен неверный текущий пароль` });
       }
@@ -282,7 +282,7 @@ class AuthController {
       }
 
       await user.save();
-      console.log('User profile successfully updated:', user);
+
       return res.json({ message: 'Данные пользователя успешно обновлены' });
     } catch (e) {
       console.log(e);
