@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
-import cn from "classnames";
+import React, { useEffect, useState } from 'react';
+import cn from 'classnames';
 
-import { Link } from "react-router-dom";
-import { NEWS_BASE_URL } from "../constants/constants";
+import { Link } from 'react-router-dom';
+import { NEWS_BASE_URL } from '../constants/constants';
 
 const NewsCards = () => {
   const [newsDb, setNewsDb] = useState([]);
@@ -12,7 +12,7 @@ const NewsCards = () => {
       try {
         const newsResponse = await fetch(`${NEWS_BASE_URL}?page=1`);
         if (newsResponse.status !== 200) {
-          throw new Error("Network response was not ok");
+          throw new Error('Network response was not ok');
         }
 
         const data = newsResponse.data.data || [];
@@ -28,7 +28,7 @@ const NewsCards = () => {
           setNewsDb((prevNewsDb) => [...prevNewsDb, ...newNewsDisplay]);
         }
       } catch (error) {
-        console.error("Error fetching data:", error);
+        console.error('Error fetching data:', error);
       }
     };
 
@@ -42,8 +42,8 @@ const NewsCards = () => {
           key={news.id}
           to={news.url}
           className={cn(
-            "flex bg-white rounded-lg shadow md:flex-row md:max-w-xl hover:bg-blue-100",
-            "dark:border-blue-700 dark:bg-blue-800 dark:hover:bg-blue-700 mb-6 md:mr-6 md:w-1/2 md:ml-9",
+            'flex bg-white rounded-lg shadow md:flex-row md:max-w-xl hover:bg-blue-100',
+            'dark:border-blue-700 dark:bg-blue-800 dark:hover:bg-blue-700 mb-6 md:mr-6 md:w-1/2 md:ml-9'
           )}
         >
           <img
@@ -52,9 +52,7 @@ const NewsCards = () => {
             alt=""
           />
           <div className="flex flex-col justify-between p-4 leading-normal">
-            <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-              {news.title}
-            </h5>
+            <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{news.title}</h5>
           </div>
         </Link>
       ))}

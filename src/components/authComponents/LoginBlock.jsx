@@ -1,41 +1,41 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const LoginPage = () => {
   const navigate = useNavigate();
-  const [login, setLogin] = useState("");
-  const [password, setPassword] = useState("");
+  const [login, setLogin] = useState('');
+  const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
 
   const handleLogin = async () => {
     try {
       const data = {
-        login: login,
-        password: password,
+        login,
+        password,
       };
 
-      const response = await fetch("http://localhost:3001/login", {
-        method: "POST",
+      const response = await fetch('http://localhost:3001/login', {
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify(data),
       });
 
       if (response.ok) {
         const responseData = await response.json();
-        console.log("Вход успешен! Токен:", responseData.token);
-        console.log("Имя пользователя:", responseData.username);
+        console.log('Вход успешен! Токен:', responseData.token);
+        console.log('Имя пользователя:', responseData.username);
 
-        localStorage.setItem("token", responseData.token);
-        localStorage.setItem("username", responseData.username);
+        localStorage.setItem('token', responseData.token);
+        localStorage.setItem('username', responseData.username);
 
-        navigate("/profile");
+        navigate('/profile');
       } else {
-        console.error("Ошибка входа");
+        console.error('Ошибка входа');
       }
     } catch (error) {
-      console.error("Произошла ошибка:", error);
+      console.error('Произошла ошибка:', error);
     }
   };
 
@@ -51,7 +51,7 @@ const LoginPage = () => {
         />
         <div className="relative mb-5">
           <input
-            type={showPassword ? "text" : "password"}
+            type={showPassword ? 'text' : 'password'}
             placeholder="Пароль"
             className="p-2 rounded-md bg-transparent border border-gray-500 pr-10  w-full"
             value={password}
@@ -88,10 +88,7 @@ const LoginPage = () => {
             </svg>
           </button>
         </div>
-        <button
-          className="w-full p-2 border rounded-md bg-gray-500 text-white"
-          onClick={handleLogin}
-        >
+        <button className="w-full p-2 border rounded-md bg-gray-500 text-white" onClick={handleLogin}>
           Войти
         </button>
       </div>
