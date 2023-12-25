@@ -99,7 +99,7 @@ io.on('connection', (socket) => {
   });
 
   socket.on('updateLikedList', (updateLikedList) => {
-    connectedUsers[socket.id].likedAnime = updateLikedList;
+    connectedUsers[socket.id].likedAnime = updateLikedList.likedAnime;
 
     compareLikedAnime(connectedUsers[socket.id]);
 
