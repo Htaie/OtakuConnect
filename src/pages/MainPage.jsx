@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import NewsCards from '../components/NewsCards';
+import NewsCards from '../components/NewsBlock/NewsCards';
 import style from './MainPage.module.css';
-import Navbar from '../components/Navbar';
+import Navbar from '../components/NavigationBar/Navbar';
 import { Route } from '../constants/constants';
 import cn from 'classnames';
 

@@ -1,7 +1,7 @@
 import cn from 'classnames';
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Route } from '../constants/constants';
+import { Route } from '../../constants/constants';
 const Navbar = () => {
   return (
     <nav className="bg-white border-gray-200 dark:bg-gray-900">
