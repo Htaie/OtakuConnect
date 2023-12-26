@@ -1,8 +1,9 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import TinderCard from 'react-tinder-card';
 import PropTypes from 'prop-types';
-import style from './AnimeSlider.module.css';
-import { BASE_URL } from '../constants/constants';
+import style from './SliderStyle/AnimeSlider.module.css';
+import { BASE_URL } from '../../../constants/constants';
+import Overlay from '../OverlaySlider/Overlay';
 
 const TitlesSlider = ({ onSwipe, user }) => {
   const [db, setDb] = useState([]);
@@ -66,12 +67,18 @@ const TitlesSlider = ({ onSwipe, user }) => {
           }
 
           const data = await response.json();
+          console.log(data);
+
           if (data.data.length > 0) {
             const newDataDisplay = data.data.map((elem) => ({
               id: elem.mal_id,
               image: elem.images.jpg.large_image_url,
               name: elem.title,
+              year: elem.year,
+              score: elem.score,
+              episode: elem.episodes,
             }));
+
             const newData = [...db, ...newDataDisplay];
             console.log(newDataDisplay);
 
@@ -98,7 +105,12 @@ const TitlesSlider = ({ onSwipe, user }) => {
             onCardLeftScreen={() => outOfFrame(character.name, index)}
           >
             <div style={{ backgroundImage: 'url(' + character.image + ')' }} className={style.card}>
-              <h3>{character.name}</h3>
+              <Overlay
+                title={character.name}
+                rating={character.score}
+                episode={character.episode}
+                year={character.year}
+              />
             </div>
           </TinderCard>
         ))}
