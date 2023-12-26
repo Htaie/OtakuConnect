@@ -8,6 +8,7 @@ module.exports = {
   bracketSpacing: true,
   arrowParens: 'always',
   jsxSingleQuote: false,
+  tsxSingleQuote: false,
   bracketSameLine: false,
   endOfLine: 'lf',
 };

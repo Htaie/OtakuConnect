@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import cn from 'classnames';
 
 import { Link } from 'react-router-dom';
-import { NEWS_BASE_URL } from '../constants/constants';
+import { NEWS_BASE_URL } from '../../constants/constants';
 
 const NewsCards = () => {
   const [newsDb, setNewsDb] = useState([]);
