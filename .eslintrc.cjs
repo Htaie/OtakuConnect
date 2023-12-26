@@ -1,20 +1,58 @@
 module.exports = {
-  root: true,
-  env: { browser: true, es2020: true },
-  extends: [
-    'eslint:recommended',
-    'plugin:react/recommended',
-    'plugin:react/jsx-runtime',
-    'plugin:react-hooks/recommended',
-  ],
-  ignorePatterns: ['dist', '.eslintrc.cjs'],
-  parserOptions: { ecmaVersion: 'latest', sourceType: 'module' },
-  settings: { react: { version: '18.2' } },
-  plugins: ['react-refresh'],
-  rules: {
-    'react-refresh/only-export-components': [
-      'warn',
-      { allowConstantExport: true },
-    ],
+  env: {
+    browser: true,
+    es2021: true,
+    node: true,
   },
-}
+  extends: ['standard', 'plugin:react/recommended', 'prettier'],
+  parser: '@typescript-eslint/parser',
+  overrides: [
+    {
+      env: {
+        node: true,
+      },
+      files: ['.eslintrc.{js,cjs}'],
+      parserOptions: {
+        sourceType: 'script',
+      },
+    },
+  ],
+  parserOptions: {
+    ecmaFeatures: {
+      jsx: true,
+      tsx: true,
+    },
+    ecmaVersion: 'latest',
+    sourceType: 'module',
+  },
+  plugins: ['react', 'prettier', '@typescript-eslint'],
+  settings: {
+    react: {
+      createClass: 'createReactClass',
+      pragma: 'React',
+      fragment: 'Fragment',
+      version: 'detect',
+      flowVersion: '0.53',
+    },
+    propWrapperFunctions: [
+      'forbidExtraProps',
+      { property: 'freeze', object: 'Object' },
+      { property: 'myFavoriteWrapper' },
+      { property: 'forbidExtraProps', exact: true },
+    ],
+    componentWrapperFunctions: [
+      'observer',
+      { property: 'styled' },
+      { property: 'observer', object: 'Mobx' },
+      { property: 'observer', object: '<pragma>' },
+    ],
+    formComponents: ['CustomForm', { name: 'Form', formAttribute: 'endpoint' }],
+    linkComponents: ['Hyperlink', { name: 'Link', linkAttribute: 'to' }],
+  },
+  rules: {
+    'react/jsx-uses-react': 'error',
+    'react/jsx-uses-vars': 'error',
+    'react/react-in-jsx-scope': 'off',
+    'react/react-in-tsx-scope': 'off',
+  },
+};

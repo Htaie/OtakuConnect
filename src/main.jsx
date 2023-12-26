@@ -1,23 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import SecondPAge from './pages/SecondPAge';
-import {  RouterProvider, createBrowserRouter } from 'react-router-dom';
-import FirstPage from './pages/FirstPage';
-
-
-const router = createBrowserRouter([
-  {
-   path: "/",
-   element: <FirstPage></FirstPage>,
-  },
-  {
-   path: "/huy",
-   element: <SecondPAge></SecondPAge>,
-  },  
-]);
-
-
+import { RouterProvider } from 'react-router-dom';
+import { router } from './routes/routes';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>

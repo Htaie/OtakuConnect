@@ -1,0 +1,11 @@
+body {
+  background-color: rgb(28, 28, 49);
+  overflow-y: auto;
+}
+
+@media (max-width: 600px) {
+  .ImagesBlock {
+    color: red;
+    display: none;
+  }
+}
