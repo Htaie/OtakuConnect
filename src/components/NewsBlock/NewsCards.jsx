@@ -15,10 +15,10 @@ const NewsCards = () => {
           throw new Error('Network response was not ok');
         }
 
-        const data = newsResponse.data.data || [];
+        const data = await newsResponse.json();
 
-        if (data.length > 0) {
-          const newNewsDisplay = data.map((elem) => ({
+        if (data.data.length) {
+          const newNewsDisplay = data.data.map((elem) => ({
             id: elem.mal_id,
             image: elem.images.jpg.image_url,
             title: elem.title,
