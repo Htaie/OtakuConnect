@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import style from './SliderStyle/AnimeSlider.module.css';
 import { BASE_URL } from '../../../constants/constants';
 import Overlay from '../OverlaySlider/Overlay';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import ThumbDownIcon from '@mui/icons-material/ThumbDown';
 
 const TitlesSlider = ({ onSwipe, user }) => {
   const [db, setDb] = useState([]);
@@ -78,6 +80,8 @@ const TitlesSlider = ({ onSwipe, user }) => {
               score: elem.score,
               episode: elem.episodes,
               synopsis: elem.synopsis,
+              demographics: elem.demographics[0]?.name,
+              genres: elem.genres.map((item) => item.name).join(', '),
             }));
             const newData = [...db, ...newDataDisplay];
             console.log(newDataDisplay);
@@ -116,6 +120,8 @@ const TitlesSlider = ({ onSwipe, user }) => {
                   episode={character.episode}
                   year={character.year}
                   synopsis={character.synopsis}
+                  demographics={character.demographics}
+                  genres={character.genres}
                 />
               </div>
             </div>
@@ -123,12 +129,8 @@ const TitlesSlider = ({ onSwipe, user }) => {
         ))}
       </div>
       <div className={style.buttons}>
-        <button style={{ backgroundColor: !canSwipe && '#c3c4d3' }} onClick={() => swipe('left')}>
-          Swipe left!
-        </button>
-        <button style={{ backgroundColor: !canSwipe && '#c3c4d3' }} onClick={() => swipe('right')}>
-          Swipe right!
-        </button>
+        <ThumbDownIcon fontSize="large" className="text-xs" onClick={() => swipe('left')} />
+        <FavoriteIcon fontSize="large" className="text-red-500 ml-12 text-2xl" onClick={() => swipe('right')} />
       </div>
     </div>
   );
