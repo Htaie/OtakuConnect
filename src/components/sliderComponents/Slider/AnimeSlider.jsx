@@ -77,8 +77,8 @@ const TitlesSlider = ({ onSwipe, user }) => {
               year: elem.year,
               score: elem.score,
               episode: elem.episodes,
+              synopsis: elem.synopsis,
             }));
-
             const newData = [...db, ...newDataDisplay];
             console.log(newDataDisplay);
 
@@ -104,13 +104,20 @@ const TitlesSlider = ({ onSwipe, user }) => {
             onSwipe={(dir) => swiped(dir, character.name, index)}
             onCardLeftScreen={() => outOfFrame(character.name, index)}
           >
-            <div style={{ backgroundImage: 'url(' + character.image + ')' }} className={style.card}>
-              <Overlay
-                title={character.name}
-                rating={character.score}
-                episode={character.episode}
-                year={character.year}
-              />
+            <div className="flex">
+              <div
+                style={{ backgroundImage: 'url(' + character.image + ')' }}
+                className={`flex-shrink-0 ${style.card} w-32 h-32`}
+              ></div>
+              <div>
+                <Overlay
+                  title={character.name}
+                  rating={character.score}
+                  episode={character.episode}
+                  year={character.year}
+                  synopsis={character.synopsis}
+                />
+              </div>
             </div>
           </TinderCard>
         ))}

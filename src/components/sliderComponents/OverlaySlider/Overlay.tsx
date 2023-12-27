@@ -6,22 +6,24 @@ interface OverlayProps {
   rating: string;
   episode: string;
   year: string;
+  synopsis: string;
 }
-const Overlay = ({ title, rating, episode, year }: OverlayProps) => {
+const Overlay = ({ title, rating, episode, year, synopsis }: OverlayProps) => {
   return (
     <div className="w-full h-full flex flex-col justify-end">
-      <div className="w-full h-1/5 bg-gradient-to-t from-blue-500 to-transparent opacity-2 rounded-b-2xl">
+      <div className="w-[500px] h-[600px] bg-blue-600 opacity-2 rounded-r-lg">
         <div>
-          <p className=" w-11/12 text-2xl text-white  font-bold  ml-2">{title}</p>
+          <p className="w-11/12 text-2xl text-white font-bold ml-2">{title}</p>
 
-          <div className="flex items-center ">
-            <h3> Год выпуска: {year}</h3>
-            <h3> Эпизодов: {episode}</h3>
-            <h3>{rating}</h3>
-            <StarOutlinedIcon className="text-yellow-500 " />
+          <div className="items-center text-1xl text-white ml-2">
+            <h3 className="mt-5"> Год выпуска: {year}</h3>
+            <h3 className="mt-5"> Эпизодов: {episode}</h3>
+            <h3 className="mt-5">{rating}</h3>
+            <StarOutlinedIcon className="text-yellow-500" />
+            <h3 className="mt-5 text-sm">Описание: {synopsis}</h3>
           </div>
           <InfoOutlinedIcon
-            className="text-3xl text-white absolute z-10 right-10  bottom-20"
+            className="text-3xl text-white absolute z-10 right-2 bottom-2"
             onClick={() => {
               console.log('clicked');
             }}

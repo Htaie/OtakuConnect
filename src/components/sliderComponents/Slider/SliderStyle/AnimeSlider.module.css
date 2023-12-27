@@ -64,7 +64,8 @@ h2 {
   background-color: #fff;
   width: 400px;
   height: 600px;
-  border-radius: 20px;
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
   background-size: cover;
   background-position: center;
 }
@@ -90,12 +91,13 @@ h2 {
 }
 .sliderBlock {
   width: 20rem;
-  margin: 0 auto;
+  margin-left: 620px;
   padding-top: 100px;
 }
 .buttons {
   display: flex;
   justify-content: space-between;
+  margin-left: 150px;
 }
 
 @media (max-width: 625px) {
