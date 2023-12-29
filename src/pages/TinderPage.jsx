@@ -3,17 +3,12 @@ import io from 'socket.io-client';
 import Navbar from '../components/Navbar';
 import style from '../components/AnimeSlider.module.css';
 import AnimeSlider from '../components/AnimeSlider';
-import { useNavigate, useParams } from 'react-router-dom';
 import cn from 'classnames';
 
 // const SERVER_URL = '89.104.65.22';
 const DEV_URL = 'localhost';
 
 const TinderPage = () => {
-  const { roomId, setRoomId } = useParams();
-
-  const navigate = useNavigate();
-
   const [userList, setUserList] = useState([]);
   const [likedList, setLikedList] = useState([]);
   const [user, setUser] = useState({ likedAnime: [] });
@@ -40,9 +35,6 @@ const TinderPage = () => {
     newSocket.on('matchingAnime', (data) => {
       setMatchingAnime(data);
     });
-    newSocket.on('room-created', (data) => {
-      setRoomId(data.roomId);
-    });
 
     setSocket(newSocket);
 
@@ -62,12 +54,6 @@ const TinderPage = () => {
       console.log('URL скопирован в буфер обмена');
     });
   };
-
-  useEffect(() => {
-    if (roomId) {
-      navigate(`/huy/${roomId}`);
-    }
-  }, [roomId]);
 
   return (
     <div>
@@ -108,7 +94,7 @@ const TinderPage = () => {
         </div>
         {socket && (
           <div className={style.sliderBlock}>
-            <AnimeSlider socket={socket} user={user} setUser={setUser} onSwipe={onSwipe} roomId={roomId} />,
+            <AnimeSlider socket={socket} user={user} setUser={setUser} onSwipe={onSwipe} />,
           </div>
         )}
       </div>
