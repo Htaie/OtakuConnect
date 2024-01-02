@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Navbar from '../../components/NavigationBar/Navbar';
 
 const ProfilePage = () => {
   const navigate = useNavigate();
@@ -20,12 +21,15 @@ const ProfilePage = () => {
   };
 
   return (
-    <div className="text-white flex">
-      <img src="../../public/logo.png" alt="" className="w-20 h-20" />
-      <div className="div">
-        <p>Профиль</p>
-        <p>{username}</p>
-        <button onClick={handleLogout}>Выйти</button>
+    <div>
+      <Navbar></Navbar>
+      <div className="text-white flex">
+        <img src="../../public/logo.png" alt="" className="w-20 h-20" />
+        <div className="div">
+          <p>Профиль</p>
+          <p>{username}</p>
+          <button onClick={handleLogout}>Выйти</button>
+        </div>
       </div>
     </div>
   );
