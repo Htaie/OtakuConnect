@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import io from 'socket.io-client';
 import Navbar from '../components/NavigationBar/Navbar';
-import style from '../components/sliderComponents/Slider/SliderStyle/AnimeSlider.module.css';
-import AnimeSlider from '../components/sliderComponents/Slider/AnimeSlider';
+import style from '../components/sliderComponents/AnimeSlider/AnimeSlider.module.css';
+import AnimeSlider from '../components/sliderComponents/AnimeSlider/AnimeSlider';
 import { useNavigate, useParams } from 'react-router-dom';
 import cn from 'classnames';
 

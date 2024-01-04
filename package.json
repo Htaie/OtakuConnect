@@ -5,7 +5,7 @@
  "type": "module",
  "scripts": {
   "dev": "concurrently \"npm run frontend\" \"npm run backend\"",
-  "lint": "eslint --fix src/",
+  "lint": "eslint  src/",
   "frontend": "vite",
   "build": "vite build",
   "backend": "nodemon node --experimental-modules src/socket.js",
@@ -14,7 +14,7 @@
  },
  "lint-staged": {
   "*.{js,jsx,tsx}": [
-   "eslint --fix src/"
+   "eslint  src/"
   ],
   "*.{js,jsx,tsx, css,scss}": [
    "prettier --write src/"
