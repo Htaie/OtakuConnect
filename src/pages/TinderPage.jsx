@@ -6,8 +6,8 @@ import AnimeSlider from '../components/sliderComponents/AnimeSlider/AnimeSlider'
 import { useNavigate, useParams } from 'react-router-dom';
 import cn from 'classnames';
 
-// const SERVER_URL = '89.104.65.22';
-const DEV_URL = 'localhost';
+const SERVER_URL = '89.104.69.120';
+// const DEV_URL = 'localhost';
 
 const TinderPage = () => {
   const { roomId, setRoomId } = useParams();
@@ -21,7 +21,7 @@ const TinderPage = () => {
   const [matchingAnime, setMatchingAnime] = useState([]);
 
   useEffect(() => {
-    const newSocket = io('http://' + DEV_URL + ':3001', {
+    const newSocket = io('http://' + SERVER_URL + ':3001', {
       transports: ['polling', 'websocket'],
     });
 
