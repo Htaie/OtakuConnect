@@ -8,23 +8,26 @@ module.exports = {
   parser: '@typescript-eslint/parser',
   overrides: [
     {
+      files: ['.eslintrc.{js,cjs}'],
       env: {
         node: true,
       },
-      files: ['.eslintrc.{js,cjs}'],
       parserOptions: {
         sourceType: 'script',
       },
     },
-  ],
-  parserOptions: {
-    ecmaFeatures: {
-      jsx: true,
-      tsx: true,
+    {
+      files: ['*.tsx'],
+      parserOptions: {
+        ecmaFeatures: {
+          jsx: true,
+        },
+        ecmaVersion: 'latest',
+        sourceType: 'module',
+        jsx: 'react-jsx',
+      },
     },
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-  },
+  ],
   plugins: ['react', 'prettier', '@typescript-eslint'],
   settings: {
     react: {

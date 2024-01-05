@@ -1,13 +1,27 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import TinderCard from 'react-tinder-card';
 import PropTypes from 'prop-types';
-import style from './SliderStyle/AnimeSlider.module.css';
+import style from './AnimeSlider.module.css';
 import { BASE_URL } from '../../../constants/constants';
 import Overlay from '../OverlaySlider/Overlay';
+import { OverlayInfo } from '../OverlaySlider/OverlayInfo';
 
 const TitlesSlider = ({ onSwipe, user }) => {
   const [db, setDb] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(db.length - 1);
+  const [isOverlayVisible, setOverlayVisible] = useState(false);
+  const [activeTrailerUrl, setActiveTrailerUrl] = useState(null);
+
+  const handleInfoClick = (index) => {
+    setOverlayVisible((prevVisible) => !prevVisible);
+
+    if (!isOverlayVisible) {
+      const trailerUrl = db[index].trailers.length > 0 ? db[index].trailers[0].embed_url : '';
+      setActiveTrailerUrl(trailerUrl);
+    } else {
+      setActiveTrailerUrl(null); // Clear the trailer URL when the overlay is hidden
+    }
+  };
 
   const currentIndexRef = useRef(currentIndex);
 
@@ -32,6 +46,7 @@ const TitlesSlider = ({ onSwipe, user }) => {
       setDb((prevData) => prevData.filter((elem) => elem.name !== nameToDelete));
       updateCurrentIndex(index - 1);
     }, 200);
+    setOverlayVisible(false);
   };
   const canSwipe = currentIndex >= 0;
 
@@ -55,7 +70,6 @@ const TitlesSlider = ({ onSwipe, user }) => {
       setDb((prevDb) => prevDb.slice(0, currentIndex).concat(prevDb.slice(currentIndex + 1)));
     }
   };
-
   useEffect(() => {
     // const randomPage = Math.floor(Math.random() * 1000) + 1; //  Костыль для рандомного выбора страницы
     const fetchData = async () => {
@@ -77,6 +91,12 @@ const TitlesSlider = ({ onSwipe, user }) => {
               year: elem.year,
               score: elem.score,
               episode: elem.episodes,
+              genres: elem.genres.map((genre) => genre.name).join(', '),
+              trailers: [
+                {
+                  embed_url: elem.trailer.embed_url,
+                },
+              ],
             }));
 
             const newData = [...db, ...newDataDisplay];
@@ -91,38 +111,56 @@ const TitlesSlider = ({ onSwipe, user }) => {
       }
     };
     fetchData();
-  }, [BASE_URL, db]);
+  }, [db]);
 
   return (
-    <div className="h-40 w-40">
-      <div className={style.cardContainer}>
-        {db.map((character, index) => (
-          <TinderCard
-            ref={childRefs[index]}
-            className={style.swipe}
-            key={character.name}
-            onSwipe={(dir) => swiped(dir, character.name, index)}
-            onCardLeftScreen={() => outOfFrame(character.name, index)}
-          >
-            <div style={{ backgroundImage: 'url(' + character.image + ')' }} className={style.card}>
-              <Overlay
-                title={character.name}
-                rating={character.score}
-                episode={character.episode}
-                year={character.year}
-              />
-            </div>
-          </TinderCard>
-        ))}
+    <div className="flex" style={{ width: '800px', height: '600px' }}>
+      <div style={{ height: '600px', width: '400px' }}>
+        <div className={style.cardContainer}>
+          {isOverlayVisible && activeTrailerUrl ? (
+            <iframe
+              ref={childRefs[currentIndex]}
+              width="400"
+              height="600"
+              src={activeTrailerUrl}
+              title="YouTube video player"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+            ></iframe>
+          ) : (
+            db.map((character, index) => (
+              <TinderCard
+                ref={childRefs[index]}
+                className={style.swipe}
+                key={character.name}
+                onSwipe={(dir) => swiped(dir, character.name, index)}
+                onCardLeftScreen={() => outOfFrame(character.name, index)}
+              >
+                {console.log(character.trailers)}
+                <div style={{ backgroundImage: 'url(' + character.image + ')' }} className={style.card}>
+                  <Overlay
+                    title={character.name}
+                    rating={character.score}
+                    episode={character.episode}
+                    year={character.year}
+                    genres={character.genres}
+                    onInfoClick={() => handleInfoClick(index)}
+                  />
+                </div>
+              </TinderCard>
+            ))
+          )}
+        </div>
+        <div className={style.buttons}>
+          <button style={{ backgroundColor: !canSwipe && '#c3c4d3' }} onClick={() => swipe('left')}>
+            Swipe left!
+          </button>
+          <button style={{ backgroundColor: !canSwipe && '#c3c4d3' }} onClick={() => swipe('right')}>
+            Swipe right!
+          </button>
+        </div>
       </div>
-      <div className={style.buttons}>
-        <button style={{ backgroundColor: !canSwipe && '#c3c4d3' }} onClick={() => swipe('left')}>
-          Swipe left!
-        </button>
-        <button style={{ backgroundColor: !canSwipe && '#c3c4d3' }} onClick={() => swipe('right')}>
-          Swipe right!
-        </button>
-      </div>
+      {isOverlayVisible && <OverlayInfo />}
     </div>
   );
 };
