@@ -1,8 +1,16 @@
 import cn from 'classnames';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Route } from '../../constants/constants';
+import useAuth from '../../useAuth.js';
 const Navbar = () => {
+  const [isLoggedIn, setLoggedIn] = useState(false);
+  const authStatus = useAuth();
+
+  useEffect(() => {
+    setLoggedIn(authStatus);
+  }, [authStatus]);
+
   return (
     <nav className="bg-white border-gray-200 dark:bg-gray-900">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
@@ -11,12 +19,16 @@ const Navbar = () => {
           <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">OtakuConnect</span>
         </Link>
         <div className="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
-          <Link to={Route.LOGIN} className="text-white">
-            Войти
+          <Link to={isLoggedIn ? Route.PROFILE : Route.LOGIN} className="text-white mr-4">
+            {isLoggedIn ? 'Профиль' : 'Войти'}
           </Link>
-          <Link to={Route.PROFILE} className="text-white">
-            Профиль
-          </Link>
+          {isLoggedIn && (
+            <img
+              src="https://i.pinimg.com/736x/25/3b/55/253b55063cfd0228461afef2c8d3f162.jpg"
+              className="h-8 rounded-full ml-2"
+              alt="Аватар профиля"
+            />
+          )}
         </div>
 
         <div className="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-user">
