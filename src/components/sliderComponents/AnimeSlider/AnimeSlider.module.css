@@ -76,7 +76,6 @@ h2 {
 
 .card h3 {
   bottom: 0;
-  margin: 10px;
   color: #fff;
 }
 
@@ -89,7 +88,7 @@ h2 {
   animation-duration: 800ms;
 }
 .sliderBlock {
-  width: 20rem;
+  width: 400px;
   margin: 0 auto;
   padding-top: 100px;
 }

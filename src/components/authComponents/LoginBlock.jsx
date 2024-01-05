@@ -14,7 +14,7 @@ const LoginPage = () => {
         password,
       };
 
-      const response = await fetch('http://localhost:3001/login', {
+      const response = await fetch('http://89.104.69.120:3001/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
