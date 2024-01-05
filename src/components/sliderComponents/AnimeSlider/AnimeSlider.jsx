@@ -11,6 +11,7 @@ const TitlesSlider = ({ onSwipe, user }) => {
   const [currentIndex, setCurrentIndex] = useState(db.length - 1);
   const [isOverlayVisible, setOverlayVisible] = useState(false);
   const [activeTrailerUrl, setActiveTrailerUrl] = useState(null);
+  const [isTrailerVisibleForCard, setTrailerVisibleForCard] = useState({});
 
   const handleInfoClick = (index) => {
     setOverlayVisible((prevVisible) => !prevVisible);
@@ -18,8 +19,10 @@ const TitlesSlider = ({ onSwipe, user }) => {
     if (!isOverlayVisible) {
       const trailerUrl = db[index].trailers.length > 0 ? db[index].trailers[0].embed_url : '';
       setActiveTrailerUrl(trailerUrl);
+      setTrailerVisibleForCard((prev) => ({ ...prev, [index]: true }));
     } else {
-      setActiveTrailerUrl(null); // Clear the trailer URL when the overlay is hidden
+      setActiveTrailerUrl(null);
+      setTrailerVisibleForCard((prev) => ({ ...prev, [index]: false }));
     }
   };
 
@@ -117,26 +120,27 @@ const TitlesSlider = ({ onSwipe, user }) => {
     <div className="flex" style={{ width: '800px', height: '600px' }}>
       <div style={{ height: '600px', width: '400px' }}>
         <div className={style.cardContainer}>
-          {isOverlayVisible && activeTrailerUrl ? (
-            <iframe
-              ref={childRefs[currentIndex]}
-              width="400"
-              height="600"
-              src={activeTrailerUrl}
-              title="YouTube video player"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowfullscreen
-            ></iframe>
-          ) : (
-            db.map((character, index) => (
-              <TinderCard
-                ref={childRefs[index]}
-                className={style.swipe}
-                key={character.name}
-                onSwipe={(dir) => swiped(dir, character.name, index)}
-                onCardLeftScreen={() => outOfFrame(character.name, index)}
-              >
-                {console.log(character.trailers)}
+          {db.map((character, index) => (
+            <TinderCard
+              ref={childRefs[index]}
+              className={style.swipe}
+              key={character.name}
+              onSwipe={(dir) => swiped(dir, character.name, index)}
+              onCardLeftScreen={() => outOfFrame(character.name, index)}
+            >
+              {isOverlayVisible && activeTrailerUrl && isTrailerVisibleForCard[index] ? (
+                <div className={style.cardWithTrailer}>
+                  <iframe
+                    ref={childRefs[index]}
+                    width="400"
+                    height="600"
+                    src={activeTrailerUrl}
+                    title="YouTube video player"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen
+                  ></iframe>
+                </div>
+              ) : (
                 <div style={{ backgroundImage: 'url(' + character.image + ')' }} className={style.card}>
                   <Overlay
                     title={character.name}
@@ -147,9 +151,9 @@ const TitlesSlider = ({ onSwipe, user }) => {
                     onInfoClick={() => handleInfoClick(index)}
                   />
                 </div>
-              </TinderCard>
-            ))
-          )}
+              )}
+            </TinderCard>
+          ))}
         </div>
         <div className={style.buttons}>
           <button style={{ backgroundColor: !canSwipe && '#c3c4d3' }} onClick={() => swipe('left')}>
@@ -164,6 +168,7 @@ const TitlesSlider = ({ onSwipe, user }) => {
     </div>
   );
 };
+
 TitlesSlider.propTypes = {
   onSwipe: PropTypes.func,
   user: PropTypes.object,
