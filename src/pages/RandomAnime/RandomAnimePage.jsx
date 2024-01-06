@@ -22,7 +22,7 @@ const RandomAnimePage = () => {
       <div>
         <h1>{anime.title}</h1>
         <p>{anime.synopsis}</p>
-        {/* <img src={anime.images.jpg.large_image_url || ''} alt="" /> */}
+        <img src={anime.images.jpg.large_image_url || ''} alt="" />
         <p>{anime.url}</p>
         <p>{anime.duration}</p>
         <p>{anime.eposodes}</p>

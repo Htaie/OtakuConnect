@@ -96,6 +96,8 @@ const TitlesSlider = ({ onSwipe, user }) => {
               year: elem.year,
               score: elem.score,
               episode: elem.episodes,
+              synopsis: elem.synopsis,
+              demographics: elem.demographics[0]?.name,
               genres: elem.genres.map((genre) => genre.name).join(', '),
               trailers: [
                 {
@@ -162,7 +164,7 @@ const TitlesSlider = ({ onSwipe, user }) => {
           <MainButtons onClick={() => swipe('right')}> Swipe right!</MainButtons>
         </div>
       </div>
-      {isOverlayVisible && <OverlayInfo />}
+      {isOverlayVisible && <OverlayInfo data={db[currentIndex]} />}
     </div>
   );
 };
