@@ -16,12 +16,12 @@ const Navbar = () => {
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
         <Link to={Route.HOME} className="flex items-center space-x-3 rtl:space-x-reverse">
           <img src="src/image/logo.png" className="h-8" alt="Otaku Logo" />
-          <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">OtakuConnect</span>
+          <span className="self-center text-base font-semibold whitespace-nowrap dark:text-white">OtakuConnect</span>
         </Link>
         <div className="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
           <Link
             to={isLoggedIn ? Route.PROFILE : Route.LOGIN}
-            className="block py-2 px-3 text-2xl rounded  text-white hover:underline"
+            className="block py-2 px-3 text-lg rounded  text-white hover:underline"
           >
             {isLoggedIn ? 'Профиль' : 'Войти'}
           </Link>
@@ -33,14 +33,14 @@ const Navbar = () => {
             />
           )}
         </div>
-        <Link to={Route.TINDER} className={cn('block py-2 px-3 text-2xl rounded  text-white hover:underline')}>
+        <Link to={Route.TINDER} className={cn('block py-2 px-3 text-lg rounded  text-white hover:underline')}>
           Tinder
         </Link>
-        <Link to={Route.RANDOM} className={cn('block py-2 px-3 text-2xl  rounded text-white hover:underline')}>
-          RandomAnime
+        <Link to={Route.RANDOM} className={cn('block py-2 px-3 text-lg  rounded text-white hover:underline')}>
+          Random Anime
         </Link>
-        <Link to={Route.TINDER} className={cn('block py-2 px-3 text-2xl  rounded text-white hover:underline')}>
-          AnimeList
+        <Link to={Route.TINDER} className={cn('block py-2 px-3 text-lg  rounded text-white hover:underline')}>
+          Anime List
         </Link>
       </div>
     </nav>

@@ -4,10 +4,11 @@ import Navbar from '../components/NavigationBar/Navbar';
 import style from '../components/sliderComponents/AnimeSlider/AnimeSlider.module.css';
 import AnimeSlider from '../components/sliderComponents/AnimeSlider/AnimeSlider';
 import { useNavigate, useParams } from 'react-router-dom';
+import GroupIcon from '@mui/icons-material/Group';
 import cn from 'classnames';
 
-const SERVER_URL = '89.104.69.120';
-// const DEV_URL = 'localhost';
+// const SERVER_URL = '89.104.69.120';
+const DEV_URL = 'localhost';
 
 const TinderPage = () => {
   const { roomId, setRoomId } = useParams();
@@ -21,7 +22,7 @@ const TinderPage = () => {
   const [matchingAnime, setMatchingAnime] = useState([]);
 
   useEffect(() => {
-    const newSocket = io('http://' + SERVER_URL + ':3001', {
+    const newSocket = io('http://' + DEV_URL + ':3001', {
       transports: ['polling', 'websocket'],
     });
 
@@ -72,31 +73,35 @@ const TinderPage = () => {
   return (
     <div>
       <Navbar></Navbar>
-      <div className="w-screen  my-0 mx-auto">
-        <button
-          className={cn(
-            'text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none',
-            'focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-10 py-2.5 text-center me-2 mb-2'
-          )}
-          onClick={handleShareButtonClick}
-        >
-          Поделиться
-        </button>
-        <ul>
-          {likedList.map((likedAnime, index) => (
-            <li className="text-white" key={index}>
-              {likedAnime.name}
-            </li>
-          ))}
-        </ul>
-        <div>
-          {userList.map((username, index) => (
-            <li className="text-white list-none" key={index}>
-              {username}
-            </li>
-          ))}
+      <div className="w-screen  my-0 mx-auto pl-5">
+        <div className="absolute top-24 left-2">
+          <button
+            className={cn(
+              'text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none',
+              'focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-10 py-2.5 text-center me-2 mb-2'
+            )}
+            onClick={handleShareButtonClick}
+          >
+            Поделиться
+          </button>
+          <ul>
+            {likedList.map((likedAnime, index) => (
+              <li className="text-white" key={index}>
+                {likedAnime.name}
+              </li>
+            ))}
+          </ul>
+          <div className="border border-white w-40 rounded p-3">
+            <GroupIcon className="text-white" />
+
+            {userList.map((username, index) => (
+              <li className="text-white list-none" key={index}>
+                {username}
+              </li>
+            ))}
+          </div>
+          <li className="text-white list-none">{matchingAnime.name}</li>
         </div>
-        <li className="text-white list-none">{matchingAnime.name}</li>
         <div
           style={{
             display: 'flex',
