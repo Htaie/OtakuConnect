@@ -36,8 +36,8 @@ const NewsCards = () => {
   }, [NEWS_BASE_URL]);
 
   return (
-    <div className="flex flex-row flex-wrap max-sm:p-4">
-      {newsDb.slice(0, 6).map((news, i) => (
+    <div className="flex flex-row flex-wrap max-sm:p-4 justify-center justify-around">
+      {newsDb.map((news, i) => (
         <Link
           key={news.id}
           to={news.url}

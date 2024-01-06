@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import NewsCards from '../components/NewsBlock/NewsCards';
 import style from './MainPage.module.css';
@@ -7,6 +7,16 @@ import { Route } from '../constants/constants';
 import cn from 'classnames';
 
 const MainPage = () => {
+  useEffect(() => {
+    // Устанавливаем стиль body при монтировании компонента
+    document.body.style.overflowY = 'scroll';
+
+    // Возвращаем функцию для выполнения при размонтировании компонента
+    return () => {
+      // Сбрасываем стиль body при размонтировании компонента
+      document.body.style.overflowY = 'hidden';
+    };
+  }, []);
   return (
     <div>
       <Navbar></Navbar>
@@ -36,6 +46,7 @@ const MainPage = () => {
           />
         </div>
       </div>
+      <h1 className="text-3xl text-center pb-10">Anime News</h1>
       <div className="w-screen h-auto flex flex-row">
         <NewsCards></NewsCards>
       </div>
