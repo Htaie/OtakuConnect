@@ -73,6 +73,15 @@ const TinderPage = () => {
     <div>
       <Navbar></Navbar>
       <div className="w-screen  my-0 mx-auto">
+        <button
+          className={cn(
+            'text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none',
+            'focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-10 py-2.5 text-center me-2 mb-2'
+          )}
+          onClick={handleShareButtonClick}
+        >
+          Поделиться
+        </button>
         <ul>
           {likedList.map((likedAnime, index) => (
             <li className="text-white" key={index}>
@@ -95,17 +104,7 @@ const TinderPage = () => {
             alignItems: 'center',
             justifyContent: 'center',
           }}
-        >
-          <button
-            className={cn(
-              'text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none',
-              'focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-10 py-2.5 text-center me-2 mb-2'
-            )}
-            onClick={handleShareButtonClick}
-          >
-            Поделиться
-          </button>
-        </div>
+        ></div>
         {socket && (
           <div className={style.sliderBlock}>
             <AnimeSlider socket={socket} user={user} setUser={setUser} onSwipe={onSwipe} roomId={roomId} />,
