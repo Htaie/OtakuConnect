@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { DEV_URL, Route } from '../../constants/constants';
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -14,7 +15,7 @@ const LoginPage = () => {
         password,
       };
 
-      const response = await fetch('http://89.104.69.120:3001/login', {
+      const response = await fetch(`http://${DEV_URL}:3001/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -30,7 +31,7 @@ const LoginPage = () => {
         localStorage.setItem('token', responseData.token);
         localStorage.setItem('username', responseData.username);
 
-        navigate('/profile');
+        navigate(Route.HOME);
       } else {
         console.error('Ошибка входа');
       }

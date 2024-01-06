@@ -1,35 +1,35 @@
-import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+// import { useEffect, useState } from 'react';
+// import { useNavigate } from 'react-router-dom';
 import Navbar from '../../components/NavigationBar/Navbar';
+// import MainButtons from '../../components/ui/buttons/MainButtons';
+import PostBlock from '../../components/ProfileComponents/PostBlock';
+import ProfileBlock from '../../components/ProfileComponents/ProfileBlock/ProfileBlock';
 
 const ProfilePage = () => {
-  const navigate = useNavigate();
-  const [username, setUsername] = useState('');
+  // const navigate = useNavigate();
+  // const [username, setUsername] = useState('');
 
-  useEffect(() => {
-    const storedUsername = localStorage.getItem('username');
-    if (storedUsername) {
-      setUsername(storedUsername);
-    }
-  }, []);
+  // useEffect(() => {
+  //   const storedUsername = localStorage.getItem('username');
+  //   if (storedUsername) {
+  //     setUsername(storedUsername);
+  //   }
+  // }, []);
 
-  const handleLogout = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('username');
+  // const handleLogout = () => {
+  //   localStorage.removeItem('token');
+  //   localStorage.removeItem('username');
 
-    navigate('/login');
-  };
+  //   navigate('/login');
+  // };
 
   return (
     <div>
       <Navbar></Navbar>
-      <div className="text-white flex">
-        <img src="../../public/logo.png" alt="" className="w-20 h-20" />
-        <div className="div">
-          <p>Профиль</p>
-          <p>{username}</p>
-          <button onClick={handleLogout}>Выйти</button>
-        </div>
+      <div className="container my-0 mx-auto">
+        <ProfileBlock></ProfileBlock>
+        <h1 className="text-3xl text-center pb-4 pt-4">Posts</h1>
+        <PostBlock></PostBlock>
       </div>
     </div>
   );

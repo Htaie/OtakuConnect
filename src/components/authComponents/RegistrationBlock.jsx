@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { DEV_URL, Route } from '../../constants/constants';
 
 const RegPage = () => {
   const navigate = useNavigate();
@@ -16,7 +17,7 @@ const RegPage = () => {
         password,
       };
 
-      const response = await fetch('http://89.104.69.120:3001/register', {
+      const response = await fetch(`http://${DEV_URL}:3001/register`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -26,7 +27,7 @@ const RegPage = () => {
 
       if (response.ok) {
         console.log('Регистрация успешна!');
-        navigate('/login');
+        navigate(Route.HOME);
       } else {
         console.error('Ошибка регистрации');
       }

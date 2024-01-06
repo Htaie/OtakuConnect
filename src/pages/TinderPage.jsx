@@ -5,10 +5,9 @@ import style from '../components/sliderComponents/AnimeSlider/AnimeSlider.module
 import AnimeSlider from '../components/sliderComponents/AnimeSlider/AnimeSlider';
 import { useNavigate, useParams } from 'react-router-dom';
 import GroupIcon from '@mui/icons-material/Group';
-import cn from 'classnames';
 
-// const SERVER_URL = '89.104.69.120';
-const DEV_URL = 'localhost';
+import { DEV_URL } from '../constants/constants';
+import MainButtons from '../components/ui/buttons/MainButtons';
 
 const TinderPage = () => {
   const { roomId, setRoomId } = useParams();
@@ -51,6 +50,13 @@ const TinderPage = () => {
       newSocket.disconnect();
     };
   }, []);
+  useEffect(() => {
+    document.body.style.overflowY = 'hidden';
+
+    return () => {
+      document.body.style.overflowY = 'scroll';
+    };
+  }, []);
 
   const onSwipe = (updatedLikedList) => {
     socket.emit('updateLikedList', { likedAnime: updatedLikedList });
@@ -75,15 +81,7 @@ const TinderPage = () => {
       <Navbar></Navbar>
       <div className="w-screen  my-0 mx-auto pl-5">
         <div className="absolute top-24 left-2">
-          <button
-            className={cn(
-              'text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none',
-              'focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-10 py-2.5 text-center me-2 mb-2'
-            )}
-            onClick={handleShareButtonClick}
-          >
-            Поделиться
-          </button>
+          <MainButtons onClick={handleShareButtonClick}>Поделиться</MainButtons>
           <ul>
             {likedList.map((likedAnime, index) => (
               <li className="text-white" key={index}>

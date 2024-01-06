@@ -1,22 +1,12 @@
-import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import NewsCards from '../components/NewsBlock/NewsCards';
 import style from './MainPage.module.css';
 import Navbar from '../components/NavigationBar/Navbar';
 import { Route } from '../constants/constants';
-import cn from 'classnames';
+
+import MainButtons from '../components/ui/buttons/MainButtons';
 
 const MainPage = () => {
-  useEffect(() => {
-    // Устанавливаем стиль body при монтировании компонента
-    document.body.style.overflowY = 'scroll';
-
-    // Возвращаем функцию для выполнения при размонтировании компонента
-    return () => {
-      // Сбрасываем стиль body при размонтировании компонента
-      document.body.style.overflowY = 'hidden';
-    };
-  }, []);
   return (
     <div>
       <Navbar></Navbar>
@@ -28,14 +18,9 @@ const MainPage = () => {
             Сочетая в себе элементы популярных социальных платформ и функциональность приложений для знакомств,
             ОтакуКонект предоставляет пользователям возможность находить аниме-партнеров с общими интересами.
           </p>
-          <Link
-            to={Route.TINDER}
-            className={cn(
-              'text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none',
-              'focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-10 py-2.5 text-center me-2 mb-2'
-            )}
-          >
-            Попробовать
+
+          <Link to={Route.TINDER}>
+            <MainButtons> Попробовать</MainButtons>
           </Link>
         </div>
         <div className={style.ImagesBlock}>

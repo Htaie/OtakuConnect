@@ -5,7 +5,8 @@ import style from './AnimeSlider.module.css';
 import { BASE_URL } from '../../../constants/constants';
 import Overlay from '../OverlaySlider/Overlay';
 import { OverlayInfo } from '../OverlaySlider/OverlayInfo';
-import cn from 'classnames';
+
+import MainButtons from '../../ui/buttons/MainButtons';
 
 const TitlesSlider = ({ onSwipe, user }) => {
   const [db, setDb] = useState([]);
@@ -157,24 +158,8 @@ const TitlesSlider = ({ onSwipe, user }) => {
           ))}
         </div>
         <div className={style.buttons}>
-          <button
-            className={cn(
-              'text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none',
-              'focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-10 py-2.5 text-center me-2 mb-2'
-            )}
-            onClick={() => swipe('left')}
-          >
-            Swipe left!
-          </button>
-          <button
-            className={cn(
-              'text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none',
-              'focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-10 py-2.5 text-center me-2 mb-2'
-            )}
-            onClick={() => swipe('right')}
-          >
-            Swipe right!
-          </button>
+          <MainButtons onClick={() => swipe('left')}> Swipe left!</MainButtons>
+          <MainButtons onClick={() => swipe('right')}> Swipe right!</MainButtons>
         </div>
       </div>
       {isOverlayVisible && <OverlayInfo />}
