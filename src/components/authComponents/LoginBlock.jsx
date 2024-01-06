@@ -30,7 +30,7 @@ const LoginPage = () => {
         localStorage.setItem('token', responseData.token);
         localStorage.setItem('username', responseData.username);
 
-        navigate('/profile');
+        navigate('/');
       } else {
         console.error('Ошибка входа');
       }
