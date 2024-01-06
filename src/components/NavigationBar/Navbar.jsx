@@ -12,11 +12,11 @@ const Navbar = () => {
   }, [authStatus]);
 
   return (
-    <nav className="bg-white border-gray-200 dark:bg-gray-900 ">
+    <nav className=" border-gray-200 bg-gray-900 ">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
         <Link to={Route.HOME} className="flex items-center space-x-3 rtl:space-x-reverse">
           <img src="src/image/logo.png" className="h-8" alt="Otaku Logo" />
-          <span className="self-center text-base font-semibold whitespace-nowrap dark:text-white">OtakuConnect</span>
+          <span className="self-center text-base font-semibold whitespace-nowrap text-white">OtakuConnect</span>
         </Link>
         <div className="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
           <Link

@@ -36,14 +36,14 @@ const NewsCards = () => {
   }, [NEWS_BASE_URL]);
 
   return (
-    <div className="flex flex-row flex-wrap max-sm:p-4 justify-center justify-around">
+    <div className="flex flex-row flex-wrap max-sm:p-4  justify-between">
       {newsDb.map((news, i) => (
         <Link
           key={news.id}
           to={news.url}
           className={cn(
-            'flex bg-white rounded-lg shadow md:flex-row md:max-w-xl hover:bg-blue-100',
-            'dark:border-blue-700 dark:bg-blue-800 dark:hover:bg-blue-700 mb-6 md:mr-6 md:w-1/2 md:ml-9'
+            'flex  rounded-lg shadow md:flex-row md:max-w-xl hover:bg-blue-100',
+            'border-blue-700 bg-blue-800 hover:bg-blue-700 mb-6 md:mr-6 md:w-1/2 md:ml-9'
           )}
         >
           <img
@@ -52,7 +52,7 @@ const NewsCards = () => {
             alt=""
           />
           <div className="flex flex-col justify-between p-4 leading-normal">
-            <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{news.title}</h5>
+            <h5 className="mb-2 text-2xl font-bold tracking-tight text-white">{news.title}</h5>
           </div>
         </Link>
       ))}

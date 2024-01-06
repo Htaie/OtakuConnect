@@ -63,11 +63,11 @@ const RegPage = () => {
           />
           <button
             type="button"
-            className={`absolute top-0 end-0 p-3.5 rounded-e-md dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600`}
+            className={`absolute top-0 end-0 p-3.5 rounded-e-mdfocus:outline-none focus:ring-1 focus:ring-gray-600`}
             onClick={() => setShowPassword(!showPassword)}
           >
             <svg
-              className={`flex-shrink-0 w-3.5 h-3.5 text-gray-400 dark:text-neutral-600`}
+              className={`flex-shrink-0 w-3.5 h-3.5 text-gray-400 text-neutral-600`}
               width="24"
               height="24"
               viewBox="0 0 24 24"
