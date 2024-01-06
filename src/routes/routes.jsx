@@ -3,6 +3,7 @@ import MainPage from '../pages/MainPage';
 import TinderPage from '../pages/TinderPage';
 import ProfilePage from '../pages/profilePages/ProfilePage';
 import AuthPage from '../pages/authPages/AuthPage';
+import RandomAnimePage from '../pages/RandomAnime/RandomAnimePage';
 
 export const router = createBrowserRouter([
   {
@@ -20,5 +21,9 @@ export const router = createBrowserRouter([
   {
     path: '/profile',
     element: <ProfilePage></ProfilePage>,
+  },
+  {
+    path: '/random',
+    element: <RandomAnimePage></RandomAnimePage>,
   },
 ]);

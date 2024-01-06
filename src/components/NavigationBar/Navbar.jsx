@@ -19,7 +19,10 @@ const Navbar = () => {
           <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">OtakuConnect</span>
         </Link>
         <div className="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
-          <Link to={isLoggedIn ? Route.PROFILE : Route.LOGIN} className="text-white mr-4">
+          <Link
+            to={isLoggedIn ? Route.PROFILE : Route.LOGIN}
+            className="block py-2 px-3 text-2xl rounded  text-white hover:underline"
+          >
             {isLoggedIn ? 'Профиль' : 'Войти'}
           </Link>
           {isLoggedIn && (
@@ -32,6 +35,9 @@ const Navbar = () => {
         </div>
         <Link to={Route.TINDER} className={cn('block py-2 px-3 text-2xl rounded  text-white hover:underline')}>
           Tinder
+        </Link>
+        <Link to={Route.RANDOM} className={cn('block py-2 px-3 text-2xl  rounded text-white hover:underline')}>
+          RandomAnime
         </Link>
         <Link to={Route.TINDER} className={cn('block py-2 px-3 text-2xl  rounded text-white hover:underline')}>
           AnimeList

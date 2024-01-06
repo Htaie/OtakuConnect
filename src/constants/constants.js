@@ -3,6 +3,7 @@ export const Route = {
   LOGIN: '/login',
   PROFILE: '/profile',
   TINDER: '/tinder',
+  RANDOM: '/random',
 };
 
 export const NEWS_BASE_URL = 'https://api.jikan.moe/v4/anime/1/news';
