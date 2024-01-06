@@ -8,6 +8,7 @@ import GroupIcon from '@mui/icons-material/Group';
 
 import { DEV_URL } from '../constants/constants';
 import MainButtons from '../components/ui/buttons/MainButtons';
+import MatchResults from '../components/MatchAnime/MatchResults';
 
 const TinderPage = () => {
   const { roomId, setRoomId } = useParams();
@@ -52,7 +53,6 @@ const TinderPage = () => {
   }, []);
   useEffect(() => {
     document.body.style.overflowY = 'hidden';
-
     return () => {
       document.body.style.overflowY = 'scroll';
     };
@@ -91,14 +91,14 @@ const TinderPage = () => {
           </ul>
           <div className="border border-white w-40 rounded p-3">
             <GroupIcon className="text-white" />
-
             {userList.map((username, index) => (
               <li className="text-white list-none" key={index}>
                 {username}
               </li>
             ))}
           </div>
-          <li className="text-white list-none">{matchingAnime.name}</li>
+          {/* {console.log(!!matchingAnime.name)} */}
+          {matchingAnime.name && <MatchResults openModal={true} />}
         </div>
         <div
           style={{
