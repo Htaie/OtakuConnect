@@ -22,7 +22,7 @@ export const OverlayInfo = (data: any) => {
           )}
           <span className="text-white block mb-3 ml-5">Год выпуска: {elem.year}</span>
           <span className="text-gray-400 block max-h-72 overflow-auto scroll-smooth mt-5 text-sm mb-3 mx-5">
-            <span className="scrollbar-thumb-black scrollbar-track-gray-200 ">Описание: {elem.synopsis}</span>
+            <span className="scrollbar-thumb-gray-400 scrollbar-track-gray-200 ">Описание: {elem.synopsis}</span>
           </span>
         </div>
       ))}
