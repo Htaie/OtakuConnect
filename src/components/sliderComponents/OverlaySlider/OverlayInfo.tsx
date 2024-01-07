@@ -6,7 +6,7 @@ export const OverlayInfo = (data: any) => {
   console.log(dataArray);
 
   return (
-    <div className="w-full h-full border-gray-200 dark:bg-gray-900">
+    <div className="w-full h-full bg-gray-900">
       {dataArray.map((elem: any) => (
         <div className="mt-5" key={elem.id}>
           <span className="text-white block text-3xl mb-3 ml-5">{elem.name}</span>

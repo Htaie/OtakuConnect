@@ -79,7 +79,7 @@ const TinderPage = () => {
   return (
     <div>
       <Navbar></Navbar>
-      <div className="w-screen  my-0 mx-auto pl-5">
+      <div className="w-screen my-0 mx-auto pl-5">
         <div className="absolute top-24 left-2">
           <MainButtons onClick={handleShareButtonClick}>Поделиться</MainButtons>
           <ul>
