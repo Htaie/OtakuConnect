@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import NavBar from '../../components/NavigationBar/Navbar';
 import StarOutlinedIcon from '@mui/icons-material/StarOutlined';
+import { Link } from 'react-router-dom';
 
 const RandomAnimePage = () => {
   const [anime, setAnime] = useState([]);
@@ -23,7 +24,7 @@ const RandomAnimePage = () => {
       <NavBar />
       <div className="container mx-auto">
         <div className="text-white flex">
-          <a href={anime.url} target="_blank" rel="noreferrer">
+          <Link to={anime.url}>
             <img
               src={
                 anime.images?.jpg?.large_image_url ||
@@ -32,7 +33,7 @@ const RandomAnimePage = () => {
               alt=""
               style={{ width: '252px', height: '352px' }}
             />
-          </a>
+          </Link>
           <div className="flex flex-col ml-4">
             <div className="flex items-center mb-2">
               <StarOutlinedIcon className="text-yellow-500 size-6" />
