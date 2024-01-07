@@ -19,10 +19,16 @@ const RandomAnimePage = () => {
   return (
     <>
       <NavBar />
-      <div>
+      <div className="text-white">
         <h1>{anime.title}</h1>
         <p>{anime.synopsis}</p>
-        <img src={anime.images.jpg.large_image_url || ''} alt="" />
+        <img
+          src={
+            anime.images?.jpg?.large_image_url ||
+            'https://avatanplus.com/files/resources/mid/590249aeb6e3a15bb0efd29d.png'
+          }
+          alt=""
+        />
         <p>{anime.url}</p>
         <p>{anime.duration}</p>
         <p>{anime.eposodes}</p>
