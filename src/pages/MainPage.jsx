@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import NewsCards from '../components/NewsBlock/NewsCards';
+import NewsCards from '../components/InfoBlocks/NewsAnime/NewsCards';
 import style from './MainPage.module.css';
 import Navbar from '../components/NavigationBar/Navbar';
 import { Route } from '../constants/constants';
@@ -10,13 +10,13 @@ const MainPage = () => {
   return (
     <div>
       <Navbar></Navbar>
-      <div className="flex justify-around pb-20 pt-20 ">
-        <div className="Descriptions w-2/4 max-sm:w-screen pl-4">
+      <div className="flex container mx-auto justify-between my-10 ">
+        <div className="Descriptions w-2/4  max-sm:w-screen pl-4">
           <h2 className="text-3xl pb-12">Привет</h2>
           <p className="text-lg pb-14 text-white">
-            Секс - это уникальное приложение для подбора аниме, созданное специально для любителей японской анимации.
-            Сочетая в себе элементы популярных социальных платформ и функциональность приложений для знакомств,
-            ОтакуКонект предоставляет пользователям возможность находить аниме-партнеров с общими интересами.
+            ОтакуКонект - это уникальное приложение для подбора аниме, созданное специально для любителей японской
+            анимации. Сочетая в себе элементы популярных социальных платформ и функциональность приложений для
+            знакомств, ОтакуКонект предоставляет пользователям возможность находить аниме-партнеров с общими интересами.
           </p>
 
           <Link to={Route.TINDER}>
@@ -31,9 +31,11 @@ const MainPage = () => {
           />
         </div>
       </div>
-      <h1 className="text-3xl text-center pb-10">Anime News</h1>
-      <div className="w-screen h-auto flex flex-row">
-        <NewsCards></NewsCards>
+      <div className="container mx-auto justify-between">
+        <h1 className="text-3xl font-bold font-sans text-left pb-10">Anime News</h1>
+        <div className="h-auto flex flex-row">
+          <NewsCards></NewsCards>
+        </div>
       </div>
     </div>
   );

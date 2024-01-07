@@ -27,7 +27,7 @@ const ProfilePage = () => {
   return (
     <div>
       <Navbar></Navbar>
-      <div className="grid grid-cols-1 grid-rows-2 gap-4 container my-0 mx-auto">
+      <div className="grid grid-cols-1 grid-rows-2 gap-4 container my-0 mx-auto ">
         <ProfileBlock></ProfileBlock>
 
         <div className=" grid gap-12 mx-auto" style={{ gridTemplateColumns: '300px 930px' }}>
