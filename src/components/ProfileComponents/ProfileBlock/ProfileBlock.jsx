@@ -1,13 +1,14 @@
 import React from 'react';
 import MainButtons from '../../ui/buttons/MainButtons';
-import { Navigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const ProfileBlock = () => {
+  const navigate = useNavigate();
   const handleLogout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('username');
 
-    Navigate('/login');
+    navigate('/login');
   };
   const imageURLs = Array.from(
     { length: 5 },
