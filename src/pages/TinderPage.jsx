@@ -98,7 +98,13 @@ const TinderPage = () => {
             ))}
           </div>
           {/* {console.log(!!matchingAnime.name)} */}
-          {matchingAnime.name && <MatchResults openModal={true} />}
+          {matchingAnime.name && (
+            <MatchResults
+              openModal={true}
+              matchingAnimeName={matchingAnime.name}
+              matchingAnimeImage={matchingAnime.image}
+            />
+          )}
         </div>
         <div
           style={{

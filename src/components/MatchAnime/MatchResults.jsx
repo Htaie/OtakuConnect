@@ -10,13 +10,13 @@ const style = {
   left: '50%',
   transform: 'translate(-50%, -50%)',
   width: 400,
-  bgcolor: 'background.paper',
+  bgcolor: '#041526',
   border: '2px solid #000',
   boxShadow: 24,
   p: 4,
 };
 
-const MatchResults = ({ openModal, closeModal }) => {
+const MatchResults = ({ openModal, closeModal, matchingAnimeName, matchingAnimeImage }) => {
   const [open, setOpen] = React.useState(false);
 
   React.useEffect(() => {
@@ -38,18 +38,20 @@ const MatchResults = ({ openModal, closeModal }) => {
       >
         <Box sx={style}>
           <Typography id="modal-modal-title" variant="h6" component="h2">
-            Text in a modal
-          </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+            <p>{matchingAnimeName}</p>
+            <img src={matchingAnimeImage} alt={matchingAnimeName} />
           </Typography>
         </Box>
       </Modal>
     </div>
   );
 };
+
 MatchResults.propTypes = {
   openModal: PropTypes.bool.isRequired,
   closeModal: PropTypes.func.isRequired,
+  matchingAnimeName: PropTypes.string,
+  matchingAnimeImage: PropTypes.string,
 };
+
 export default MatchResults;
