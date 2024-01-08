@@ -10,7 +10,7 @@ const NewsCards = () => {
   useEffect(() => {
     const fetchNewsData = async () => {
       try {
-        const newsResponse = await fetch(`${NEWS_BASE_URL}`);
+        const newsResponse = await fetch(NEWS_BASE_URL);
         if (newsResponse.status !== 200) {
           throw new Error('Network response was not ok');
         }

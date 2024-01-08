@@ -42,9 +42,6 @@ const TitlesSlider = ({ onSwipe, user }) => {
     if (direction === 'right') {
       const likedAnime = db.find((elem) => elem.name === nameToDelete);
       user.likedAnime.push(likedAnime);
-      console.log(`Swiped ${direction}`);
-
-      console.log(user.likedAnime);
       onSwipe([...user.likedAnime]);
     }
     setTimeout(() => {

@@ -4,10 +4,11 @@ import TinderPage from '../pages/TinderPage';
 import ProfilePage from '../pages/profilePages/ProfilePage';
 import AuthPage from '../pages/authPages/AuthPage';
 import RandomAnimePage from '../pages/RandomAnime/RandomAnimePage';
+import { Route } from '../constants/constants';
 
 export const router = createBrowserRouter([
   {
-    path: '/',
+    path: Route.HOME,
     element: <MainPage></MainPage>,
   },
   {

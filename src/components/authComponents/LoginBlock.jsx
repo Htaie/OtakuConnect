@@ -14,7 +14,7 @@ const LoginPage = () => {
         login,
         password,
       };
-
+      // todo, use const or function with params for links
       const response = await fetch(`http://${SERVER_URL}:3001/login`, {
         method: 'POST',
         headers: {
@@ -27,7 +27,7 @@ const LoginPage = () => {
         const responseData = await response.json();
         console.log('Вход успешен! Токен:', responseData.token);
         console.log('Имя пользователя:', responseData.username);
-
+        // todo use consts for item name
         localStorage.setItem('token', responseData.token);
         localStorage.setItem('username', responseData.username);
 

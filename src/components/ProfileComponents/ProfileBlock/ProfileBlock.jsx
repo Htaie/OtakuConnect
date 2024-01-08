@@ -18,7 +18,7 @@ const ProfileBlock = () => {
 
   return (
     <div
-      className="grid  gap-20  mx-auto  border rounded-lg p-4 mt-16 "
+      className="grid  gap-20  mx-auto  border rounded-lg p-4 mt-16"
       style={{ gridTemplateColumns: '200px 600px 280px' }}
     >
       <div>
