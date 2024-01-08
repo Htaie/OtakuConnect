@@ -76,11 +76,11 @@ const TitlesSlider = ({ onSwipe, user }) => {
     }
   };
   useEffect(() => {
-    // const randomPage = Math.floor(Math.random() * 1000) + 1; //  Костыль для рандомного выбора страницы
+    const randomPage = Math.floor(Math.random() * 5) + 1; //  Костыль для рандомного выбора страницы
     const fetchData = async () => {
       try {
         if (db.length <= 5) {
-          const response = await fetch(`${BASE_URL}?page=1`);
+          const response = await fetch(`${BASE_URL}?page=${randomPage}`);
           if (response.status !== 200) {
             throw new Error('Network response was not ok');
           }
