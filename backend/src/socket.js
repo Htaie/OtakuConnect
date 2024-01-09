@@ -6,7 +6,7 @@ import mongoose from 'mongoose';
 import bcrypt from 'bcryptjs';
 import { check, validationResult } from 'express-validator';
 import jwt from 'jsonwebtoken';
-import secret from './config.js';
+import secret from '../../src/config.js';
 import User from './models/User.js';
 import Role from './models/Role.js';
 import roleMiddleware from './middleware/roleMiddleware.js';

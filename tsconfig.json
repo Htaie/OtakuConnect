@@ -16,5 +16,5 @@
     "isolatedModules": true,
     "noEmit": true
   },
-  "include": ["src/**/*"]
+  "include": ["src/**/*", "backend/src/models", "backend/src/socket.js", "backend/src/middleware"]
 }

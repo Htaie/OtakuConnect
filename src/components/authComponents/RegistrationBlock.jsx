@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Route, SERVER_URL } from '../../constants/constants';
+import { Route, DEV_URL } from '../../constants/constants';
 
 const RegPage = () => {
   const navigate = useNavigate();
@@ -17,7 +17,7 @@ const RegPage = () => {
         password,
       };
 
-      const response = await fetch(`http://${SERVER_URL}:3001/register`, {
+      const response = await fetch(`http://${DEV_URL}:3001/register`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

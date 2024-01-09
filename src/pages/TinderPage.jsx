@@ -6,7 +6,7 @@ import AnimeSlider from '../components/sliderComponents/AnimeSlider/AnimeSlider'
 import { useNavigate, useParams } from 'react-router-dom';
 import GroupIcon from '@mui/icons-material/Group';
 
-import { SERVER_URL } from '../constants/constants';
+import { DEV_URL } from '../constants/constants';
 import MainButtons from '../components/ui/buttons/MainButtons';
 import MatchResults from '../components/MatchAnime/MatchResults';
 
@@ -22,7 +22,7 @@ const TinderPage = () => {
   const [matchingAnime, setMatchingAnime] = useState([]);
 
   useEffect(() => {
-    const newSocket = io('http://' + SERVER_URL + ':3001', {
+    const newSocket = io('http://' + DEV_URL + ':3001', {
       transports: ['polling', 'websocket'],
     });
 

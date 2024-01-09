@@ -18,4 +18,4 @@ jobs:
           npm install
           npm run build
           npm install pm2 
-          pm2 start src/socket.js
+          pm2 start backend/src/socket.js
