@@ -17,7 +17,7 @@ const RegPage = () => {
         password,
       };
 
-      const response = await fetch(`http://${SERVER_URL}:3001/register`, {
+      const response = await fetch(`${SERVER_URL}/register`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

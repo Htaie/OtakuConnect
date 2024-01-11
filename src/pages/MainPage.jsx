@@ -2,11 +2,12 @@ import { Link } from 'react-router-dom';
 import NewsCards from '../components/InfoBlocks/NewsAnime/NewsCards';
 import style from './MainPage.module.css';
 import Navbar from '../components/NavigationBar/Navbar';
-import { Route } from '../constants/constants';
+import { Route, SERVER_URL } from '../constants/constants';
 
 import MainButtons from '../components/ui/buttons/MainButtons';
 
 const MainPage = () => {
+  console.log(SERVER_URL);
   return (
     <div>
       <Navbar></Navbar>

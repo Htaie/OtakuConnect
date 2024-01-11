@@ -15,7 +15,7 @@ const LoginPage = () => {
         password,
       };
       // todo, use const or function with params for links
-      const response = await fetch(`http://${SERVER_URL}:3001/login`, {
+      const response = await fetch(`${SERVER_URL}/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -22,7 +22,7 @@ const TinderPage = () => {
   const [matchingAnime, setMatchingAnime] = useState([]);
 
   useEffect(() => {
-    const newSocket = io('http://' + SERVER_URL + ':3001', {
+    const newSocket = io(SERVER_URL, {
       transports: ['polling', 'websocket'],
     });
 
