@@ -8,6 +8,4 @@ export const Route = {
 
 export const NEWS_BASE_URL = 'https://api.jikan.moe/v4/anime/1/news';
 export const BASE_URL = 'https://api.jikan.moe/v4/top/anime';
-
-export const SERVER_URL = '89.104.69.120';
-export const DEV_URL = 'localhost';
+export const SERVER_URL = import.meta.env.REACT_APP_SERVER_URL;
