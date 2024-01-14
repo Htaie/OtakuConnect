@@ -72,13 +72,19 @@ const io = new Server(server, {
 const connectedUsers = {};
 const PORT = process.env.PORT || 3001;
 
+const commonAnimeGroup = generateRandomGroupNumber();
+
 io.on('connection', (socket) => {
   const randomNickname = generateRandomNickname();
+
+  socket.join(commonAnimeGroup);
+  io.to(socket.id).emit('groupNumber', commonAnimeGroup);
 
   const user = {
     socket,
     nickname: randomNickname,
     likedAnime: [],
+    groupNumber: commonAnimeGroup,
   };
   connectedUsers[socket.id] = user;
   console.log(`User connected: ${randomNickname}`);
@@ -178,6 +184,10 @@ function generateRandomNickname() {
   const randomNoun = nouns[Math.floor(Math.random() * nouns.length)];
 
   return randomAdjective + ' ' + randomNoun;
+}
+
+function generateRandomGroupNumber() {
+  return Math.floor(Math.random() * 100);
 }
 
 const generateAccessToken = (id, roles) => {

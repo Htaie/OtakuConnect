@@ -3,7 +3,6 @@ import io from 'socket.io-client';
 import Navbar from '../components/NavigationBar/Navbar';
 import style from '../components/sliderComponents/AnimeSlider/AnimeSlider.module.css';
 import AnimeSlider from '../components/sliderComponents/AnimeSlider/AnimeSlider';
-import { useNavigate, useParams } from 'react-router-dom';
 import GroupIcon from '@mui/icons-material/Group';
 
 import { DEV_URL } from '../constants/constants';
@@ -11,15 +10,12 @@ import MainButtons from '../components/ui/buttons/MainButtons';
 import MatchResults from '../components/MatchAnime/MatchResults';
 
 const TinderPage = () => {
-  const { roomId, setRoomId } = useParams();
-
-  const navigate = useNavigate();
-
   const [userList, setUserList] = useState([]);
   const [likedList, setLikedList] = useState([]);
   const [user, setUser] = useState({ likedAnime: [] });
   const [socket, setSocket] = useState(null);
   const [matchingAnime, setMatchingAnime] = useState([]);
+  const [commonAnimeGroup, setCommonAnimeGroup] = useState(null);
 
   useEffect(() => {
     const newSocket = io('http://' + DEV_URL + ':3001', {
@@ -41,8 +37,9 @@ const TinderPage = () => {
     newSocket.on('matchingAnime', (data) => {
       setMatchingAnime(data);
     });
-    newSocket.on('room-created', (data) => {
-      setRoomId(data.roomId);
+
+    newSocket.on('groupNumber', (number) => {
+      setCommonAnimeGroup(number);
     });
 
     setSocket(newSocket);
@@ -69,12 +66,6 @@ const TinderPage = () => {
       console.log('URL скопирован в буфер обмена');
     });
   };
-
-  useEffect(() => {
-    if (roomId) {
-      navigate(`/huy/${roomId}`);
-    }
-  }, [roomId]);
 
   return (
     <div>
@@ -116,7 +107,14 @@ const TinderPage = () => {
         ></div>
         {socket && (
           <div className={style.sliderBlock}>
-            <AnimeSlider socket={socket} user={user} setUser={setUser} onSwipe={onSwipe} roomId={roomId} />,
+            <AnimeSlider
+              socket={socket}
+              user={user}
+              setUser={setUser}
+              onSwipe={onSwipe}
+              groupNumber={commonAnimeGroup}
+            />
+            ,
           </div>
         )}
       </div>

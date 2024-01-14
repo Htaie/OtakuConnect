@@ -8,7 +8,7 @@ import { OverlayInfo } from '../OverlaySlider/OverlayInfo';
 
 import MainButtons from '../../ui/buttons/MainButtons';
 
-const TitlesSlider = ({ onSwipe, user }) => {
+const AnimeSlider = ({ onSwipe, user, socket, groupNumber }) => {
   const [db, setDb] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(db.length - 1);
   const [isOverlayVisible, setOverlayVisible] = useState(false);
@@ -73,11 +73,10 @@ const TitlesSlider = ({ onSwipe, user }) => {
     }
   };
   useEffect(() => {
-    const randomPage = Math.floor(Math.random() * 5) + 1; //  Костыль для рандомного выбора страницы
     const fetchData = async () => {
       try {
-        if (db.length <= 5) {
-          const response = await fetch(`${BASE_URL}?page=${randomPage}`);
+        if (db.length <= 5 && groupNumber) {
+          const response = await fetch(`${BASE_URL}?page=${groupNumber}`);
           if (response.status !== 200) {
             throw new Error('Network response was not ok');
           }
@@ -115,7 +114,7 @@ const TitlesSlider = ({ onSwipe, user }) => {
       }
     };
     fetchData();
-  }, [db]);
+  }, [db, groupNumber]);
 
   return (
     <div className="flex" style={{ width: '800px', height: '600px' }}>
@@ -138,7 +137,7 @@ const TitlesSlider = ({ onSwipe, user }) => {
                     src={activeTrailerUrl}
                     title="YouTube video player"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowfullscreen
+                    allowFullScreen
                   ></iframe>
                 </div>
               ) : (
@@ -166,8 +165,11 @@ const TitlesSlider = ({ onSwipe, user }) => {
   );
 };
 
-TitlesSlider.propTypes = {
+AnimeSlider.propTypes = {
   onSwipe: PropTypes.func,
   user: PropTypes.object,
+  socket: PropTypes.object,
+  groupNumber: PropTypes.number,
 };
-export default TitlesSlider;
+
+export default AnimeSlider;
